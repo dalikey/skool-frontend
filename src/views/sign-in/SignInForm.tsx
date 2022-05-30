@@ -1,6 +1,7 @@
 import { Button, Stack, TextField } from '@mui/material';
 import { useFormik } from 'formik';
 import { CredentialsModel } from '../../models/CredentialsModel';
+import { SignInSchema } from '../../schemas/credentialsSchemas';
 
 type SignInModel = CredentialsModel & { repeatedPassword: string };
 
@@ -15,6 +16,8 @@ const SignInForm = () => {
             password: '',
             repeatedPassword: '',
         },
+        validationSchema: SignInSchema,
+        validateOnChange: false,
         onSubmit: handleSignIn,
     });
 
@@ -27,6 +30,14 @@ const SignInForm = () => {
                     label='Email adres'
                     value={formik.values.emailAddress}
                     onChange={formik.handleChange}
+                    error={
+                        formik.touched.emailAddress &&
+                        Boolean(formik.errors.emailAddress)
+                    }
+                    helperText={
+                        formik.touched.emailAddress &&
+                        formik.errors.emailAddress
+                    }
                     variant='standard'
                 />
                 <TextField
@@ -35,6 +46,13 @@ const SignInForm = () => {
                     label='Wachtwoord'
                     value={formik.values.password}
                     onChange={formik.handleChange}
+                    error={
+                        formik.touched.password &&
+                        Boolean(formik.errors.password)
+                    }
+                    helperText={
+                        formik.touched.password && formik.errors.password
+                    }
                     variant='standard'
                     type='password'
                 />
