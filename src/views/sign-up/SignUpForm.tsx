@@ -1,6 +1,7 @@
 import { Button, Stack, TextField } from '@mui/material';
 import { useFormik } from 'formik';
 import { CredentialsModel } from '../../models/CredentialsModel';
+import { SignUpSchema } from '../../schemas/credentialsSchemas';
 
 type SignUpModel = CredentialsModel & { repeatedPassword: string };
 
@@ -15,6 +16,8 @@ const SignUpForm = () => {
             password: '',
             repeatedPassword: '',
         },
+        validationSchema: SignUpSchema,
+        validateOnChange: false,
         onSubmit: handleSignUp,
     });
 
@@ -27,6 +30,8 @@ const SignUpForm = () => {
                     label='Email adres'
                     value={formik.values.emailAddress}
                     onChange={formik.handleChange}
+                    error={formik.touched.emailAddress && Boolean(formik.errors.emailAddress)}
+                    helperText={formik.touched.emailAddress && formik.errors.emailAddress}
                     variant='standard'
                 />
                 <TextField
@@ -35,6 +40,8 @@ const SignUpForm = () => {
                     label='Wachtwoord'
                     value={formik.values.password}
                     onChange={formik.handleChange}
+                    error={formik.touched.password && Boolean(formik.errors.password)}
+                    helperText={formik.touched.password && formik.errors.password}
                     variant='standard'
                     type='password'
                 />
@@ -43,6 +50,8 @@ const SignUpForm = () => {
                     name='repeatedPassword'
                     label='Herhaal wachtwoord'
                     value={formik.values.repeatedPassword}
+                    error={formik.touched.repeatedPassword && Boolean(formik.errors.repeatedPassword)}
+                    helperText={formik.touched.repeatedPassword && formik.errors.repeatedPassword}
                     onChange={formik.handleChange}
                     variant='standard'
                     type='password'
