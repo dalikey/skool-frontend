@@ -9,7 +9,7 @@ const App = () => {
         <ThemeProvider theme={theme}>
             <CssBaseline />
             <Routes>
-                <Route path='/sign-in' element={<SignUp />} />
+                <Route path='/sign-up' element={<SignUp />} />
                 <Route path='/' element={<AppLayout />} />
             </Routes>
         </ThemeProvider>

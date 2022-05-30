@@ -52,7 +52,7 @@ const SignUpForm = () => {
                     type='submit'
                     variant='contained'
                 >
-                    Aanmelden
+                    Registreren
                 </Button>
             </Stack>
         </form>
