@@ -1,4 +1,4 @@
-import { Button, Stack, TextField } from '@mui/material';
+import { Button, Stack, TextField, Link } from '@mui/material';
 import { useFormik } from 'formik';
 import { CredentialsModel } from '../../models/CredentialsModel';
 import { SignInSchema } from '../../schemas/credentialsSchemas';
@@ -56,6 +56,7 @@ const SignInForm = () => {
                     variant='standard'
                     type='password'
                 />
+                <Link href='#'>Wachtwoord vergeten?</Link>
                 <Button
                     disabled={formik.isSubmitting}
                     type='submit'
