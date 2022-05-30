@@ -5,7 +5,7 @@ import { CredentialsModel } from '../../models/CredentialsModel';
 type SignUpModel = CredentialsModel & { repeatedPassword: string };
 
 const SignUpForm = () => {
-    const handleSignIn = (values: SignUpModel) => {
+    const handleSignUp = (values: SignUpModel) => {
         console.log(values);
     }
 
@@ -15,7 +15,7 @@ const SignUpForm = () => {
             password: '',
             repeatedPassword: '',
         },
-        onSubmit: handleSignIn,
+        onSubmit: handleSignUp,
     });
 
     return (
