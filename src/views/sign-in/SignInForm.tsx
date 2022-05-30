@@ -2,10 +2,10 @@ import { Button, Stack, TextField } from '@mui/material';
 import { useFormik } from 'formik';
 import { CredentialsModel } from '../../models/CredentialsModel';
 
-type SignUpModel = CredentialsModel & { repeatedPassword: string };
+type SignInModel = CredentialsModel & { repeatedPassword: string };
 
-const SignUpForm = () => {
-    const handleSignUp = (values: SignUpModel) => {
+const SignInForm = () => {
+    const handleSignIn = (values: SignInModel) => {
         console.log(values);
     };
 
@@ -15,7 +15,7 @@ const SignUpForm = () => {
             password: '',
             repeatedPassword: '',
         },
-        onSubmit: handleSignUp,
+        onSubmit: handleSignIn,
     });
 
     return (
@@ -38,15 +38,6 @@ const SignUpForm = () => {
                     variant='standard'
                     type='password'
                 />
-                <TextField
-                    id='repeatedPassword'
-                    name='repeatedPassword'
-                    label='Herhaal wachtwoord'
-                    value={formik.values.repeatedPassword}
-                    onChange={formik.handleChange}
-                    variant='standard'
-                    type='password'
-                />
                 <Button
                     disabled={formik.isSubmitting}
                     type='submit'
@@ -59,4 +50,4 @@ const SignUpForm = () => {
     );
 };
 
-export default SignUpForm;
+export default SignInForm;
