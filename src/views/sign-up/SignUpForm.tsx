@@ -1,12 +1,47 @@
-import { Button, Link, Stack, TextField } from '@mui/material';
+import {
+    Button,
+    Link,
+    Stack,
+    TextField,
+    FormControl,
+    InputLabel,
+    Input,
+    InputAdornment,
+    IconButton,
+    FormHelperText,
+} from '@mui/material';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useFormik } from 'formik';
+import { useState, MouseEvent } from 'react';
 import { CredentialsModel } from '../../models/CredentialsModel';
 import { SignUpSchema } from '../../schemas/credentialsSchemas';
 
 type SignUpModel = CredentialsModel & { repeatedPassword: string };
 
+interface ShowPasswordValues {
+    password: boolean;
+    repeatedPassword: boolean;
+}
+
 const SignUpForm = () => {
-    const handleSignUp = (values: SignUpModel) => {
+    const [showPasswordValues, setShowPasswordValues] =
+        useState<ShowPasswordValues>({
+            password: false,
+            repeatedPassword: false,
+        });
+
+    const handleShowPassword = (e: MouseEvent<HTMLButtonElement>): void => {
+        setShowPasswordValues((showPasswordValues: ShowPasswordValues) => ({
+            ...showPasswordValues,
+            [e.currentTarget.name]: Boolean(
+                !showPasswordValues[
+                    e.currentTarget.name as keyof ShowPasswordValues
+                ]
+            ),
+        }));
+    };
+
+    const handleSignUp = (values: SignUpModel): void => {
         console.log(values);
     };
 
@@ -40,39 +75,77 @@ const SignUpForm = () => {
                     }
                     variant='standard'
                 />
-                <TextField
-                    id='password'
-                    name='password'
-                    label='Wachtwoord'
-                    value={formik.values.password}
-                    onChange={formik.handleChange}
-                    error={
-                        formik.touched.password &&
-                        Boolean(formik.errors.password)
-                    }
-                    helperText={
-                        formik.touched.password && formik.errors.password
-                    }
-                    variant='standard'
-                    type='password'
-                />
-                <TextField
-                    id='repeatedPassword'
-                    name='repeatedPassword'
-                    label='Herhaal wachtwoord'
-                    value={formik.values.repeatedPassword}
-                    error={
-                        formik.touched.repeatedPassword &&
-                        Boolean(formik.errors.repeatedPassword)
-                    }
-                    helperText={
-                        formik.touched.repeatedPassword &&
-                        formik.errors.repeatedPassword
-                    }
-                    onChange={formik.handleChange}
-                    variant='standard'
-                    type='password'
-                />
+                <FormControl variant='standard'>
+                    <InputLabel htmlFor='password'>Wachtwoord</InputLabel>
+                    <Input
+                        id='password'
+                        name='password'
+                        autoComplete='on'
+                        type={showPasswordValues.password ? 'text' : 'password'}
+                        value={formik.values.password}
+                        onChange={formik.handleChange}
+                        error={
+                            formik.touched.password &&
+                            Boolean(formik.errors.password)
+                        }
+                        endAdornment={
+                            <InputAdornment position='end'>
+                                <IconButton
+                                    name='showPassword'
+                                    aria-label='toggle password visibility'
+                                    onClick={handleShowPassword}
+                                >
+                                    {showPasswordValues.password ? (
+                                        <VisibilityOff />
+                                    ) : (
+                                        <Visibility />
+                                    )}
+                                </IconButton>
+                            </InputAdornment>
+                        }
+                    />
+                    <FormHelperText error={formik.touched.password}>
+                        {formik.errors.password}
+                    </FormHelperText>
+                </FormControl>
+                <FormControl variant='standard'>
+                    <InputLabel htmlFor='repeatedPassword'>
+                        Herhaal wachtwoord
+                    </InputLabel>
+                    <Input
+                        id='repeatedPassword'
+                        name='repeatedPassword'
+                        autoComplete='on'
+                        type={
+                            showPasswordValues.repeatedPassword
+                                ? 'text'
+                                : 'password'
+                        }
+                        value={formik.values.repeatedPassword}
+                        onChange={formik.handleChange}
+                        error={
+                            formik.touched.repeatedPassword &&
+                            Boolean(formik.errors.repeatedPassword)
+                        }
+                        endAdornment={
+                            <InputAdornment position='end'>
+                                <IconButton
+                                    aria-label='toggle password visibility'
+                                    onClick={handleShowPassword}
+                                >
+                                    {showPasswordValues.repeatedPassword ? (
+                                        <VisibilityOff />
+                                    ) : (
+                                        <Visibility />
+                                    )}
+                                </IconButton>
+                            </InputAdornment>
+                        }
+                    />
+                    <FormHelperText error={formik.touched.repeatedPassword}>
+                        {formik.errors.repeatedPassword}
+                    </FormHelperText>
+                </FormControl>
                 <Button
                     disabled={formik.isSubmitting}
                     type='submit'
