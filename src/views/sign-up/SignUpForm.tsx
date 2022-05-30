@@ -1,4 +1,4 @@
-import { Button, Stack, TextField } from '@mui/material';
+import { Button, Stack, TextField, Link } from '@mui/material';
 import { useFormik } from 'formik';
 import { CredentialsModel } from '../../models/CredentialsModel';
 import { SignUpSchema } from '../../schemas/credentialsSchemas';
@@ -80,6 +80,7 @@ const SignUpForm = () => {
                 >
                     Registreren
                 </Button>
+                <Link href='sign-in'>Al een bestaande klant?</Link>
             </Stack>
         </form>
     );

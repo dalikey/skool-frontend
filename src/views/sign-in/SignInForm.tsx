@@ -64,6 +64,7 @@ const SignInForm = () => {
                 >
                     Aanmelden
                 </Button>
+                <Link href='sign-up'>Account aanmaken</Link>
             </Stack>
         </form>
     );
