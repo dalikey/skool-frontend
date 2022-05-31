@@ -16,6 +16,7 @@ import { useState, MouseEvent } from 'react';
 import { SignUpSchema } from '../../schemas/signUpSchema';
 import { RegistrationModel } from '../../models/authModels';
 import { useRegisterMutation } from '../../api/auth/authApi';
+import { Navigate } from 'react-router-dom';
 
 interface ShowPasswordValues {
     password: boolean;
@@ -29,8 +30,6 @@ const SignUpForm = () => {
             passwordConfirm: false,
         });
 
-    const [register] = useRegisterMutation();
-
     const handleShowPassword = (e: MouseEvent<HTMLButtonElement>): void => {
         setShowPasswordValues((showPasswordValues: ShowPasswordValues) => ({
             ...showPasswordValues,
@@ -42,7 +41,9 @@ const SignUpForm = () => {
         }));
     };
 
-    const handleSignUp = (values: RegistrationModel): void => {
+    const [register, { isSuccess, isLoading }] = useRegisterMutation();
+
+    const handleSignUp = async (values: RegistrationModel) => {
         register(values);
     };
 
@@ -58,6 +59,10 @@ const SignUpForm = () => {
         validateOnChange: false,
         onSubmit: handleSignUp,
     });
+
+    if (isSuccess) {
+        return <Navigate to='/sign-in' />
+    }
 
     return (
         <form onSubmit={formik.handleSubmit}>
@@ -181,7 +186,7 @@ const SignUpForm = () => {
                     </FormHelperText>
                 </FormControl>
                 <Button
-                    disabled={formik.isSubmitting}
+                    disabled={isLoading}
                     type='submit'
                     variant='contained'
                     sx={{ my: '16px' }}
