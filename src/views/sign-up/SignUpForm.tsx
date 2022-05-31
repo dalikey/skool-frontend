@@ -91,7 +91,7 @@ const SignUpForm = () => {
                         endAdornment={
                             <InputAdornment position='end'>
                                 <IconButton
-                                    name='showPassword'
+                                    name='password'
                                     aria-label='toggle password visibility'
                                     onClick={handleShowPassword}
                                 >
@@ -130,6 +130,7 @@ const SignUpForm = () => {
                         endAdornment={
                             <InputAdornment position='end'>
                                 <IconButton
+                                    name='repeatedPassword'
                                     aria-label='toggle password visibility'
                                     onClick={handleShowPassword}
                                 >
