@@ -3,10 +3,8 @@ import { useFormik } from 'formik';
 import { CredentialsModel } from '../../models/CredentialsModel';
 import { SignInSchema } from '../../schemas/credentialsSchemas';
 
-type SignInModel = CredentialsModel & { repeatedPassword: string };
-
 const SignInForm = () => {
-    const handleSignIn = (values: SignInModel) => {
+    const handleSignIn = (values: CredentialsModel) => {
         console.log(values);
     };
 
@@ -14,7 +12,6 @@ const SignInForm = () => {
         initialValues: {
             emailAddress: '',
             password: '',
-            repeatedPassword: '',
         },
         validationSchema: SignInSchema,
         validateOnChange: false,
