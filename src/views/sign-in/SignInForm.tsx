@@ -1,6 +1,6 @@
 import { Button, Stack, TextField, Link } from '@mui/material';
 import { useFormik } from 'formik';
-import { CredentialsModel } from '../../models/CredentialsModel';
+import { CredentialsModel } from '../../models/authModels';
 
 const SignInForm = () => {
     const handleSignIn = (values: CredentialsModel) => {

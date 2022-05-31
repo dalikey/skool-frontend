@@ -13,10 +13,15 @@ import {
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useFormik } from 'formik';
 import { useState, MouseEvent } from 'react';
-import { CredentialsModel } from '../../models/CredentialsModel';
-import { SignUpSchema } from '../../schemas/credentialsSchemas';
+import { SignUpSchema } from '../../schemas/signUpSchema';
 
-type SignUpModel = CredentialsModel & { repeatedPassword: string };
+interface SignUpValues {
+    firstName: string;
+    lastName: string;
+    emailAddress: string;
+    password: string;
+    repeatedPassword?: string;
+}
 
 interface ShowPasswordValues {
     password: boolean;
@@ -41,12 +46,15 @@ const SignUpForm = () => {
         }));
     };
 
-    const handleSignUp = (values: SignUpModel): void => {
+    const handleSignUp = (values: SignUpValues): void => {
+        delete values.repeatedPassword;
         console.log(values);
     };
 
     const formik = useFormik({
         initialValues: {
+            firstName: '',
+            lastName: '',
             emailAddress: '',
             password: '',
             repeatedPassword: '',
@@ -60,9 +68,39 @@ const SignUpForm = () => {
         <form onSubmit={formik.handleSubmit}>
             <Stack spacing={2}>
                 <TextField
+                    id='firstName'
+                    name='firstName'
+                    label='Voornaam'
+                    value={formik.values.firstName}
+                    onChange={formik.handleChange}
+                    error={
+                        formik.touched.firstName &&
+                        Boolean(formik.errors.firstName)
+                    }
+                    helperText={
+                        formik.touched.firstName && formik.errors.firstName
+                    }
+                    variant='standard'
+                />
+                <TextField
+                    id='lastName'
+                    name='lastName'
+                    label='Achternaam'
+                    value={formik.values.lastName}
+                    onChange={formik.handleChange}
+                    error={
+                        formik.touched.lastName &&
+                        Boolean(formik.errors.lastName)
+                    }
+                    helperText={
+                        formik.touched.lastName && formik.errors.lastName
+                    }
+                    variant='standard'
+                />
+                <TextField
                     id='emailAddress'
                     name='emailAddress'
-                    label='Email adres'
+                    label='E-mailadres'
                     value={formik.values.emailAddress}
                     onChange={formik.handleChange}
                     error={
