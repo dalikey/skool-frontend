@@ -9,7 +9,7 @@ export const SignUpSchema = Yup.object({
     password: Yup.string()
         .required('Verplicht')
         .min(8, 'Minimum van 8 karakters'),
-    repeatedPassword: Yup.string()
+    passwordConfirm: Yup.string()
         .required('Verplicht')
         .min(8, 'Minimum van 8 karakters')
         .oneOf([Yup.ref('password'), null], 'Wachtwoorden komen niet overeen'),

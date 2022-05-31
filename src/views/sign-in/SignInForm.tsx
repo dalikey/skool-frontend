@@ -1,10 +1,13 @@
 import { Button, Stack, TextField, Link } from '@mui/material';
 import { useFormik } from 'formik';
-import { authModel } from '../../models/authModels';
+import { CredentialsModel } from '../../models/authModels';
+import { useLoginMutation } from '../../api/auth/authApi';
 
 const SignInForm = () => {
-    const handleSignIn = (values: authModel) => {
-        console.log(values);
+    const [register] = useLoginMutation();
+
+    const handleSignIn = (values: CredentialsModel) => {
+        register(values);
     };
 
     const formik = useFormik({

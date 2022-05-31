@@ -1,0 +1,17 @@
+name: heroku-deploy
+
+on:
+    push:
+        branches: develop
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+            - uses: akhileshns/heroku-deploy@v3.4.6
+              with:
+                  heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+                  heroku_app_name: 'skool-development-frontend'
+                  heroku_email: 'geoffreywesthoff@gmail.com'
+                  branch: 'develop'
+                  procfile: 'web: npm start'
