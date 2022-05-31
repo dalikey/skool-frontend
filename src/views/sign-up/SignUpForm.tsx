@@ -16,7 +16,7 @@ import { useState, MouseEvent } from 'react';
 import { SignUpSchema } from '../../schemas/signUpSchema';
 import { RegistrationModel } from '../../models/authModels';
 import { useRegisterMutation } from '../../api/auth/authApi';
-import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 interface ShowPasswordValues {
     password: boolean;
@@ -60,8 +60,10 @@ const SignUpForm = () => {
         onSubmit: handleSignUp,
     });
 
+    const navigate = useNavigate();
+
     if (isSuccess) {
-        return <Navigate to='/sign-in' />
+        navigate('/sign-in');
     }
 
     return (
