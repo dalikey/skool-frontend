@@ -43,7 +43,7 @@ const SignUpForm = () => {
 
     const [register, { isSuccess, isLoading }] = useRegisterMutation();
 
-    const handleSignUp = async (values: RegistrationModel) => {
+    const handleSignUp = (values: RegistrationModel): void => {
         register(values);
     };
 
