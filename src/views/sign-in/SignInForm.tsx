@@ -1,10 +1,12 @@
 import { Button, Stack, TextField, Link, FormHelperText } from '@mui/material';
 import { useFormik } from 'formik';
+import { useEffect } from 'react';
 import { CredentialsModel } from '../../models/authModels';
 import { useLoginMutation } from '../../api/auth/authApi';
+import { useNavigate } from 'react-router-dom';
 
 const SignInForm = () => {
-    const [login, { isError }] = useLoginMutation();
+    const [login, { isSuccess, isError, isLoading }] = useLoginMutation();
 
     const handleSignIn = (values: CredentialsModel) => {
         login(values);
@@ -18,14 +20,17 @@ const SignInForm = () => {
         onSubmit: handleSignIn,
     });
 
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (isSuccess) {
+            navigate('/');
+        }
+    }, [isSuccess, navigate]);
+
     return (
         <form onSubmit={formik.handleSubmit}>
             <Stack spacing={2}>
-                {isError && (
-                    <FormHelperText error={true}>
-                        E-mailadres en wachtwoord komen niet overeen
-                    </FormHelperText>
-                )}
                 <TextField
                     id='emailAddress'
                     name='emailAddress'
@@ -43,12 +48,13 @@ const SignInForm = () => {
                     variant='standard'
                     type='password'
                 />
+                {isError && (
+                    <FormHelperText error={true}>
+                        E-mailadres en wachtwoord komen niet overeen
+                    </FormHelperText>
+                )}
                 <Link href='#'>Wachtwoord vergeten?</Link>
-                <Button
-                    disabled={formik.isSubmitting}
-                    type='submit'
-                    variant='contained'
-                >
+                <Button disabled={isLoading} type='submit' variant='contained'>
                     Aanmelden
                 </Button>
                 <Link href='sign-up'>Account aanmaken</Link>
