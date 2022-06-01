@@ -20,7 +20,7 @@ interface LinkItem {
 const LinkList = () => {
     const links: LinkItem[] = [
         {
-            path: '/',
+            path: '/dashboard',
             text: 'Dashboard',
             icon: <DashboardIcon />,
         },
