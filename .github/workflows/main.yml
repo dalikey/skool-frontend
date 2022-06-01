@@ -14,4 +14,4 @@ jobs:
                   heroku_app_name: 'skool-development-frontend'
                   heroku_email: 'geoffreywesthoff@gmail.com'
                   branch: 'develop'
-                  procfile: 'web: npm start'
+                  procfile: 'web: bin/boot'
