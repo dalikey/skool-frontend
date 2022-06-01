@@ -27,7 +27,7 @@ const Header = ({ drawerWidth, toggleDrawer }: HeaderProps) => {
                     <MenuIcon />
                 </IconButton>
                 <Typography variant='h6' noWrap component='div'>
-                    Responsive drawer
+                    Responsive draw
                 </Typography>
             </Toolbar>
         </AppBar>
