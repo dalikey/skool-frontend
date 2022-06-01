@@ -21,11 +21,6 @@ const SignInForm = () => {
     return (
         <form onSubmit={formik.handleSubmit}>
             <Stack spacing={2}>
-                {isError && (
-                    <FormHelperText error={true}>
-                        E-mailadres en wachtwoord komen niet overeen
-                    </FormHelperText>
-                )}
                 <TextField
                     id='emailAddress'
                     name='emailAddress'
@@ -43,6 +38,11 @@ const SignInForm = () => {
                     variant='standard'
                     type='password'
                 />
+                {isError && (
+                    <FormHelperText error={true}>
+                        E-mailadres en wachtwoord komen niet overeen
+                    </FormHelperText>
+                )}
                 <Link href='#'>Wachtwoord vergeten?</Link>
                 <Button
                     disabled={formik.isSubmitting}
