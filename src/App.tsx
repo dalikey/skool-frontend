@@ -11,12 +11,11 @@ const App = () => {
             <CssBaseline />
             <Routes>
                 <Route path='/sign-up' element={<SignUp />} />
-                <Route path='/sign-in' element={<SignIn />} />
 
                 <Route path='/' element={<AppLayout />}>
                     <Route path='' element={<div>dashboard</div>} />
                     <Route path='workshops' element={<div>workshops</div>} />
-                    <Route path='profiel' element={<div>profiel</div>} />{' '}
+                    <Route path='profiel' element={<div>profiel</div>} />
                 </Route>
             </Routes>
         </ThemeProvider>
