@@ -3,7 +3,7 @@ import AppLayout from '../../components/layout/AppLayout'
 
 const Board = () => {
   return (
-    <AppLayout/>
+    <div/>
   )
 }
 
