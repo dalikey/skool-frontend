@@ -11,6 +11,7 @@ const App = () => {
             <CssBaseline />
             <Routes>
                 <Route path='/sign-up' element={<SignUp />} />
+                <Route path='/sign-in' element={<SignIn />} />
 
                 <Route path='/' element={<AppLayout />}>
                     <Route path='' element={<div>dashboard</div>} />
