@@ -19,6 +19,6 @@ const AppLayout = () => {
             </Box>
         </Box>
     );
-}
+};
 
 export default AppLayout;

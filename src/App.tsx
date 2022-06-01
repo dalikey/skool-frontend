@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import { theme } from './app/theme';
 import AppLayout from './components/layout/AppLayout';
 import SignUp from './views/sign-up/SignUp';
+import SignIn from './views/sign-in/SignIn';
 
 const App = () => {
     return (
