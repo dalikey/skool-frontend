@@ -7,4 +7,13 @@ export const theme = createTheme({
             contrastText: '#fff',
         },
     },
+    components: {
+        MuiFormHelperText: {
+            styleOverrides: {
+                root: {
+                    fontSize: '0.85rem',
+                },
+            },
+        },
+    },
 });

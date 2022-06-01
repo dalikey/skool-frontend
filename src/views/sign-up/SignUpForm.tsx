@@ -12,7 +12,7 @@ import {
 } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useFormik } from 'formik';
-import { useState, MouseEvent } from 'react';
+import { useState, MouseEvent, useEffect } from 'react';
 import { SignUpSchema } from '../../schemas/signUpSchema';
 import { RegistrationModel } from '../../models/authModels';
 import { useRegisterMutation } from '../../api/auth/authApi';
@@ -41,7 +41,7 @@ const SignUpForm = () => {
         }));
     };
 
-    const [register, { isSuccess, isLoading }] = useRegisterMutation();
+    const [register, { isSuccess, isError, isLoading }] = useRegisterMutation();
 
     const handleSignUp = (values: RegistrationModel): void => {
         register(values);
@@ -62,13 +62,15 @@ const SignUpForm = () => {
 
     const navigate = useNavigate();
 
-    if (isSuccess) {
-        navigate('/sign-in');
-    }
+    useEffect(() => {
+        if (isSuccess) {
+            navigate('/sign-in');
+        }
+    }, [isSuccess, navigate]);
 
     return (
         <form onSubmit={formik.handleSubmit}>
-            <Stack spacing={2}>
+            <Stack spacing={1}>
                 <TextField
                     id='firstName'
                     name='firstName'
@@ -187,6 +189,12 @@ const SignUpForm = () => {
                         {formik.errors.passwordConfirm}
                     </FormHelperText>
                 </FormControl>
+                {isError && (
+                    <FormHelperText error={true} sx={{ textAlign: 'center' }}>
+                        Registratie kan niet succesvol worden voltooid. Probeer
+                        het later nog een keer.
+                    </FormHelperText>
+                )}
                 <Button
                     disabled={isLoading}
                     type='submit'

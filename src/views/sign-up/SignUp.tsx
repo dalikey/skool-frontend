@@ -12,7 +12,7 @@ const SignUp = () => {
             width='100%'
         >
             <Grow in={true}>
-                <Card sx={{ minWidth: '350px' }}>
+                <Card sx={{ width: '350px' }}>
                     <CardContent sx={{ textAlign: 'center' }}>
                         <img src={logo} alt='Skool workshop logo' width='55%' />
                         <SignUpForm />
