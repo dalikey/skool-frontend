@@ -2,6 +2,7 @@ import { AppBar, Toolbar, IconButton, Typography } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import { useLocation } from 'react-router-dom';
+import ProfileBox from './ProfileBox';
 
 interface HeaderProps {
     drawerWidth: number;
@@ -40,6 +41,7 @@ const Header = ({ drawerWidth, toggleDrawer }: HeaderProps) => {
                 <Typography variant='h5' noWrap component='div'>
                 { pathname.substring(1, pathname.length).toUpperCase() }
                 </Typography>
+                <ProfileBox/>
             </Toolbar>
         </AppBar>
     );

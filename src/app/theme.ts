@@ -9,7 +9,7 @@ export const theme = createTheme({
             main: '#FFFFFF',
           },
           background: {
-            default: '#ffffff',
+            default: '#FFFFFF',
           },
       },
       typography: {
@@ -20,8 +20,23 @@ export const theme = createTheme({
           textDecoration: 'none',
           color: 'inherit',
         },
-      },
+    },
     components: {
-        
-    }
+        MuiFormHelperText: {
+            styleOverrides: {
+                root: {
+                    fontSize: '0.85rem',
+                },
+            },
+        },
+        // MuiDrawer: {
+        //     styleOverrides: {
+        //         root: {
+        //             zIndex: '1100',
+        //             background: '#F2F2F2',
+        //             elevation: 6,
+        //         },
+        //     },
+        // },
+    },
 });
