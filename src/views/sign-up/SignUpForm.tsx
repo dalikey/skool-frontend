@@ -13,7 +13,7 @@ import {
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useFormik } from 'formik';
 import { useState, MouseEvent, useEffect } from 'react';
-import { SignUpSchema } from '../../schemas/signUpSchema';
+import { SignUpSchema } from '../../schemas/authSchemas';
 import { RegistrationModel } from '../../models/authModels';
 import { useRegisterMutation } from '../../api/auth/authApi';
 import { useNavigate } from 'react-router-dom';

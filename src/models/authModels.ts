@@ -1,4 +1,12 @@
 export interface CredentialsModel {
+    firstName: string;
+    lastName: string;
+    role: string;
+    token: string;
+    isActive: boolean;
+}
+
+export interface LoginModel {
     emailAddress: string;
     password: string;
 }
