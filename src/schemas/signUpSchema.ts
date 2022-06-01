@@ -9,8 +9,8 @@ export const SignUpSchema = Yup.object({
     password: Yup.string()
         .required('Verplicht')
         .min(8, 'Minimum van 8 karakters')
-        .matches(new RegExp('/[A-Z]+/'), 'Minimaal 1 hoofdletter')
-        .matches(new RegExp('/[1-9]+/'), 'Minimaal 1 cijfer'),
+        .matches(/[A-Z]+/, 'Minimaal 1 hoofdletter')
+        .matches(/[1-9]+/, 'Minimaal 1 cijfer'),
     passwordConfirm: Yup.string()
         .required('Verplicht')
         .min(8, 'Minimum van 8 karakters')
