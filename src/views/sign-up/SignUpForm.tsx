@@ -12,27 +12,22 @@ import {
 } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useFormik } from 'formik';
-import { useState, MouseEvent } from 'react';
+import { useState, MouseEvent, useEffect } from 'react';
 import { SignUpSchema } from '../../schemas/signUpSchema';
-
-interface SignUpValues {
-    firstName: string;
-    lastName: string;
-    emailAddress: string;
-    password: string;
-    repeatedPassword?: string;
-}
+import { RegistrationModel } from '../../models/authModels';
+import { useRegisterMutation } from '../../api/auth/authApi';
+import { useNavigate } from 'react-router-dom';
 
 interface ShowPasswordValues {
     password: boolean;
-    repeatedPassword: boolean;
+    passwordConfirm: boolean;
 }
 
 const SignUpForm = () => {
     const [showPasswordValues, setShowPasswordValues] =
         useState<ShowPasswordValues>({
             password: false,
-            repeatedPassword: false,
+            passwordConfirm: false,
         });
 
     const handleShowPassword = (e: MouseEvent<HTMLButtonElement>): void => {
@@ -46,9 +41,10 @@ const SignUpForm = () => {
         }));
     };
 
-    const handleSignUp = (values: SignUpValues): void => {
-        delete values.repeatedPassword;
-        console.log(values);
+    const [register, { isSuccess, isError, isLoading }] = useRegisterMutation();
+
+    const handleSignUp = (values: RegistrationModel): void => {
+        register(values);
     };
 
     const formik = useFormik({
@@ -57,16 +53,24 @@ const SignUpForm = () => {
             lastName: '',
             emailAddress: '',
             password: '',
-            repeatedPassword: '',
+            passwordConfirm: '',
         },
         validationSchema: SignUpSchema,
         validateOnChange: false,
         onSubmit: handleSignUp,
     });
 
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (isSuccess) {
+            navigate('/sign-in');
+        }
+    }, [isSuccess, navigate]);
+
     return (
         <form onSubmit={formik.handleSubmit}>
-            <Stack spacing={2}>
+            <Stack spacing={1}>
                 <TextField
                     id='firstName'
                     name='firstName'
@@ -147,32 +151,32 @@ const SignUpForm = () => {
                     </FormHelperText>
                 </FormControl>
                 <FormControl variant='standard'>
-                    <InputLabel htmlFor='repeatedPassword'>
+                    <InputLabel htmlFor='passwordConfirm'>
                         Herhaal wachtwoord
                     </InputLabel>
                     <Input
-                        id='repeatedPassword'
-                        name='repeatedPassword'
+                        id='passwordConfirm'
+                        name='passwordConfirm'
                         autoComplete='on'
                         type={
-                            showPasswordValues.repeatedPassword
+                            showPasswordValues.passwordConfirm
                                 ? 'text'
                                 : 'password'
                         }
-                        value={formik.values.repeatedPassword}
+                        value={formik.values.passwordConfirm}
                         onChange={formik.handleChange}
                         error={
-                            formik.touched.repeatedPassword &&
-                            Boolean(formik.errors.repeatedPassword)
+                            formik.touched.passwordConfirm &&
+                            Boolean(formik.errors.passwordConfirm)
                         }
                         endAdornment={
                             <InputAdornment position='end'>
                                 <IconButton
-                                    name='repeatedPassword'
+                                    name='passwordConfirm'
                                     aria-label='toggle password visibility'
                                     onClick={handleShowPassword}
                                 >
-                                    {showPasswordValues.repeatedPassword ? (
+                                    {showPasswordValues.passwordConfirm ? (
                                         <VisibilityOff />
                                     ) : (
                                         <Visibility />
@@ -181,12 +185,18 @@ const SignUpForm = () => {
                             </InputAdornment>
                         }
                     />
-                    <FormHelperText error={formik.touched.repeatedPassword}>
-                        {formik.errors.repeatedPassword}
+                    <FormHelperText error={formik.touched.passwordConfirm}>
+                        {formik.errors.passwordConfirm}
                     </FormHelperText>
                 </FormControl>
+                {isError && (
+                    <FormHelperText error={true} sx={{ textAlign: 'center' }}>
+                        Registratie kan niet succesvol worden voltooid. Probeer
+                        het later nog een keer.
+                    </FormHelperText>
+                )}
                 <Button
-                    disabled={formik.isSubmitting}
+                    disabled={isLoading}
                     type='submit'
                     variant='contained'
                     sx={{ my: '16px' }}
