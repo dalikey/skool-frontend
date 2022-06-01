@@ -6,7 +6,7 @@ import { useLoginMutation } from '../../api/auth/authApi';
 import { useNavigate } from 'react-router-dom';
 
 const SignInForm = () => {
-    const [login, { isSuccess, isError }] = useLoginMutation();
+    const [login, { isSuccess, isError, isLoading }] = useLoginMutation();
 
     const handleSignIn = (values: CredentialsModel) => {
         login(values);
@@ -54,11 +54,7 @@ const SignInForm = () => {
                     </FormHelperText>
                 )}
                 <Link href='#'>Wachtwoord vergeten?</Link>
-                <Button
-                    disabled={formik.isSubmitting}
-                    type='submit'
-                    variant='contained'
-                >
+                <Button disabled={isLoading} type='submit' variant='contained'>
                     Aanmelden
                 </Button>
                 <Link href='sign-up'>Account aanmaken</Link>
