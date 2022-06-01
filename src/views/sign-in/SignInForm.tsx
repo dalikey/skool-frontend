@@ -1,10 +1,12 @@
 import { Button, Stack, TextField, Link, FormHelperText } from '@mui/material';
 import { useFormik } from 'formik';
+import { useEffect } from 'react';
 import { CredentialsModel } from '../../models/authModels';
 import { useLoginMutation } from '../../api/auth/authApi';
+import { useNavigate } from 'react-router-dom';
 
 const SignInForm = () => {
-    const [login, { isError }] = useLoginMutation();
+    const [login, { isSuccess, isError }] = useLoginMutation();
 
     const handleSignIn = (values: CredentialsModel) => {
         login(values);
@@ -17,6 +19,14 @@ const SignInForm = () => {
         },
         onSubmit: handleSignIn,
     });
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (isSuccess) {
+            navigate('/');
+        }
+    }, [isSuccess, navigate]);
 
     return (
         <form onSubmit={formik.handleSubmit}>
