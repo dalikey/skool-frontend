@@ -4,7 +4,7 @@ import { theme } from './app/theme';
 import AppLayout from './components/layout/AppLayout';
 import SignUp from './views/sign-up/SignUp';
 import SignIn from './views/sign-in/SignIn';
-import Board from './views/dashboard/board';
+import Board from './views/dashboard/Board';
 
 const App = () => {
     return (
