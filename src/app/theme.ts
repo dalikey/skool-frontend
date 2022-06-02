@@ -1,6 +1,6 @@
-import { createTheme } from '@mui/material';
+import { createTheme, ThemeOptions } from '@mui/material';
 
-export const theme = createTheme({
+const baseThemeOptions: ThemeOptions = {
     palette: {
         primary: {
             main: '#f49700',
@@ -20,7 +20,12 @@ export const theme = createTheme({
           textDecoration: 'none',
           color: 'inherit',
         },
-    },
+    }
+}
+
+const baseTheme = createTheme(baseThemeOptions);
+
+export const theme = createTheme(baseTheme, {
     components: {
         MuiFormHelperText: {
             styleOverrides: {
@@ -29,14 +34,12 @@ export const theme = createTheme({
                 },
             },
         },
-        // MuiDrawer: {
-        //     styleOverrides: {
-        //         root: {
-        //             zIndex: '1100',
-        //             background: '#F2F2F2',
-        //             elevation: 6,
-        //         },
-        //     },
-        // },
+        MuiAvatar: {
+            styleOverrides: {
+                root: {
+                    backgroundColor: baseTheme.palette.primary.main,
+                },
+            },
+        },
     },
 });
