@@ -1,4 +1,8 @@
-import { RegistrationModel, LoginModel, CredentialsModel } from '../../models/authModels';
+import {
+    RegistrationModel,
+    LoginModel,
+    CredentialsModel,
+} from '../../models/authModels';
 import { api } from './../api';
 
 interface loginResponse {
@@ -23,8 +27,15 @@ const extendedApi = api.injectEndpoints({
                 body,
             }),
         }),
+        getAllUsers: build.mutation<void, void>({
+            query: () => ({
+                url: 'user',
+                method: 'GET',
+            }),
+        }),
     }),
     overrideExisting: false,
 });
 
-export const { useRegisterMutation, useLoginMutation } = extendedApi;
+export const { useRegisterMutation, useLoginMutation, useGetAllUsersMutation } =
+    extendedApi;

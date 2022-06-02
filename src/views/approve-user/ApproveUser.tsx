@@ -16,6 +16,7 @@ import {
     Delete as DeleteIcon,
     Restore as RestoreIcon,
 } from '@mui/icons-material';
+import { useGetAllUsersMutation } from '../../api/auth/authApi';
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -56,6 +57,13 @@ const ApproveUser = () => {
 
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         setValue(newValue);
+    };
+
+    const [getAllUsers, { data, isSuccess, isError, isLoading }] =
+        useGetAllUsersMutation();
+
+    const handleGetAllUsers = (): void => {
+        getAllUsers();
     };
 
     return (
