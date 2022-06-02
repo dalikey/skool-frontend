@@ -1,12 +1,19 @@
-import { Button, Stack, TextField, Link, FormHelperText } from '@mui/material';
+import { Button, Stack, TextField, Link, FormHelperText, FormControl, InputLabel, Input, InputAdornment, IconButton } from '@mui/material';
 import { useFormik } from 'formik';
-import { CredentialsModel } from '../../models/authModels';
+import { useEffect, useState } from 'react';
+import { CredentialsModel, LoginModel } from '../../models/authModels';
 import { useLoginMutation } from '../../api/auth/authApi';
+import { useNavigate } from 'react-router-dom';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { useLocalStorage } from '../../app/useLocalStorage';
+import { SignInSchema } from '../../schemas/authSchemas';
 
 const SignInForm = () => {
-    const [login, { isError }] = useLoginMutation();
+    const [user, setUser] = useLocalStorage<CredentialsModel>('user', {} as any);
+    const [login, { data, isSuccess, isError, isLoading }] = useLoginMutation();
+    const [showPassword, setShowPassword] = useState<Boolean>(false);
 
-    const handleSignIn = (values: CredentialsModel) => {
+    const handleSignIn = (values: LoginModel): void => {
         login(values);
     };
 
@@ -15,17 +22,28 @@ const SignInForm = () => {
             emailAddress: '',
             password: '',
         },
+        validationSchema: SignInSchema,
+        validateOnChange: false,
         onSubmit: handleSignIn,
     });
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (isSuccess && data && data.result) {
+            setUser(data.result);
+        }
+    }, [isSuccess, data, setUser]);
+
+    useEffect(() => {
+        if (user && user.token) {
+            navigate('/');
+        }
+    }, [user, navigate])
 
     return (
         <form onSubmit={formik.handleSubmit}>
             <Stack spacing={2}>
-                {isError && (
-                    <FormHelperText error={true}>
-                        E-mailadres en wachtwoord komen niet overeen
-                    </FormHelperText>
-                )}
                 <TextField
                     id='emailAddress'
                     name='emailAddress'
@@ -33,22 +51,54 @@ const SignInForm = () => {
                     value={formik.values.emailAddress}
                     onChange={formik.handleChange}
                     variant='standard'
+                    error={
+                        formik.touched.emailAddress &&
+                        Boolean(formik.errors.emailAddress)
+                    }
+                    helperText={
+                        formik.touched.emailAddress && formik.errors.emailAddress
+                    }
                 />
-                <TextField
-                    id='password'
-                    name='password'
-                    label='Wachtwoord'
-                    value={formik.values.password}
-                    onChange={formik.handleChange}
-                    variant='standard'
-                    type='password'
-                />
+                <FormControl variant='standard'>
+                    <InputLabel htmlFor='password'>Wachtwoord</InputLabel>
+                    <Input
+                        id='password'
+                        name='password'
+                        autoComplete='on'
+                        type={showPassword ? 'text' : 'password'}
+                        value={formik.values.password}
+                        onChange={formik.handleChange}
+                        error={
+                            formik.touched.password &&
+                            Boolean(formik.errors.password)
+                        }
+                        endAdornment={
+                            <InputAdornment position='end'>
+                                <IconButton
+                                    name='password'
+                                    aria-label='toggle password visibility'
+                                    onClick={() => setShowPassword((prev) => !prev)}
+                                >
+                                    {showPassword ? (
+                                        <VisibilityOff />
+                                    ) : (
+                                        <Visibility />
+                                    )}
+                                </IconButton>
+                            </InputAdornment>
+                        }
+                    />
+                    <FormHelperText error={formik.touched.password}>
+                        {formik.errors.password}
+                    </FormHelperText>
+                </FormControl>
+                {isError && (
+                    <FormHelperText error={true}>
+                        E-mailadres en wachtwoord komen niet overeen
+                    </FormHelperText>
+                )}
                 <Link href='#'>Wachtwoord vergeten?</Link>
-                <Button
-                    disabled={formik.isSubmitting}
-                    type='submit'
-                    variant='contained'
-                >
+                <Button disabled={isLoading} type='submit' variant='contained'>
                     Aanmelden
                 </Button>
                 <Link href='sign-up'>Account aanmaken</Link>

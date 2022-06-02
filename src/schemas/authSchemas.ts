@@ -1,5 +1,10 @@
 import * as Yup from 'yup';
 
+export const SignInSchema = Yup.object({
+    emailAddress: Yup.string().required('Verplicht'),
+    password: Yup.string().required('Verplicht'),
+});
+
 export const SignUpSchema = Yup.object({
     firstName: Yup.string().required('Verplicht'),
     lastName: Yup.string().required('Verplicht'),

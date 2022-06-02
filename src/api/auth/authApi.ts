@@ -1,5 +1,11 @@
-import { RegistrationModel, CredentialsModel } from '../../models/authModels';
+import { RegistrationModel, LoginModel, CredentialsModel } from '../../models/authModels';
 import { api } from './../api';
+
+interface loginResponse {
+    status: number;
+    result?: CredentialsModel;
+    error?: string;
+}
 
 const extendedApi = api.injectEndpoints({
     endpoints: (build) => ({
@@ -10,7 +16,7 @@ const extendedApi = api.injectEndpoints({
                 body,
             }),
         }),
-        login: build.mutation<void, CredentialsModel>({
+        login: build.mutation<loginResponse, LoginModel>({
             query: (body) => ({
                 url: 'auth/login',
                 method: 'POST',
