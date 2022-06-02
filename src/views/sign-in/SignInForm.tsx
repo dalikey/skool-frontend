@@ -9,7 +9,7 @@ import { useLocalStorage } from '../../app/useLocalStorage';
 import { SignInSchema } from '../../schemas/authSchemas';
 
 const SignInForm = () => {
-    const [user, setUser] = useLocalStorage<CredentialsModel>('user', {} as any);
+    const [user, setUser] = useLocalStorage<CredentialsModel>('user');
     const [login, { data, isSuccess, isError, isLoading }] = useLoginMutation();
     const [showPassword, setShowPassword] = useState<Boolean>(false);
 

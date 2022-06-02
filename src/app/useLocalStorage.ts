@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-function getSavedValue<T>(key: string, initialValue: T): T {
+function getSavedValue<T>(key: string, initialValue?: T): T | undefined {
     const savedValue = localStorage.getItem(key);
 
     if (savedValue) return JSON.parse(savedValue);
@@ -10,11 +10,13 @@ function getSavedValue<T>(key: string, initialValue: T): T {
     return initialValue;
 }
 
-export function useLocalStorage<T>(key: string, initialValue: T): [T, Function] {
-    const [value, setValue] = useState<T>(() => getSavedValue(key, initialValue));
+export function useLocalStorage<T>(key: string, initialValue?: T): [T | undefined, Function] {
+    const [value, setValue] = useState<T | undefined>(() => getSavedValue(key, initialValue));
 
     useEffect(() => {
-        localStorage.setItem(key, JSON.stringify(value));
+        if (value) {
+            localStorage.setItem(key, JSON.stringify(value));
+        }
     }, [key, value]);
 
     return [value, setValue];
