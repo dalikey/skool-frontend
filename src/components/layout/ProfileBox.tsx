@@ -1,8 +1,13 @@
-import { Logout, PersonAdd, Settings } from '@mui/icons-material';
-import { Avatar, Box, Divider, IconButton, ListItemIcon, Menu, MenuItem, Tooltip } from '@mui/material';
+import { Logout, Settings } from '@mui/icons-material';
+import { Avatar, Box, Divider, IconButton, Link, ListItemIcon, Menu, MenuItem, Tooltip, Typography } from '@mui/material';
 import * as React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useLocalStorage } from '../../app/useLocalStorage';
+import { CredentialsModel } from '../../models/authModels';
 
 const ProfileBox = () => {
+
+    const [ user ] = useLocalStorage<CredentialsModel>('user', {} as any);
 
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
@@ -14,6 +19,13 @@ const ProfileBox = () => {
     const handleClose = () => {
     setAnchorEl(null);
     };
+
+    const navigate = useNavigate();
+    
+    const handleSignOut = () => {
+        localStorage.removeItem("user");
+        navigate("/sign-in");
+    }
 
   return (
     <React.Fragment>
@@ -27,7 +39,7 @@ const ProfileBox = () => {
             aria-haspopup="true"
             aria-expanded={open ? 'true' : undefined}
           >
-            <Avatar sx={{ width: 32, height: 32 }}>M</Avatar>
+            <Avatar sx={{ width: 32, height: 32 }}>{user.firstName.charAt(0)}{user.lastName.charAt(0)}</Avatar>
           </IconButton>
         </Tooltip>
       </Box>
@@ -65,24 +77,29 @@ const ProfileBox = () => {
         }}
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-      >
-        <MenuItem>
-          <Avatar /> Profile
-        </MenuItem>
+      > 
+        <Link href='/profiel' underline='none'>
+            <MenuItem>
+            <Avatar /> Profiel
+            </MenuItem>
+        </Link>
         <Divider />
         <MenuItem>
           <ListItemIcon>
             <Settings fontSize="small" />
           </ListItemIcon>
-          Settings
+          Instellingen
         </MenuItem>
-        <MenuItem>
+        <MenuItem onClick={handleSignOut}>
           <ListItemIcon>
             <Logout fontSize="small" />
           </ListItemIcon>
-          Logout
+          Uitloggen
         </MenuItem>
       </Menu>
+      <Typography variant='h6' noWrap component='div'>
+        {user.firstName + " " + user.lastName} 
+      </Typography>
     </React.Fragment>
   )
 }

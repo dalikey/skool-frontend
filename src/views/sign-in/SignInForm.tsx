@@ -37,7 +37,7 @@ const SignInForm = () => {
 
     useEffect(() => {
         if (user && user.token) {
-            navigate('/');
+            navigate('/dashboard');
         }
     }, [user, navigate])
 
