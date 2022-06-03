@@ -11,18 +11,17 @@ const baseThemeOptions: ThemeOptions = {
         background: {
             default: '#FFFFFF',
         },
-        
-      },
+    },
     typography: {
         fontFamily: 'sans-serif',
         h5: {
-          fontWeight: 700,
-          lineHeight: 2,
-          textDecoration: 'none',
-          color: 'inherit',
-        }
-    }
-}
+            fontWeight: 700,
+            lineHeight: 2,
+            textDecoration: 'none',
+            color: 'inherit',
+        },
+    },
+};
 
 const baseTheme = createTheme(baseThemeOptions);
 
@@ -45,9 +44,18 @@ export const theme = createTheme(baseTheme, {
         MuiGrid: {
             styleOverrides: {
                 root: {
-                    backgroundColor: '#FBF9F6'
-                }
-            }
-        }
+                    backgroundColor: '#F9F9F9',
+                },
+            },
+        },
+        MuiAppBar: {
+            styleOverrides: {
+                root: {
+                    boxShadow: 'none',
+                    borderBottom: '1px solid',
+                    borderColor: '#E0E0E0',
+                },
+            },
+        },
     },
 });
