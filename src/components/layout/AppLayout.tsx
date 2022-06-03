@@ -7,12 +7,12 @@ import { CredentialsModel } from '../../models/authModels';
 import { useEffect } from 'react';
 
 const AppLayout = () => {
-    const [user] = useLocalStorage<CredentialsModel>('user', {} as any);
+    const [user] = useLocalStorage<CredentialsModel>('user');
 
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (!user.token) {
+        if (!user || !user.token) {
             navigate('/sign-in');
         }
     }, [user, navigate]);
