@@ -4,22 +4,23 @@ const baseThemeOptions: ThemeOptions = {
     palette: {
         primary: {
             main: '#f49700',
-          },
-          secondary: {
+        },
+        secondary: {
             main: '#FFFFFF',
-          },
-          background: {
+        },
+        background: {
             default: '#FFFFFF',
-          },
+        },
+        
       },
-      typography: {
+    typography: {
         fontFamily: 'sans-serif',
         h5: {
           fontWeight: 700,
           lineHeight: 2,
           textDecoration: 'none',
           color: 'inherit',
-        },
+        }
     }
 }
 
@@ -41,5 +42,12 @@ export const theme = createTheme(baseTheme, {
                 },
             },
         },
+        MuiGrid: {
+            styleOverrides: {
+                root: {
+                    backgroundColor: '#FBF9F6'
+                }
+            }
+        }
     },
 });
