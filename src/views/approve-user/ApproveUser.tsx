@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { useLocalStorage } from '../../app/useLocalStorage';
 import { CredentialsModel } from '../../models/authModels';
 import {
@@ -16,10 +15,11 @@ import {
     Delete as DeleteIcon,
     Restore as RestoreIcon,
 } from '@mui/icons-material';
-import { useGetAllUsersMutation } from '../../api/auth/authApi';
+import { useGetAllUsersQuery } from '../../api/user/userApi';
+import { ReactNode, useState, SyntheticEvent } from 'react';
 
 interface TabPanelProps {
-    children?: React.ReactNode;
+    children?: ReactNode;
     index: number;
     value: number;
 }
@@ -52,20 +52,15 @@ const a11yProps = (index: number) => {
 };
 
 const ApproveUser = () => {
-    const [user] = useLocalStorage<CredentialsModel>('user', {} as any);
-    const [value, setValue] = React.useState(0);
+    const [user] = useLocalStorage<CredentialsModel>('user');
+    const [value, setValue] = useState(0);
 
-    const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+    const handleChange = (event: SyntheticEvent, newValue: number) => {
         setValue(newValue);
     };
 
-    const [getAllUsers, { data, isSuccess, isError, isLoading }] =
-        useGetAllUsersMutation();
-
-    const handleGetAllUsers = (): void => {
-        getAllUsers();
-    };
-
+    const { data } = useGetAllUsersQuery();
+    console.log(data);
     return (
         <Box sx={{ width: '100%' }}>
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
@@ -83,7 +78,7 @@ const ApproveUser = () => {
                 <Card sx={{ minWidth: 275 }}>
                     <CardContent>
                         <Typography variant='h5' component='div'>
-                            {user.firstName + ' ' + user.lastName}
+                            {user?.firstName + ' ' + user?.lastName}
                         </Typography>
                         <Typography variant='body2'>Placeholder</Typography>
                     </CardContent>
@@ -99,7 +94,7 @@ const ApproveUser = () => {
                 <Card sx={{ minWidth: 275 }}>
                     <CardContent>
                         <Typography variant='h5' component='div'>
-                            {user.firstName + ' ' + user.lastName}
+                            {user?.firstName + ' ' + user?.lastName}
                         </Typography>
                         <Typography variant='body2'>Placeholder</Typography>
                     </CardContent>
@@ -117,7 +112,7 @@ const ApproveUser = () => {
                 <Card sx={{ minWidth: 275 }}>
                     <CardContent>
                         <Typography variant='h5' component='div'>
-                            {user.firstName + ' ' + user.lastName}
+                            {user?.firstName + ' ' + user?.lastName}
                         </Typography>
                         <Typography variant='body2'>Placeholder</Typography>
                     </CardContent>
@@ -132,7 +127,7 @@ const ApproveUser = () => {
                 <Card sx={{ minWidth: 275 }}>
                     <CardContent>
                         <Typography variant='h5' component='div'>
-                            {user.firstName + ' ' + user.lastName}
+                            {user?.firstName + ' ' + user?.lastName}
                         </Typography>
                         <Typography variant='body2'>Placeholder</Typography>
                     </CardContent>

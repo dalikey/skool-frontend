@@ -27,15 +27,9 @@ const extendedApi = api.injectEndpoints({
                 body,
             }),
         }),
-        getAllUsers: build.mutation<void, void>({
-            query: () => ({
-                url: 'user',
-                method: 'GET',
-            }),
-        }),
     }),
     overrideExisting: false,
 });
 
-export const { useRegisterMutation, useLoginMutation, useGetAllUsersMutation } =
+export const { useRegisterMutation, useLoginMutation } =
     extendedApi;
