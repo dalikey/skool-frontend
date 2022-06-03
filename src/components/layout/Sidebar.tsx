@@ -21,7 +21,7 @@ const Sidebar = ({ drawerWidth, toggleDrawer, isOpen }: SidebarProps) => {
                     keepMounted: true,
                 }}
                 sx={{
-                    'display': { xs: 'block', sm: 'none' },
+                    display: { xs: 'block', sm: 'none' },
                     '& .MuiDrawer-paper': {
                         boxSizing: 'border-box',
                         width: drawerWidth,
@@ -33,7 +33,7 @@ const Sidebar = ({ drawerWidth, toggleDrawer, isOpen }: SidebarProps) => {
             <Drawer
                 variant='permanent'
                 sx={{
-                    'display': { xs: 'none', sm: 'block' },
+                    display: { xs: 'none', sm: 'block' },
                     '& .MuiDrawer-paper': {
                         boxSizing: 'border-box',
                         width: drawerWidth,

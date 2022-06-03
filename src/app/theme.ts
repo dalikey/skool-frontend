@@ -4,24 +4,24 @@ const baseThemeOptions: ThemeOptions = {
     palette: {
         primary: {
             main: '#f49700',
-          },
-          secondary: {
+        },
+        secondary: {
             main: '#FFFFFF',
-          },
-          background: {
+        },
+        background: {
             default: '#FFFFFF',
-          },
-      },
-      typography: {
+        },
+    },
+    typography: {
         fontFamily: 'sans-serif',
         h5: {
-          fontWeight: 700,
-          lineHeight: 2,
-          textDecoration: 'none',
-          color: 'inherit',
+            fontWeight: 700,
+            lineHeight: 2,
+            textDecoration: 'none',
+            color: 'inherit',
         },
-    }
-}
+    },
+};
 
 const baseTheme = createTheme(baseThemeOptions);
 
