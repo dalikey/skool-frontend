@@ -11,15 +11,15 @@ import {
     Tooltip,
     Typography,
 } from '@mui/material';
-import * as React from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLocalStorage } from '../../app/useLocalStorage';
 import { CredentialsModel } from '../../models/authModels';
 
 const ProfileBox = () => {
-    const [user] = useLocalStorage<CredentialsModel>('user', {} as any);
+    const [user] = useLocalStorage<CredentialsModel>('user');
 
-    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
 
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -38,7 +38,7 @@ const ProfileBox = () => {
     };
 
     return (
-        <React.Fragment>
+        <>
             <Box
                 sx={{
                     display: 'flex',
@@ -56,8 +56,8 @@ const ProfileBox = () => {
                         aria-expanded={open ? 'true' : undefined}
                     >
                         <Avatar sx={{ width: 32, height: 32 }}>
-                            {user.firstName.charAt(0)}
-                            {user.lastName.charAt(0)}
+                            {user?.firstName.charAt(0)}
+                            {user?.lastName.charAt(0)}
                         </Avatar>
                     </IconButton>
                 </Tooltip>
@@ -71,9 +71,9 @@ const ProfileBox = () => {
                 PaperProps={{
                     elevation: 0,
                     sx: {
-                        overflow: 'visible',
-                        filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
-                        mt: 1.5,
+                        'overflow': 'visible',
+                        'filter': 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+                        'mt': 1.5,
                         '& .MuiAvatar-root': {
                             width: 32,
                             height: 32,
@@ -117,9 +117,9 @@ const ProfileBox = () => {
                 </MenuItem>
             </Menu>
             <Typography variant='h6' noWrap component='div'>
-                {user.firstName + ' ' + user.lastName}
+                {user?.firstName + ' ' + user?.lastName}
             </Typography>
-        </React.Fragment>
+        </>
     );
 };
 
