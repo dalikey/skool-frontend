@@ -59,7 +59,7 @@ const ApproveUser = () => {
         setValue(newValue);
     };
 
-    const { data } = useGetAllUsersQuery();
+    const { data } = useGetAllUsersQuery({ isActive: null });
     console.log(data);
     return (
         <Box sx={{ width: '100%' }}>
