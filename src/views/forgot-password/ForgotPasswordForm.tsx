@@ -5,7 +5,8 @@ const ForgotPasswordForm = () => {
     return (
         <form>
             <Stack spacing={2}>
-                Voer je e-mailadres in om je account te zoeken.
+                Voer uw e-mailadres in om een herstel wachtwoord e-mail te
+                ontvangen.
                 <TextField
                     id='emailAddress'
                     name='emailAddress'
@@ -21,7 +22,7 @@ const ForgotPasswordForm = () => {
                     {'\t'}
                     <Link to='/sign-in'>
                         <Button type='submit' variant='contained'>
-                            Zoeken
+                            Verzenden
                         </Button>
                     </Link>
                 </div>
