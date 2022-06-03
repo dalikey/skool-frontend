@@ -1,4 +1,15 @@
-import { Button, Stack, TextField, Link, FormHelperText, FormControl, InputLabel, Input, InputAdornment, IconButton } from '@mui/material';
+import {
+    Button,
+    Stack,
+    TextField,
+    Link,
+    FormHelperText,
+    FormControl,
+    InputLabel,
+    Input,
+    InputAdornment,
+    IconButton,
+} from '@mui/material';
 import { useFormik } from 'formik';
 import { useEffect, useState } from 'react';
 import { CredentialsModel, LoginModel } from '../../models/authModels';
@@ -39,7 +50,7 @@ const SignInForm = () => {
         if (user && user.token) {
             navigate('/');
         }
-    }, [user, navigate])
+    }, [user, navigate]);
 
     return (
         <form onSubmit={formik.handleSubmit}>
@@ -56,7 +67,8 @@ const SignInForm = () => {
                         Boolean(formik.errors.emailAddress)
                     }
                     helperText={
-                        formik.touched.emailAddress && formik.errors.emailAddress
+                        formik.touched.emailAddress &&
+                        formik.errors.emailAddress
                     }
                 />
                 <FormControl variant='standard'>
@@ -77,7 +89,9 @@ const SignInForm = () => {
                                 <IconButton
                                     name='password'
                                     aria-label='toggle password visibility'
-                                    onClick={() => setShowPassword((prev) => !prev)}
+                                    onClick={() =>
+                                        setShowPassword((prev) => !prev)
+                                    }
                                 >
                                     {showPassword ? (
                                         <VisibilityOff />
@@ -97,7 +111,7 @@ const SignInForm = () => {
                         E-mailadres en wachtwoord komen niet overeen
                     </FormHelperText>
                 )}
-                <Link href='#'>Wachtwoord vergeten?</Link>
+                <Link href='wachtwoord-vergeten'>Wachtwoord vergeten?</Link>
                 <Button disabled={isLoading} type='submit' variant='contained'>
                     Aanmelden
                 </Button>
