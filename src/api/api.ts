@@ -5,8 +5,21 @@ const BASE_URL =
         ? 'https://skool-stable.herokuapp.com/api'
         : 'https://skool-development.herokuapp.com/api';
 
+const baseQuery = fetchBaseQuery({
+    baseUrl: BASE_URL,
+    prepareHeaders: (headers) => {
+        const user = localStorage.getItem('user');
+
+        if (user) {
+            headers.set('authorization', `Bearer ${JSON.parse(user).token}`);
+        }
+
+        return headers;
+    },
+});
+
 export const api = createApi({
     reducerPath: 'api',
-    baseQuery: fetchBaseQuery({ baseUrl: BASE_URL }),
+    baseQuery: baseQuery,
     endpoints: () => ({}),
 });
