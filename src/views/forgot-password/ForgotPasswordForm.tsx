@@ -14,17 +14,23 @@ const ForgotPasswordForm = () => {
                     variant='standard'
                 />
                 <div>
-                    <Link to='/sign-in'>
-                        <Button type='submit' variant='contained'>
-                            Annuleren
-                        </Button>
-                    </Link>
+                    <Button
+                        component={Link}
+                        to={'/sign-in'}
+                        type='submit'
+                        variant='contained'
+                    >
+                        Annuleren
+                    </Button>
                     {'\t'}
-                    <Link to='/sign-in'>
-                        <Button type='submit' variant='contained'>
-                            Verzenden
-                        </Button>
-                    </Link>
+                    <Button
+                        component={Link}
+                        to={'/sign-in'}
+                        type='submit'
+                        variant='contained'
+                    >
+                        Verzenden
+                    </Button>
                 </div>
             </Stack>
         </form>
