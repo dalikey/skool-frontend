@@ -4,6 +4,7 @@ const baseThemeOptions: ThemeOptions = {
     palette: {
         primary: {
             main: '#f49700',
+            contrastText: '#FFFFFF'
         },
         secondary: {
             main: '#FFFFFF',

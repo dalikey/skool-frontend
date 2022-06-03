@@ -13,12 +13,13 @@ import {
 } from '@mui/material';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useLocalStorage } from '../../app/useLocalStorage';
-import { CredentialsModel } from '../../models/authModels';
 
-const ProfileBox = () => {
-    const [user] = useLocalStorage<CredentialsModel>('user');
+interface ProfileBoxProps {
+    firstName: string;
+    lastName: string;
+}
 
+const ProfileBox = ({ firstName, lastName }: ProfileBoxProps) => {
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
 
@@ -56,8 +57,8 @@ const ProfileBox = () => {
                         aria-expanded={open ? 'true' : undefined}
                     >
                         <Avatar sx={{ width: 32, height: 32 }}>
-                            {user?.firstName.charAt(0)}
-                            {user?.lastName.charAt(0)}
+                            {firstName.charAt(0)}
+                            {lastName.charAt(0)}
                         </Avatar>
                     </IconButton>
                 </Tooltip>
@@ -117,7 +118,7 @@ const ProfileBox = () => {
                 </MenuItem>
             </Menu>
             <Typography variant='h6' noWrap component='div'>
-                {user?.firstName + ' ' + user?.lastName}
+                {firstName + ' ' + lastName}
             </Typography>
         </>
     );

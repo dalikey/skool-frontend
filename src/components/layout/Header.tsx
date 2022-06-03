@@ -2,6 +2,8 @@ import { AppBar, Toolbar, IconButton, Typography, Box } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useLocation } from 'react-router-dom';
 import ProfileBox from './ProfileBox';
+import { CredentialsModel } from '../../models/authModels';
+import { useLocalStorage } from '../../app/useLocalStorage';
 
 interface HeaderProps {
     drawerWidth: number;
@@ -9,6 +11,7 @@ interface HeaderProps {
 }
 
 const Header = ({ drawerWidth, toggleDrawer }: HeaderProps) => {
+    const [user] = useLocalStorage<CredentialsModel>('user');
     const { pathname } = useLocation();
 
     return (
@@ -39,7 +42,12 @@ const Header = ({ drawerWidth, toggleDrawer }: HeaderProps) => {
                     >
                         {pathname.substring(1, pathname.length).toUpperCase()}
                     </Typography>
-                    <ProfileBox />
+                    {user && (
+                        <ProfileBox
+                            firstName={user.firstName}
+                            lastName={user.lastName}
+                        />
+                    )}
                 </Toolbar>
             </Box>
         </AppBar>
