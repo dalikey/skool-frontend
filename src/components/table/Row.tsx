@@ -1,21 +1,16 @@
-import { TableRow, TableCell } from '@mui/material';
+import { TableRow } from '@mui/material';
+import { ReactNode } from 'react';
 
 interface CollabsibleRowProps {
-    data: any;
+    children: ReactNode;
 }
 
-const Row = ({ data }: CollabsibleRowProps) => {
+const CollapsibleRow = ({ children }: CollabsibleRowProps) => {
     return (
-        <>
-            <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
-                {Object.keys(data).map((key) => (
-                    <TableCell>
-                        {data[key]}
-                    </TableCell>
-                ))}
-            </TableRow>
-        </>
+        <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
+            {children}
+        </TableRow>
     );
 };
 
-export default Row;
+export default CollapsibleRow;

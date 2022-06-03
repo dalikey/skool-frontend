@@ -1,16 +1,22 @@
+import { UserModel } from '../../models/userModels';
 import { api } from './../api';
+
+interface getAllUsersResponse {
+    error?: string;
+    message?: string;
+    result?: UserModel[];
+}
 
 const extendedApi = api.injectEndpoints({
     endpoints: (build) => ({
-        getAllUsers: build.query({
-            query: (isActive: Record<string, boolean | null>) => ({
+        getAllUsers: build.query<getAllUsersResponse, Record<string, boolean | null>>({
+            query: (isActive) => ({
                 url: 'user',
-                params: isActive
+                params: isActive,
             }),
         }),
     }),
     overrideExisting: false,
 });
 
-export const { useGetAllUsersQuery } =
-    extendedApi;
+export const { useGetAllUsersQuery } = extendedApi;

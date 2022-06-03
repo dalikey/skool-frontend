@@ -7,34 +7,27 @@ import {
     TableBody,
     Table as MuiTable,
 } from '@mui/material';
-import CollapsibleRow from './CollapsibleRow';
+import { ReactNode } from 'react';
 
 interface TableProps {
-    data: any[];
+    children: ReactNode;
     columns: string[];
-    isCollapsible: boolean;
 }
 
-const Table = ({ data, columns, isCollapsible }: TableProps) => {
+const Table = ({ children, columns }: TableProps) => {
     return (
         <TableContainer component={Paper}>
             <MuiTable aria-label='collapsible table'>
-                <TableHead>
+                <TableHead
+                    sx={{ borderBottom: '1px solid rgba(224, 224, 224, 1)' }}
+                >
                     <TableRow>
                         {columns.map((title) => (
-                            <TableCell>{title}</TableCell>
+                            <TableCell key={title}>{title}</TableCell>
                         ))}
                     </TableRow>
                 </TableHead>
-                <TableBody>
-                    {data.map((row, i) =>
-                        isCollapsible ? (
-                            <CollapsibleRow key={i} data={row} />
-                        ) : (
-                            <CollapsibleRow key={i} data={row} />
-                        )
-                    )}
-                </TableBody>
+                <TableBody>{children}</TableBody>
             </MuiTable>
         </TableContainer>
     );

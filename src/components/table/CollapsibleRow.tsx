@@ -1,37 +1,28 @@
 import { TableRow, TableCell, IconButton } from '@mui/material';
-import { useState } from 'react';
-import { KeyboardArrowUp, KeyboardArrowDown } from '@mui/icons-material'
+import { ReactNode, useState } from 'react';
+import { KeyboardArrowUp, KeyboardArrowDown } from '@mui/icons-material';
+import Row from './Row';
 
 interface CollabsibleRowProps {
-    data: any;
+    children: ReactNode;
 }
 
-const CollapsibleRow = ({ data }: CollabsibleRowProps) => {
+const CollapsibleRow = ({ children }: CollabsibleRowProps) => {
     const [open, setOpen] = useState(false);
 
     return (
-        <>
-            <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
-                <TableCell>
-                    <IconButton
-                        aria-label='expand row'
-                        size='small'
-                        onClick={() => setOpen(!open)}
-                    >
-                        {open ? (
-                            <KeyboardArrowUp />
-                        ) : (
-                            <KeyboardArrowDown />
-                        )}
-                    </IconButton>
-                </TableCell>
-                {Object.keys(data).map((key) => (
-                    <TableCell>
-                        {data[key]}
-                    </TableCell>
-                ))}
-            </TableRow>
-        </>
+        <Row>
+            {children}
+            <TableCell>
+                <IconButton
+                    aria-label='expand row'
+                    size='small'
+                    onClick={() => setOpen(!open)}
+                >
+                    {open ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
+                </IconButton>
+            </TableCell>
+        </Row>
     );
 };
 
