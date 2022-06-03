@@ -5,9 +5,10 @@ interface SidebarProps {
     drawerWidth: number;
     toggleDrawer: () => void;
     isOpen: boolean;
+    role: string | undefined;
 }
 
-const Sidebar = ({ drawerWidth, toggleDrawer, isOpen }: SidebarProps) => {
+const Sidebar = ({ drawerWidth, toggleDrawer, isOpen, role }: SidebarProps) => {
     return (
         <Box
             component='nav'
@@ -28,7 +29,7 @@ const Sidebar = ({ drawerWidth, toggleDrawer, isOpen }: SidebarProps) => {
                     },
                 }}
             >
-                <SidebarLinkList />
+                <SidebarLinkList role={role}/>
             </Drawer>
             <Drawer
                 variant='permanent'
@@ -41,7 +42,7 @@ const Sidebar = ({ drawerWidth, toggleDrawer, isOpen }: SidebarProps) => {
                 }}
                 open
             >
-                <SidebarLinkList />
+                <SidebarLinkList role={role}/>
             </Drawer>
         </Box>
     );

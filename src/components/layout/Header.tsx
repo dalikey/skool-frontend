@@ -3,15 +3,14 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { useLocation } from 'react-router-dom';
 import ProfileBox from './ProfileBox';
 import { CredentialsModel } from '../../models/authModels';
-import { useLocalStorage } from '../../app/useLocalStorage';
 
 interface HeaderProps {
     drawerWidth: number;
     toggleDrawer: () => void;
+    user: CredentialsModel | undefined;
 }
 
-const Header = ({ drawerWidth, toggleDrawer }: HeaderProps) => {
-    const [user] = useLocalStorage<CredentialsModel>('user');
+const Header = ({ drawerWidth, toggleDrawer, user }: HeaderProps) => {
     const { pathname } = useLocation();
 
     return (

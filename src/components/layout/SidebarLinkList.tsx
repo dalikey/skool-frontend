@@ -9,6 +9,7 @@ import {
 import { useLocation, Link } from 'react-router-dom';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import SchoolIcon from '@mui/icons-material/School';
+import SupervisedUserCircleIcon from '@mui/icons-material/SupervisedUserCircle';
 import PersonIcon from '@mui/icons-material/Person';
 
 interface LinkItem {
@@ -17,7 +18,11 @@ interface LinkItem {
     icon: JSX.Element;
 }
 
-const LinkList = () => {
+interface SidebarLinkListProps {
+    role: string | undefined;
+}
+
+const SidebarLinkList = ({ role }: SidebarLinkListProps) => {
     const links: LinkItem[] = [
         {
             path: '/dashboard',
@@ -33,6 +38,14 @@ const LinkList = () => {
             path: '/profiel',
             text: 'Profiel',
             icon: <PersonIcon />,
+        },
+    ];
+
+    const ownerLinks: LinkItem[] = [
+        {
+            path: '/gebruikers-beheer',
+            text: 'Gebruikersbeheer',
+            icon: <SupervisedUserCircleIcon />,
         },
     ];
 
@@ -83,8 +96,46 @@ const LinkList = () => {
                     </ListItem>
                 ))}
             </List>
+            {role === 'owner' && (
+                <List>
+                    {ownerLinks.map((link) => (
+                        <ListItem key={link.text} disablePadding>
+                            <Link
+                                to={link.path}
+                                style={{
+                                    textDecoration: 'none',
+                                    color: 'inherit',
+                                    width: '100%',
+                                }}
+                            >
+                                <ListItemButton>
+                                    <ListItemIcon
+                                        sx={{
+                                            color:
+                                                pathname === link.path
+                                                    ? 'primary.main'
+                                                    : 'light',
+                                        }}
+                                    >
+                                        {link.icon}
+                                    </ListItemIcon>
+                                    <ListItemText
+                                        primary={link.text}
+                                        sx={{
+                                            color:
+                                                pathname === link.path
+                                                    ? 'primary.main'
+                                                    : 'light',
+                                        }}
+                                    />
+                                </ListItemButton>
+                            </Link>
+                        </ListItem>
+                    ))}
+                </List>
+            )}
         </>
     );
 };
 
-export default LinkList;
+export default SidebarLinkList;

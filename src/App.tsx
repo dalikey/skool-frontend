@@ -5,7 +5,7 @@ import AppLayout from './components/layout/AppLayout';
 import SignUp from './views/sign-up/SignUp';
 import SignIn from './views/sign-in/SignIn';
 import Board from './views/dashboard/Board';
-import ApproveUser from './views/approve-user/ApproveUser';
+import ApproveUser from './views/user-management/ApproveUser';
 
 const App = () => {
     return (
