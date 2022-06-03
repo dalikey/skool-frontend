@@ -43,7 +43,7 @@ const SidebarLinkList = ({ role }: SidebarLinkListProps) => {
 
     const ownerLinks: LinkItem[] = [
         {
-            path: '/gebruikers-beheer',
+            path: '/gebruikersbeheer',
             text: 'Gebruikersbeheer',
             icon: <SupervisedUserCircleIcon />,
         },
