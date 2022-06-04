@@ -25,6 +25,8 @@ const AppLayout = () => {
                 sx={{
                     flexGrow: 1,
                     p: 3,
+                    backgroundColor: '#F9F9F9',
+                    minHeight: '100vh',
                 }}
             >
                 <Toolbar />

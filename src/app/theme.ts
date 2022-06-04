@@ -4,7 +4,7 @@ const baseThemeOptions: ThemeOptions = {
     palette: {
         primary: {
             main: '#f49700',
-            contrastText: '#FFFFFF'
+            contrastText: '#FFF',
         },
         secondary: {
             main: '#FFFFFF',
@@ -15,12 +15,6 @@ const baseThemeOptions: ThemeOptions = {
     },
     typography: {
         fontFamily: 'sans-serif',
-        h5: {
-            fontWeight: 700,
-            lineHeight: 2,
-            textDecoration: 'none',
-            color: 'inherit',
-        },
     },
 };
 
@@ -39,6 +33,20 @@ export const theme = createTheme(baseTheme, {
             styleOverrides: {
                 root: {
                     backgroundColor: baseTheme.palette.primary.main,
+                },
+            },
+        },
+        MuiGrid: {
+            styleOverrides: {
+                root: {
+                    backgroundColor: '#F9F9F9',
+                },
+            },
+        },
+        MuiAppBar: {
+            styleOverrides: {
+                root: {
+                    boxShadow: 'none',
                 },
             },
         },

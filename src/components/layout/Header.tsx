@@ -1,4 +1,11 @@
-import { AppBar, Toolbar, IconButton, Typography, Box } from '@mui/material';
+import {
+    AppBar,
+    Toolbar,
+    IconButton,
+    Typography,
+    Box,
+    Divider,
+} from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useLocation } from 'react-router-dom';
 import ProfileBox from './ProfileBox';
@@ -19,6 +26,7 @@ const Header = ({ drawerWidth, toggleDrawer, user }: HeaderProps) => {
             position='fixed'
             sx={{
                 width: { sm: `calc(100% - ${drawerWidth}px)` },
+                mt: 1,
                 ml: { sm: `${drawerWidth}px` },
             }}
         >
@@ -29,26 +37,22 @@ const Header = ({ drawerWidth, toggleDrawer, user }: HeaderProps) => {
                         aria-label='open drawer'
                         edge='start'
                         onClick={toggleDrawer}
-                        sx={{ mr: 2, display: { md: 'none' } }}
+                        sx={{ mr: 2, display: { sm: 'none' } }}
                     >
                         <MenuIcon />
                     </IconButton>
                     <Typography
-                        variant='h5'
+                        variant='h4'
                         noWrap
                         component='div'
-                        sx={{ flexGrow: 1 }}
+                        sx={{ flexGrow: 1, fontSize: '1.75rem', fontWeight: 'bold' }}
                     >
-                        {pathname.substring(1, pathname.length).toUpperCase()}
+                        {pathname.charAt(1).toUpperCase() + pathname.slice(2)}
                     </Typography>
-                    {user && (
-                        <ProfileBox
-                            firstName={user.firstName}
-                            lastName={user.lastName}
-                        />
-                    )}
+                    <ProfileBox />
                 </Toolbar>
             </Box>
+            <Divider variant='middle'></Divider>
         </AppBar>
     );
 };

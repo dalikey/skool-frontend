@@ -4,7 +4,7 @@ import Header from './Header';
 import { useLocalStorage } from '../../app/useLocalStorage';
 import { CredentialsModel } from '../../models/authModels';
 
-const drawerWidth = 250;
+const drawerWidth = 225;
 
 const Drawer = () => {
     const [user] = useLocalStorage<CredentialsModel>('user');

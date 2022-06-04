@@ -5,25 +5,22 @@ import {
     Divider,
     IconButton,
     Link,
+    ListItem,
     ListItemIcon,
     Menu,
     MenuItem,
     Tooltip,
-    Typography,
 } from '@mui/material';
-import { useState } from 'react';
+import { useState, MouseEvent, Fragment } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-interface ProfileBoxProps {
-    firstName: string;
-    lastName: string;
-}
+const ProfileBox = () => {
+    const [user] = useLocalStorage<CredentialsModel>('user', {} as any);
 
-const ProfileBox = ({ firstName, lastName }: ProfileBoxProps) => {
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
 
-    const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    const handleClick = (event: MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget);
     };
 
@@ -40,29 +37,6 @@ const ProfileBox = ({ firstName, lastName }: ProfileBoxProps) => {
 
     return (
         <>
-            <Box
-                sx={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    textAlign: 'center',
-                }}
-            >
-                <Tooltip title='Account settings'>
-                    <IconButton
-                        onClick={handleClick}
-                        size='small'
-                        sx={{ ml: 2 }}
-                        aria-controls={open ? 'account-menu' : undefined}
-                        aria-haspopup='true'
-                        aria-expanded={open ? 'true' : undefined}
-                    >
-                        <Avatar sx={{ width: 32, height: 32 }}>
-                            {firstName.charAt(0)}
-                            {lastName.charAt(0)}
-                        </Avatar>
-                    </IconButton>
-                </Tooltip>
-            </Box>
             <Menu
                 anchorEl={anchorEl}
                 id='account-menu'
@@ -72,9 +46,9 @@ const ProfileBox = ({ firstName, lastName }: ProfileBoxProps) => {
                 PaperProps={{
                     elevation: 0,
                     sx: {
-                        'overflow': 'visible',
-                        'filter': 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
-                        'mt': 1.5,
+                        overflow: 'visible',
+                        filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+                        mt: 1.5,
                         '& .MuiAvatar-root': {
                             width: 32,
                             height: 32,
@@ -100,7 +74,7 @@ const ProfileBox = ({ firstName, lastName }: ProfileBoxProps) => {
             >
                 <Link href='/profiel' underline='none'>
                     <MenuItem>
-                        <Avatar /> Profiel
+                        <Avatar /> {user.firstName + ' ' + user.lastName}
                     </MenuItem>
                 </Link>
                 <Divider />
@@ -117,9 +91,30 @@ const ProfileBox = ({ firstName, lastName }: ProfileBoxProps) => {
                     Uitloggen
                 </MenuItem>
             </Menu>
-            <Typography variant='h6' noWrap component='div'>
-                {firstName + ' ' + lastName}
-            </Typography>
+            <Box
+                sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    textAlign: 'center',
+                }}
+            >
+                <Tooltip title='Account instellingen'>
+                    <ListItem disablePadding onClick={handleClick}>
+                        <IconButton
+                            size='small'
+                            sx={{ ml: 2 }}
+                            aria-controls={open ? 'account-menu' : undefined}
+                            aria-haspopup='true'
+                            aria-expanded={open ? 'true' : undefined}
+                        >
+                            <Avatar sx={{ width: 32, height: 32 }}>
+                                {user.firstName.charAt(0)}
+                                {user.lastName.charAt(0)}
+                            </Avatar>
+                        </IconButton>
+                    </ListItem>
+                </Tooltip>
+            </Box>
         </>
     );
 };
