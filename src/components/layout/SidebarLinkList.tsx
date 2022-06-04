@@ -1,5 +1,5 @@
 import {
-    Toolbar,
+    Box,
     List,
     ListItem,
     ListItemButton,
@@ -10,6 +10,7 @@ import { useLocation, Link } from 'react-router-dom';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import SchoolIcon from '@mui/icons-material/School';
 import PersonIcon from '@mui/icons-material/Person';
+import Logo from '../../assets/logo.png';
 
 interface LinkItem {
     path: string;
@@ -40,13 +41,9 @@ const LinkList = () => {
 
     return (
         <>
-            <Toolbar sx={{ ml: '10px' }} disableGutters>
-                <img
-                    width='150px'
-                    src='https://skoolworkshop.nl/wp-content/uploads/2020/06/Skool-Workshop_Logo.png'
-                    alt='logo'
-                />
-            </Toolbar>
+            <Box pt='15px' textAlign='center' pr='15px'>
+                <img width='150px' src={Logo} alt='logo' />
+            </Box>
             <List>
                 {links.map((link) => (
                     <ListItem key={link.text} disablePadding>
@@ -58,9 +55,10 @@ const LinkList = () => {
                                 width: '100%',
                             }}
                         >
-                            <ListItemButton>
+                            <ListItemButton sx={{ pl: '20px' }} disableGutters>
                                 <ListItemIcon
                                     sx={{
+                                        minWidth: '40px',
                                         color:
                                             pathname === link.path
                                                 ? 'primary.main'

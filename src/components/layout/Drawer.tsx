@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Sidebar from './Sidebar';
 import Header from './Header';
 
-const drawerWidth = 250;
+const drawerWidth = 225;
 
 const Drawer = () => {
     const [open, setOpen] = useState(false);

@@ -4,6 +4,7 @@ const baseThemeOptions: ThemeOptions = {
     palette: {
         primary: {
             main: '#f49700',
+            contrastText: '#FFF',
         },
         secondary: {
             main: '#FFFFFF',
@@ -14,12 +15,6 @@ const baseThemeOptions: ThemeOptions = {
     },
     typography: {
         fontFamily: 'sans-serif',
-        h5: {
-            fontWeight: 700,
-            lineHeight: 2,
-            textDecoration: 'none',
-            color: 'inherit',
-        },
     },
 };
 
