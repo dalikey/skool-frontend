@@ -42,8 +42,9 @@ const ConfirmPasswordForm = () => {
 
     const [forgotPassword, { isSuccess, isError, isLoading }] =
         useForgotPasswordMutation();
-
-    const handleSignUp = (values: ForgotPasswordModel): void => {
+    console.log(isSuccess);
+    console.log(isError);
+    const handleForgotPassword = (values: ForgotPasswordModel): void => {
         forgotPassword(values);
     };
 
@@ -52,9 +53,7 @@ const ConfirmPasswordForm = () => {
             password: '',
             passwordConfirm: '',
         },
-        validationSchema: SignUpSchema,
-        validateOnChange: false,
-        onSubmit: handleSignUp,
+        onSubmit: handleForgotPassword,
     });
 
     const navigate = useNavigate();
