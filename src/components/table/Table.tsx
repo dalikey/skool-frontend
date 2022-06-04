@@ -6,15 +6,17 @@ import {
     TableCell,
     TableBody,
     Table as MuiTable,
+    LinearProgress,
 } from '@mui/material';
 import { ReactNode } from 'react';
 
 interface TableProps {
     children: ReactNode;
     columns: string[];
+    isLoading: boolean;
 }
 
-const Table = ({ children, columns }: TableProps) => {
+const Table = ({ children, columns, isLoading }: TableProps) => {
     return (
         <TableContainer component={Paper}>
             <MuiTable aria-label='collapsible table'>
@@ -27,7 +29,16 @@ const Table = ({ children, columns }: TableProps) => {
                         ))}
                     </TableRow>
                 </TableHead>
-                <TableBody>{children}</TableBody>
+                <TableBody>
+                    {isLoading && (
+                        <TableRow>
+                            <TableCell padding='none'>
+                                <LinearProgress color='primary' />
+                            </TableCell>
+                        </TableRow>
+                    )}
+                    {children}
+                </TableBody>
             </MuiTable>
         </TableContainer>
     );
