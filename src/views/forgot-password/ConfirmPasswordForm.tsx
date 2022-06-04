@@ -42,8 +42,7 @@ const ConfirmPasswordForm = () => {
 
     const [forgotPassword, { isSuccess, isError, isLoading }] =
         useForgotPasswordMutation();
-    console.log(isSuccess);
-    console.log(isError);
+
     const handleForgotPassword = (values: ForgotPasswordModel): void => {
         forgotPassword(values);
     };
