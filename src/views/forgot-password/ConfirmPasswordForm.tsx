@@ -12,7 +12,6 @@ import {
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useFormik } from 'formik';
 import { useState, MouseEvent, useEffect } from 'react';
-import { SignUpSchema } from '../../schemas/authSchemas';
 import { ForgotPasswordModel } from '../../models/authModels';
 import { useForgotPasswordMutation } from '../../api/auth/authApi';
 import { useNavigate } from 'react-router-dom';
