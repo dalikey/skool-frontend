@@ -18,3 +18,8 @@ export interface RegistrationModel {
     password: string;
     passwordConfirm: string;
 }
+
+export interface ForgotPasswordModel {
+    password: string;
+    passwordConfirm: string;
+}

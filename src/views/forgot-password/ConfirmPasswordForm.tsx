@@ -13,8 +13,8 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useFormik } from 'formik';
 import { useState, MouseEvent, useEffect } from 'react';
 import { SignUpSchema } from '../../schemas/authSchemas';
-import { RegistrationModel } from '../../models/authModels';
-import { useRegisterMutation } from '../../api/auth/authApi';
+import { ForgotPasswordModel } from '../../models/authModels';
+import { useForgotPasswordMutation } from '../../api/auth/authApi';
 import { useNavigate } from 'react-router-dom';
 
 interface ShowPasswordValues {
@@ -40,17 +40,15 @@ const ConfirmPasswordForm = () => {
         }));
     };
 
-    const [register, { isSuccess, isError, isLoading }] = useRegisterMutation();
+    const [forgotPassword, { isSuccess, isError, isLoading }] =
+        useForgotPasswordMutation();
 
-    const handleSignUp = (values: RegistrationModel): void => {
-        register(values);
+    const handleSignUp = (values: ForgotPasswordModel): void => {
+        forgotPassword(values);
     };
 
     const formik = useFormik({
         initialValues: {
-            firstName: '',
-            lastName: '',
-            emailAddress: '',
             password: '',
             passwordConfirm: '',
         },
