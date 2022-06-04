@@ -5,7 +5,7 @@ import AppLayout from './components/layout/AppLayout';
 import SignUp from './views/sign-up/SignUp';
 import SignIn from './views/sign-in/SignIn';
 import Board from './views/dashboard/Board';
-import UserManagement from './views/user-management/UserManagement';
+import RegistrationManagement from './views/user-management/RegistrationManagement';
 
 const App = () => {
     return (
@@ -16,7 +16,7 @@ const App = () => {
                 <Route path='sign-in' element={<SignIn />} />
                 <Route path='' element={<AppLayout />}>
                     <Route path='dashboard' element={<Board />} />
-                    <Route path='gebruikersbeheer' element={<UserManagement />} />
+                    <Route path='registraties' element={<RegistrationManagement />} />
                     <Route path='workshops' element={<div>workshops</div>} />
                     <Route path='profiel' element={<div>profiel</div>} />
                 </Route>
