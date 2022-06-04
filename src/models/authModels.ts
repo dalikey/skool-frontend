@@ -23,3 +23,7 @@ export interface ForgotPasswordModel {
     password: string;
     passwordConfirm: string;
 }
+
+export interface EmailModel {
+    emailAddress: string;
+}

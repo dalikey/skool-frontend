@@ -3,6 +3,7 @@ import {
     LoginModel,
     CredentialsModel,
     ForgotPasswordModel,
+    EmailModel,
 } from '../../models/authModels';
 import { api } from './../api';
 
@@ -28,9 +29,16 @@ const extendedApi = api.injectEndpoints({
                 body,
             }),
         }),
-        forgotPassword: build.mutation<void, ForgotPasswordModel>({
+        sendEmail: build.mutation<void, EmailModel>({
             query: (body) => ({
                 url: 'auth/login/forgot',
+                method: 'POST',
+                body,
+            }),
+        }),
+        forgotPassword: build.mutation<void, ForgotPasswordModel>({
+            query: (body) => ({
+                url: 'auth/login/password',
                 method: 'POST',
                 body,
             }),
@@ -42,5 +50,6 @@ const extendedApi = api.injectEndpoints({
 export const {
     useRegisterMutation,
     useLoginMutation,
+    useSendEmailMutation,
     useForgotPasswordMutation,
 } = extendedApi;
