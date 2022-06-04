@@ -52,8 +52,6 @@ export const theme = createTheme(baseTheme, {
             styleOverrides: {
                 root: {
                     boxShadow: 'none',
-                    borderBottom: '1px solid',
-                    borderColor: '#E0E0E0',
                 },
             },
         },
