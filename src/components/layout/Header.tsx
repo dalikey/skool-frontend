@@ -23,7 +23,7 @@ const Header = ({ drawerWidth, toggleDrawer, user }: HeaderProps) => {
     return (
         <AppBar
             color='transparent'
-            position='fixed'
+            position='absolute'
             sx={{
                 width: { sm: `calc(100% - ${drawerWidth}px)` },
                 mt: 1,
