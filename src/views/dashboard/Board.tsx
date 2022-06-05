@@ -1,5 +1,6 @@
 import { Grid, Paper, styled } from "@mui/material";
 import Schedule from "../../components/dashboard/Schedule";
+import WorkshopsData from "../../components/dashboard/WorkshopsData";
 import WorkshopStatusCards from "../../components/dashboard/WorkshopStatusCards";
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -17,11 +18,14 @@ const Board = () => {
         <Item sx={{mb: 1}}>
           <Schedule></Schedule>
         </Item>
-        <Item sx={{mb: 3}}></Item>
+        <Item sx={{mb: 1}}></Item>
       </Grid>
       <Grid item columnSpacing={3} md={6} xs={12}>
-        <Item sx={{mb: 3}}>
+        <Item sx={{mb: 1}}>
           <WorkshopStatusCards/>
+        </Item>
+        <Item sx={{mb: 1}}>
+          <WorkshopsData/>
         </Item>
       </Grid>
     </Grid>
