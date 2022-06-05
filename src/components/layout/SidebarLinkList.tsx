@@ -96,50 +96,52 @@ const SidebarLinkList = ({ role }: SidebarLinkListProps) => {
                     </ListItem>
                 ))}
             </List>
-            <Box mt={5}>
-                <Typography variant='subtitle1' color='secondary'>
-                    Admin
-                </Typography>
-                <Divider variant='middle' sx={{ ml: 0 }} />
-            </Box>
             {role === 'owner' && (
-                <List>
-                    {adminLinks.map((link) => (
-                        <ListItem key={link.text} disablePadding>
-                            <Link
-                                to={link.path}
-                                style={{
-                                    textDecoration: 'none',
-                                    color: 'inherit',
-                                    width: '100%',
-                                }}
-                            >
-                                <ListItemButton disableGutters>
-                                    <ListItemIcon
-                                        sx={{
-                                            minWidth: '40px',
-                                            color:
-                                                pathname === link.path
-                                                    ? 'primary.main'
-                                                    : 'black',
-                                        }}
-                                    >
-                                        {link.icon}
-                                    </ListItemIcon>
-                                    <ListItemText
-                                        primary={link.text}
-                                        sx={{
-                                            color:
-                                                pathname === link.path
-                                                    ? 'primary.main'
-                                                    : 'black',
-                                        }}
-                                    />
-                                </ListItemButton>
-                            </Link>
-                        </ListItem>
-                    ))}
-                </List>
+                <>
+                    <Box mt={5}>
+                        <Typography variant='subtitle1' color='secondary'>
+                            Admin
+                        </Typography>
+                        <Divider variant='middle' sx={{ ml: 0 }} />
+                    </Box>
+                    <List>
+                        {adminLinks.map((link) => (
+                            <ListItem key={link.text} disablePadding>
+                                <Link
+                                    to={link.path}
+                                    style={{
+                                        textDecoration: 'none',
+                                        color: 'inherit',
+                                        width: '100%',
+                                    }}
+                                >
+                                    <ListItemButton disableGutters>
+                                        <ListItemIcon
+                                            sx={{
+                                                minWidth: '40px',
+                                                color:
+                                                    pathname === link.path
+                                                        ? 'primary.main'
+                                                        : 'black',
+                                            }}
+                                        >
+                                            {link.icon}
+                                        </ListItemIcon>
+                                        <ListItemText
+                                            primary={link.text}
+                                            sx={{
+                                                color:
+                                                    pathname === link.path
+                                                        ? 'primary.main'
+                                                        : 'black',
+                                            }}
+                                        />
+                                    </ListItemButton>
+                                </Link>
+                            </ListItem>
+                        ))}
+                    </List>
+                </>
             )}
         </Box>
     );
