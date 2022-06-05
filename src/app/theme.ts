@@ -21,6 +21,7 @@ const baseThemeOptions: ThemeOptions = {
             color: 'inherit',
         },
     },
+    
 };
 
 const baseTheme = createTheme(baseThemeOptions);

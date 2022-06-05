@@ -2,7 +2,7 @@ const Schedule = () => {
        
     return (
         <>
-            dit is een datepicker
+            dit is een datepicker<br/>
 
             dit is een rooster van de week
 

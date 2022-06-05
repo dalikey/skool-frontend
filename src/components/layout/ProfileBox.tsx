@@ -115,7 +115,7 @@ const ProfileBox = () => {
                                 {user.lastName.charAt(0)}
                             </Avatar>
                         </IconButton>
-                        <Typography variant='h6' noWrap component='div'>
+                        <Typography sx={{cursor:'pointer'}} variant='h6' noWrap component='div'>
                             {user.firstName + ' ' + user.lastName}
                         </Typography>
                     </ListItem>

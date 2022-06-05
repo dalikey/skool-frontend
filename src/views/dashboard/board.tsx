@@ -1,4 +1,5 @@
 import { Grid, Paper, styled } from "@mui/material";
+import Schedule from "../../components/dashboard/Schedule";
 import WorkshopStatusCards from "../../components/dashboard/WorkshopStatusCards";
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -14,11 +15,7 @@ const Board = () => {
       <Grid container spacing={3} alignItems="stretch">
       <Grid item md={6} xs={12}>
         <Item sx={{mb: 1}}>
-        rooster <br/>
-        rooster <br/>
-        rooster <br/>
-        rooster <br/>
-        rooster <br/>
+          <Schedule></Schedule>
         </Item>
         <Item sx={{mb: 3}}></Item>
       </Grid>
