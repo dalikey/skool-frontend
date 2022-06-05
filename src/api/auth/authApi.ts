@@ -39,7 +39,7 @@ const extendedApi = api.injectEndpoints({
         forgotPassword: build.mutation<void, ForgotPasswordModel>({
             query: (body) => ({
                 url: 'auth/login/password',
-                method: 'POST',
+                method: 'PUT',
                 body,
             }),
         }),
