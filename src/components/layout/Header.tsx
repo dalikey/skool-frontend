@@ -49,7 +49,7 @@ const Header = ({ drawerWidth, toggleDrawer, user }: HeaderProps) => {
                     >
                         {pathname.charAt(1).toUpperCase() + pathname.slice(2)}
                     </Typography>
-                    <ProfileBox />
+                    <ProfileBox user={user}/>
                 </Toolbar>
             </Box>
             <Divider variant='middle'></Divider>
