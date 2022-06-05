@@ -1,10 +1,12 @@
 import {
     Box,
+    Divider,
     List,
     ListItem,
     ListItemButton,
     ListItemIcon,
     ListItemText,
+    Typography,
 } from '@mui/material';
 import { useLocation, Link } from 'react-router-dom';
 import DashboardIcon from '@mui/icons-material/Dashboard';
@@ -42,7 +44,7 @@ const SidebarLinkList = ({ role }: SidebarLinkListProps) => {
         },
     ];
 
-    const ownerLinks: LinkItem[] = [
+    const adminLinks: LinkItem[] = [
         {
             path: '/gebruikersbeheer',
             text: 'Gebruikersbeheer',
@@ -53,8 +55,8 @@ const SidebarLinkList = ({ role }: SidebarLinkListProps) => {
     const { pathname } = useLocation();
 
     return (
-        <>
-            <Box pt='15px' textAlign='center' pr='15px'>
+        <Box sx={{ pl: '20px' }}>
+            <Box pt='15px'>
                 <img width='150px' src={Logo} alt='logo' />
             </Box>
             <List>
@@ -68,14 +70,14 @@ const SidebarLinkList = ({ role }: SidebarLinkListProps) => {
                                 width: '100%',
                             }}
                         >
-                            <ListItemButton sx={{ pl: '20px' }} disableGutters>
+                            <ListItemButton disableGutters>
                                 <ListItemIcon
                                     sx={{
                                         minWidth: '40px',
                                         color:
                                             pathname === link.path
                                                 ? 'primary.main'
-                                                : 'light',
+                                                : 'black',
                                     }}
                                 >
                                     {link.icon}
@@ -86,7 +88,7 @@ const SidebarLinkList = ({ role }: SidebarLinkListProps) => {
                                         color:
                                             pathname === link.path
                                                 ? 'primary.main'
-                                                : 'light',
+                                                : 'black',
                                     }}
                                 />
                             </ListItemButton>
@@ -94,9 +96,15 @@ const SidebarLinkList = ({ role }: SidebarLinkListProps) => {
                     </ListItem>
                 ))}
             </List>
+            <Box mt={5}>
+                <Typography variant='subtitle1' color='secondary'>
+                    Admin
+                </Typography>
+                <Divider variant='middle' sx={{ ml: 0 }} />
+            </Box>
             {role === 'owner' && (
                 <List>
-                    {ownerLinks.map((link) => (
+                    {adminLinks.map((link) => (
                         <ListItem key={link.text} disablePadding>
                             <Link
                                 to={link.path}
@@ -106,13 +114,14 @@ const SidebarLinkList = ({ role }: SidebarLinkListProps) => {
                                     width: '100%',
                                 }}
                             >
-                                <ListItemButton>
+                                <ListItemButton disableGutters>
                                     <ListItemIcon
                                         sx={{
+                                            minWidth: '40px',
                                             color:
                                                 pathname === link.path
                                                     ? 'primary.main'
-                                                    : 'light',
+                                                    : 'black',
                                         }}
                                     >
                                         {link.icon}
@@ -123,7 +132,7 @@ const SidebarLinkList = ({ role }: SidebarLinkListProps) => {
                                             color:
                                                 pathname === link.path
                                                     ? 'primary.main'
-                                                    : 'light',
+                                                    : 'black',
                                         }}
                                     />
                                 </ListItemButton>
@@ -132,7 +141,7 @@ const SidebarLinkList = ({ role }: SidebarLinkListProps) => {
                     ))}
                 </List>
             )}
-        </>
+        </Box>
     );
 };
 
