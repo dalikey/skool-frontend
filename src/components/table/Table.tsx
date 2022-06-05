@@ -25,14 +25,16 @@ const Table = ({ children, columns, isLoading }: TableProps) => {
                 >
                     <TableRow>
                         {columns.map((title) => (
-                            <TableCell key={title}>{title}</TableCell>
+                            <TableCell key={title} sx={{ fontWeight: 'bold' }}>
+                                {title}
+                            </TableCell>
                         ))}
                     </TableRow>
                 </TableHead>
                 <TableBody>
                     {isLoading && (
                         <TableRow>
-                            <TableCell padding='none'>
+                            <TableCell padding='none' colSpan={100}>
                                 <LinearProgress color='primary' />
                             </TableCell>
                         </TableRow>
