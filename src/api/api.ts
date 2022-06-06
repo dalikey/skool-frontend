@@ -5,8 +5,22 @@ const BASE_URL =
         ? process.env.REACT_APP_BASE_URL
         : 'https://skool-development.herokuapp.com/api';
 
+const baseQuery = fetchBaseQuery({
+    baseUrl: BASE_URL,
+    prepareHeaders: (headers) => {
+        const user = localStorage.getItem('user');
+
+        if (user) {
+            headers.set('authorization', JSON.parse(user).token);
+        }
+
+        return headers;
+    },
+});
+
 export const api = createApi({
     reducerPath: 'api',
-    baseQuery: fetchBaseQuery({ baseUrl: BASE_URL }),
+    baseQuery: baseQuery,
+    tagTypes: ['Users'],
     endpoints: () => ({}),
 });
