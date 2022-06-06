@@ -5,9 +5,10 @@ interface SidebarProps {
     drawerWidth: number;
     toggleDrawer: () => void;
     isOpen: boolean;
+    role: string | undefined;
 }
 
-const Sidebar = ({ drawerWidth, toggleDrawer, isOpen }: SidebarProps) => {
+const Sidebar = ({ drawerWidth, toggleDrawer, isOpen, role }: SidebarProps) => {
     return (
         <Box
             component='nav'
@@ -21,19 +22,19 @@ const Sidebar = ({ drawerWidth, toggleDrawer, isOpen }: SidebarProps) => {
                     keepMounted: true,
                 }}
                 sx={{
-                    'display': { xs: 'block', sm: 'none' },
+                    display: { xs: 'block', sm: 'none' },
                     '& .MuiDrawer-paper': {
                         boxSizing: 'border-box',
                         width: drawerWidth,
                     },
                 }}
             >
-                <SidebarLinkList />
+                <SidebarLinkList role={role}/>
             </Drawer>
             <Drawer
                 variant='permanent'
                 sx={{
-                    'display': { xs: 'none', sm: 'block' },
+                    display: { xs: 'none', sm: 'block' },
                     '& .MuiDrawer-paper': {
                         boxSizing: 'border-box',
                         width: drawerWidth,
@@ -41,7 +42,7 @@ const Sidebar = ({ drawerWidth, toggleDrawer, isOpen }: SidebarProps) => {
                 }}
                 open
             >
-                <SidebarLinkList />
+                <SidebarLinkList role={role}/>
             </Drawer>
         </Box>
     );

@@ -1,0 +1,28 @@
+name: heroku-deploy
+
+on:
+    push:
+        branches: 
+        - develop
+        - main
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        
+        steps:
+            - uses: haya14busa/action-cond@v1
+              id: condval
+              with:
+                cond: ${{ github.ref == 'refs/head/main' }}
+                if_true: "skool-stable-frontend"
+                if_false: "skool-development-frontend"
+            - uses: actions/checkout@v2
+            - uses: akhileshns/heroku-deploy@v3.12.12
+              with:
+                  heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+                  heroku_app_name: ${{steps.condval.outputs.value}}
+
+                  heroku_email: 'geoffreywesthoff@gmail.com'
+                  branch: ${GITHUB_REF##*/}
+                  procfile: 'web: bin/boot'
+              

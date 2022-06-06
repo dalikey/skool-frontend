@@ -1,8 +1,8 @@
 import { Card, CardContent, Box, Grow } from '@mui/material';
-import SignInForm from './SignInForm';
+import SignUpForm from './SignUpForm';
 import logo from '../../assets/logo.png';
 
-const SignIn = () => {
+const SignUp = () => {
     return (
         <Box
             display='flex'
@@ -12,10 +12,10 @@ const SignIn = () => {
             width='100%'
         >
             <Grow in={true}>
-                <Card sx={{ minWidth: '350px' }}>
+                <Card sx={{ width: '350px' }}>
                     <CardContent sx={{ textAlign: 'center' }}>
                         <img src={logo} alt='Skool workshop logo' width='55%' />
-                        <SignInForm />
+                        <SignUpForm />
                     </CardContent>
                 </Card>
             </Grow>
@@ -23,4 +23,4 @@ const SignIn = () => {
     );
 };
 
-export default SignIn;
+export default SignUp;

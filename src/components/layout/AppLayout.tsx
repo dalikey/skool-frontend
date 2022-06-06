@@ -1,9 +1,22 @@
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
 import Drawer from './Drawer';
+import { Outlet, useNavigate } from 'react-router-dom';
+import { useLocalStorage } from '../../app/useLocalStorage';
+import { CredentialsModel } from '../../models/authModels';
+import { useEffect } from 'react';
 
 const AppLayout = () => {
+    const [user] = useLocalStorage<CredentialsModel>('user');
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (!user || !user.token) {
+            navigate('/sign-in');
+        }
+    }, [user, navigate]);
+
     return (
         <Box sx={{ display: 'flex' }}>
             <Drawer />
@@ -12,29 +25,15 @@ const AppLayout = () => {
                 sx={{
                     flexGrow: 1,
                     p: 3,
+                    backgroundColor: '#F9F9F9',
+                    minHeight: '100vh',
                 }}
             >
                 <Toolbar />
-                <Typography paragraph>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Rhoncus dolor purus non enim praesent elementum
-                    facilisis leo vel. Risus at ultrices mi tempus imperdiet.
-                    Semper risus in hendrerit gravida rutrum quisque non tellus.
-                    Convallis convallis tellus id interdum velit laoreet id
-                    donec ultrices. Odio morbi quis commodo odio aenean sed
-                    adipiscing. Amet nisl suscipit adipiscing bibendum est
-                    ultricies integer quis. Cursus euismod quis viverra nibh
-                    cras. Metus vulputate eu scelerisque felis imperdiet proin
-                    fermentum leo. Mauris commodo quis imperdiet massa
-                    tincidunt. Cras tincidunt lobortis feugiat vivamus at augue.
-                    At augue eget arcu dictum varius duis at consectetur lorem.
-                    Velit sed ullamcorper morbi tincidunt. Lorem donec massa
-                    sapien faucibus et molestie ac.
-                </Typography>
+                <Outlet />
             </Box>
         </Box>
     );
-}
+};
 
 export default AppLayout;
