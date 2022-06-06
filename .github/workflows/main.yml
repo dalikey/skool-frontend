@@ -13,7 +13,7 @@ jobs:
             - uses: haya14busa/action-cond@v1
               id: condval
               with:
-                cond: ${{ ${GITHUB_REF##*/} == 'main' }}
+                cond: ${{ github.ref == 'refs/head/main' }}
                 if_true: "skool-stable-frontend"
                 if_false: "skool-development-frontend"
             - uses: actions/checkout@v2
