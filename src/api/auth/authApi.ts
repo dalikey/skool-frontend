@@ -1,4 +1,8 @@
-import { RegistrationModel, LoginModel, CredentialsModel } from '../../models/authModels';
+import {
+    RegistrationModel,
+    LoginModel,
+    CredentialsModel,
+} from '../../models/authModels';
 import { api } from './../api';
 
 interface loginResponse {
@@ -27,4 +31,5 @@ const extendedApi = api.injectEndpoints({
     overrideExisting: false,
 });
 
-export const { useRegisterMutation, useLoginMutation } = extendedApi;
+export const { useRegisterMutation, useLoginMutation } =
+    extendedApi;

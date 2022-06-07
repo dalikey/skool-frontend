@@ -4,9 +4,10 @@ const baseThemeOptions: ThemeOptions = {
     palette: {
         primary: {
             main: '#f49700',
+            contrastText: '#FFF',
         },
         secondary: {
-            main: '#FFFFFF',
+            main: 'rgba(0, 0, 0, 0.54)',
         },
         background: {
             default: '#FFFFFF',
@@ -14,12 +15,6 @@ const baseThemeOptions: ThemeOptions = {
     },
     typography: {
         fontFamily: 'sans-serif',
-        h5: {
-            fontWeight: 700,
-            lineHeight: 2,
-            textDecoration: 'none',
-            color: 'inherit',
-        },
     },
     
 };
@@ -53,8 +48,6 @@ export const theme = createTheme(baseTheme, {
             styleOverrides: {
                 root: {
                     boxShadow: 'none',
-                    borderBottom: '1px solid',
-                    borderColor: '#E0E0E0',
                 },
             },
         },

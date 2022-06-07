@@ -9,7 +9,7 @@ import { useLocalStorage } from '../../app/useLocalStorage';
 import { SignInSchema } from '../../schemas/authSchemas';
 
 const SignInForm = () => {
-    const [user, setUser] = useLocalStorage<CredentialsModel>('user', {} as any);
+    const [user, setUser] = useLocalStorage<CredentialsModel>('user');
     const [login, { data, isSuccess, isError, isLoading }] = useLoginMutation();
     const [showPassword, setShowPassword] = useState<Boolean>(false);
 
@@ -97,7 +97,6 @@ const SignInForm = () => {
                         E-mailadres en wachtwoord komen niet overeen
                     </FormHelperText>
                 )}
-                <Link href='#'>Wachtwoord vergeten?</Link>
                 <Button disabled={isLoading} type='submit' variant='contained'>
                     Aanmelden
                 </Button>

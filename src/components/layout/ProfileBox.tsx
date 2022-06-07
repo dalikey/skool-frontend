@@ -10,16 +10,16 @@ import {
     Menu,
     MenuItem,
     Tooltip,
-    Typography,
 } from '@mui/material';
 import { useState, MouseEvent, Fragment } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useLocalStorage } from '../../app/useLocalStorage';
 import { CredentialsModel } from '../../models/authModels';
 
-const ProfileBox = () => {
-    const [user] = useLocalStorage<CredentialsModel>('user', {} as any);
+interface ProfileBoxProps {
+    user?: CredentialsModel;
+}
 
+const ProfileBox = ({ user }: ProfileBoxProps) => {
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
 
@@ -77,7 +77,7 @@ const ProfileBox = () => {
             >
                 <Link href='/profiel' underline='none'>
                     <MenuItem>
-                        <Avatar /> Profiel
+                        <Avatar /> {user?.firstName + ' ' + user?.lastName}
                     </MenuItem>
                 </Link>
                 <Divider />
@@ -111,13 +111,10 @@ const ProfileBox = () => {
                             aria-expanded={open ? 'true' : undefined}
                         >
                             <Avatar sx={{ width: 32, height: 32 }}>
-                                {user.firstName.charAt(0)}
-                                {user.lastName.charAt(0)}
+                                {user?.firstName.charAt(0)}
+                                {user?.lastName.charAt(0)}
                             </Avatar>
                         </IconButton>
-                        <Typography sx={{cursor:'pointer'}} variant='h6' noWrap component='div'>
-                            {user.firstName + ' ' + user.lastName}
-                        </Typography>
                     </ListItem>
                 </Tooltip>
             </Box>
