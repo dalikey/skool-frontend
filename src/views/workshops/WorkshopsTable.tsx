@@ -12,7 +12,16 @@ interface WorkshopTableProps {
 const WorkshopTable = ({ isLoading, workshops }: WorkshopTableProps) => {
     return (
         <Table
-            columns={['Naam', 'Plaats', 'Contracttype', 'Type']}
+            columns={[
+                'Naam',
+                'Plaats',
+                'Straat',
+                'Beschrijving',
+                'AantalDeelnemers',
+                'AfbeeldingsUrl',
+                'GebruikersId',
+                'IsActief',
+            ]}
             isLoading={isLoading}
         >
             {workshops &&

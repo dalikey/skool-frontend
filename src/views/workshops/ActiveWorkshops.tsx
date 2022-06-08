@@ -41,7 +41,16 @@ const RegistrationTable = ({
 
     return (
         <Table
-            columns={['Naam', 'Plaats', 'Contracttype', 'Type']}
+            columns={[
+                'Naam',
+                'Plaats',
+                'Straat',
+                'Beschrijving',
+                'AantalDeelnemers',
+                'AfbeeldingsUrl',
+                'GebruikersId',
+                'IsActief',
+            ]}
             isLoading={isLoading || isActivateLoading || isDeactiveLoading}
         >
             {workshops &&
