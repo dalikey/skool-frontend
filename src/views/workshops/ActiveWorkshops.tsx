@@ -14,10 +14,7 @@ interface WorkshopTableProps {
     workshops?: WorkshopModel[];
 }
 
-const RegistrationTable = ({
-    isLoading,
-    workshops,
-}: WorkshopTableProps) => {
+const RegistrationTable = ({ isLoading, workshops }: WorkshopTableProps) => {
     const [activateWorkshop, { isLoading: isActivateLoading }] =
         useActivateWorkshopMutation();
     const [deactivateWorkshop, { isLoading: isDeactiveLoading }] =
@@ -38,7 +35,6 @@ const RegistrationTable = ({
             () => deactivateWorkshop(workshop._id)
         );
     };
-console.log();
 
     return (
         <Table
