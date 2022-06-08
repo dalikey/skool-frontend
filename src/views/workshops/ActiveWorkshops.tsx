@@ -38,6 +38,7 @@ const RegistrationTable = ({
             () => deactivateWorkshop(workshop._id)
         );
     };
+console.log();
 
     return (
         <Table

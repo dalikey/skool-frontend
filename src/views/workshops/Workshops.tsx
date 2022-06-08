@@ -3,14 +3,9 @@ import { useState } from 'react';
 import { useGetAllWorkshopsQuery } from '../../api/workshop/workshopApi';
 import ConfirmDialog from '../../components/dialog/ConfirmDialog';
 import { WorkshopModel } from '../../models/workshopModels';
-import RegistrationTable from './ActiveWorkshops';
 import WorkshopTable from './WorkshopsTable';
 
 const getIsActiveValue = (tab: number): boolean | null => {
-    if (tab === 1) {
-        return null;
-    }
-
     return tab === 0 ? true : false;
 };
 
@@ -35,21 +30,13 @@ const WorkshopManagement = () => {
                     aria-label='basic tabs example'
                 >
                     <Tab label='ACTIEVE WORKSHOPS' />
-                    <Tab label='ALLE WORKSHOPS' />
                     <Tab label='INACTIEVE WORKSHOPS' />
                 </Tabs>
             </Box>
-            {tab === 1 ? (
-                <RegistrationTable
-                    isLoading={isLoading}
-                    workshops={data?.result}
-                />
-            ) : (
-                <WorkshopTable
-                    isLoading={isLoading}
-                    workshops={data?.result as WorkshopModel[]}
-                />
-            )}
+            <WorkshopTable
+                isLoading={isLoading}
+                workshops={data?.result as WorkshopModel[]}
+            />
         </Paper>
     );
 };
