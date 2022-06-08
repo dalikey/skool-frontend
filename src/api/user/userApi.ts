@@ -1,3 +1,4 @@
+import { UserProfileModel } from './../../models/userModels';
 import { RegistrationModel, UserModel } from '../../models/userModels';
 import { api } from './../api';
 
@@ -5,6 +6,10 @@ interface getAllUsersResponse {
     error?: string;
     message?: string;
     result?: RegistrationModel[] | UserModel[];
+}
+
+interface getUserProfileResponse {
+    result?: UserProfileModel;
 }
 
 const extendedApi = api.injectEndpoints({
@@ -19,7 +24,7 @@ const extendedApi = api.injectEndpoints({
             }),
             providesTags: [{ type: 'Users', id: 'LIST' }],
         }),
-        getUserProfile: build.query<void, void>({
+        getUserProfile: build.query<getUserProfileResponse, void>({
             query: () => ({
                 url: `user/@me`,
             }),
