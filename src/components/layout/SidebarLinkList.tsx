@@ -55,8 +55,8 @@ const SidebarLinkList = ({ role }: SidebarLinkListProps) => {
     const { pathname } = useLocation();
 
     return (
-        <Box sx={{ pl: '20px' }}>
-            <Box pt='15px'>
+        <Box>
+            <Box pt='15px' pl={2}>
                 <img width='150px' src={Logo} alt='logo' />
             </Box>
             <List>
@@ -70,7 +70,7 @@ const SidebarLinkList = ({ role }: SidebarLinkListProps) => {
                                 width: '100%',
                             }}
                         >
-                            <ListItemButton disableGutters>
+                            <ListItemButton sx={{pl: 2}} disableGutters>
                                 <ListItemIcon
                                     sx={{
                                         minWidth: '40px',
@@ -98,7 +98,7 @@ const SidebarLinkList = ({ role }: SidebarLinkListProps) => {
             </List>
             {role === 'owner' && (
                 <>
-                    <Box mt={5}>
+                    <Box mt={5} pl={2}>
                         <Typography variant='subtitle1' color='secondary'>
                             Admin
                         </Typography>
@@ -115,7 +115,7 @@ const SidebarLinkList = ({ role }: SidebarLinkListProps) => {
                                         width: '100%',
                                     }}
                                 >
-                                    <ListItemButton disableGutters>
+                                    <ListItemButton sx={{pl: 2}} disableGutters>
                                         <ListItemIcon
                                             sx={{
                                                 minWidth: '40px',
