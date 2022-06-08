@@ -9,7 +9,7 @@ import { Clear, Check } from '@mui/icons-material';
 import { confirmDialog } from '../../components/dialog/ConfirmDialog';
 import { WorkshopModel } from '../../models/workshopModels';
 
-interface RegistrationTableProps {
+interface WorkshopTableProps {
     isLoading: boolean;
     workshops?: WorkshopModel[];
 }
@@ -17,7 +17,7 @@ interface RegistrationTableProps {
 const RegistrationTable = ({
     isLoading,
     workshops,
-}: RegistrationTableProps) => {
+}: WorkshopTableProps) => {
     const [activateWorkshop, { isLoading: isActivateLoading }] =
         useActivateWorkshopMutation();
     const [deactivateWorkshop, { isLoading: isDeactiveLoading }] =

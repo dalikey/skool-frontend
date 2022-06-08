@@ -20,7 +20,6 @@ const WorkshopTable = ({ isLoading, workshops }: WorkshopTableProps) => {
                 'AantalDeelnemers',
                 'AfbeeldingsUrl',
                 'GebruikersId',
-                'IsActief',
             ]}
             isLoading={isLoading}
         >
@@ -34,7 +33,6 @@ const WorkshopTable = ({ isLoading, workshops }: WorkshopTableProps) => {
                         <TableCell>{workshop.maxParticipants}</TableCell>
                         <TableCell>{workshop.imageUrl}</TableCell>
                         <TableCell>{workshop.userId}</TableCell>
-                        <TableCell>{workshop.isActive}</TableCell>
                         <TableCell align='right'>
                             {workshop.isActive && (
                                 <IconButton aria-label='edit' color='secondary'>

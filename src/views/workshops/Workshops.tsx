@@ -34,9 +34,9 @@ const WorkshopManagement = () => {
                     onChange={handleChange}
                     aria-label='basic tabs example'
                 >
-                    <Tab label='WORKSHOPS' />
-                    <Tab label='ACTIEF' />
-                    <Tab label='INACTIEF' />
+                    <Tab label='ACTIEVE WORKSHOPS' />
+                    <Tab label='ALLE WORKSHOPS' />
+                    <Tab label='INACTIEVE WORKSHOPS' />
                 </Tabs>
             </Box>
             {tab === 1 ? (
