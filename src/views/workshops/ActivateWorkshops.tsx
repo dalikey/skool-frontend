@@ -39,28 +39,33 @@ const RegistrationTable = ({ isLoading, workshops }: WorkshopTableProps) => {
     return (
         <Table
             columns={[
+                'AfbeeldingsUrl',
                 'Naam',
                 'Plaats',
                 'Straat',
                 'Beschrijving',
                 'AantalDeelnemers',
-                'AfbeeldingsUrl',
                 'GebruikersId',
-                'IsActief',
             ]}
             isLoading={isLoading || isActivateLoading || isDeactiveLoading}
         >
             {workshops &&
                 workshops.map((workshop) => (
                     <Row key={workshop._id}>
+                        <TableCell>
+                            <img
+                                src={workshop.imageUrl}
+                                alt='Geen afbeelding beschikbaar'
+                                width='100'
+                                height='100'
+                            />
+                        </TableCell>{' '}
                         <TableCell>{workshop.name}</TableCell>
                         <TableCell>{workshop.city}</TableCell>
                         <TableCell>{workshop.street}</TableCell>
                         <TableCell>{workshop.description}</TableCell>
                         <TableCell>{workshop.maxParticipants}</TableCell>
-                        <TableCell>{workshop.imageUrl}</TableCell>
                         <TableCell>{workshop.userId}</TableCell>
-                        <TableCell>{workshop.isActive}</TableCell>
                         <TableCell align='right'>
                             <IconButton
                                 aria-label='accept'

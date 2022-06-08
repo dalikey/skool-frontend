@@ -13,12 +13,12 @@ const WorkshopTable = ({ isLoading, workshops }: WorkshopTableProps) => {
     return (
         <Table
             columns={[
+                'Afbeelding',
                 'Naam',
                 'Plaats',
                 'Straat',
                 'Beschrijving',
                 'AantalDeelnemers',
-                'AfbeeldingsUrl',
                 'GebruikersId',
             ]}
             isLoading={isLoading}
@@ -26,12 +26,19 @@ const WorkshopTable = ({ isLoading, workshops }: WorkshopTableProps) => {
             {workshops &&
                 workshops.map((workshop) => (
                     <Row key={workshop._id}>
+                        <TableCell>
+                            <img
+                                src={workshop.imageUrl}
+                                alt='Geen afbeelding beschikbaar'
+                                width='100'
+                                height='100'
+                            />
+                        </TableCell>
                         <TableCell>{workshop.name}</TableCell>
                         <TableCell>{workshop.city}</TableCell>
                         <TableCell>{workshop.street}</TableCell>
                         <TableCell>{workshop.description}</TableCell>
                         <TableCell>{workshop.maxParticipants}</TableCell>
-                        <TableCell>{workshop.imageUrl}</TableCell>
                         <TableCell>{workshop.userId}</TableCell>
                         <TableCell align='right'>
                             {workshop.isActive && (
