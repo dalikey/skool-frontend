@@ -75,7 +75,7 @@ const RegistrationTable = ({
                 ))}
             {workshops?.length === 0 && (
                 <Row>
-                    <TableCell>Er zijn geen nieuwe registraties.</TableCell>
+                    <TableCell>Er zijn geen workshops beschikbaar.</TableCell>
                 </Row>
             )}
         </Table>

@@ -40,7 +40,7 @@ const WorkshopTable = ({ isLoading, workshops }: WorkshopTableProps) => {
                 ))}
             {workshops?.length === 0 && (
                 <Row>
-                    <TableCell>Er zijn geen gebruikers.</TableCell>
+                    <TableCell>Er zijn geen workshops beschikbaar.</TableCell>
                 </Row>
             )}
         </Table>
