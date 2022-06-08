@@ -38,15 +38,7 @@ const RegistrationTable = ({ isLoading, workshops }: WorkshopTableProps) => {
 
     return (
         <Table
-            columns={[
-                'AfbeeldingsUrl',
-                'Naam',
-                'Plaats',
-                'Straat',
-                'Beschrijving',
-                'AantalDeelnemers',
-                'GebruikersId',
-            ]}
+            columns={['AfbeeldingsUrl', 'Naam', 'Beschrijving', 'Materialen']}
             isLoading={isLoading || isActivateLoading || isDeactiveLoading}
         >
             {workshops &&
@@ -59,13 +51,10 @@ const RegistrationTable = ({ isLoading, workshops }: WorkshopTableProps) => {
                                 width='100'
                                 height='100'
                             />
-                        </TableCell>{' '}
+                        </TableCell>
                         <TableCell>{workshop.name}</TableCell>
-                        <TableCell>{workshop.city}</TableCell>
-                        <TableCell>{workshop.street}</TableCell>
                         <TableCell>{workshop.description}</TableCell>
-                        <TableCell>{workshop.maxParticipants}</TableCell>
-                        <TableCell>{workshop.userId}</TableCell>
+                        <TableCell>{workshop.materials}</TableCell>
                         <TableCell align='right'>
                             <IconButton
                                 aria-label='accept'

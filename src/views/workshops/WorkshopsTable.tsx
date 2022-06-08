@@ -12,15 +12,7 @@ interface WorkshopTableProps {
 const WorkshopTable = ({ isLoading, workshops }: WorkshopTableProps) => {
     return (
         <Table
-            columns={[
-                'Afbeelding',
-                'Naam',
-                'Plaats',
-                'Straat',
-                'Beschrijving',
-                'AantalDeelnemers',
-                'GebruikersId',
-            ]}
+            columns={['AfbeeldingsUrl', 'Naam', 'Beschrijving', 'Materialen']}
             isLoading={isLoading}
         >
             {workshops &&
@@ -35,11 +27,8 @@ const WorkshopTable = ({ isLoading, workshops }: WorkshopTableProps) => {
                             />
                         </TableCell>
                         <TableCell>{workshop.name}</TableCell>
-                        <TableCell>{workshop.city}</TableCell>
-                        <TableCell>{workshop.street}</TableCell>
                         <TableCell>{workshop.description}</TableCell>
-                        <TableCell>{workshop.maxParticipants}</TableCell>
-                        <TableCell>{workshop.userId}</TableCell>
+                        <TableCell>{workshop.materials}</TableCell>
                         <TableCell align='right'>
                             {workshop.isActive && (
                                 <IconButton aria-label='edit' color='secondary'>
