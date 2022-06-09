@@ -10,8 +10,13 @@ import { SignInSchema } from '../../schemas/authSchemas';
 
 const SignInForm = () => {
     const [user, setUser] = useLocalStorage<CredentialsModel>('user');
-    const [login, { data, isSuccess, isError, isLoading }] = useLoginMutation();
+    const [login, { data, isSuccess, error, isError, isLoading }] = useLoginMutation();
     const [showPassword, setShowPassword] = useState<Boolean>(false);
+    let message = '';
+
+    if(error && "status" in error){
+    message = (error.status === 400) ? "Gebruiker is niet geactiveerd"  :(error.status === 404)? "E-mailadres en wachtwoord komen niet overeen" : "";
+    }
 
     const handleSignIn = (values: LoginModel): void => {
         login(values);
@@ -94,7 +99,7 @@ const SignInForm = () => {
                 </FormControl>
                 {isError && (
                     <FormHelperText error={true}>
-                        E-mailadres en wachtwoord komen niet overeen
+                        {message}
                     </FormHelperText>
                 )}
                 <Button disabled={isLoading} type='submit' variant='contained'>
