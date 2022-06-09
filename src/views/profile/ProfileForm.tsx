@@ -59,7 +59,7 @@ const ProfileForm = ({ user }: ProfileFormProps) => {
 
     return (
         <form onSubmit={formik.handleSubmit} style={{ maxWidth: '1000px' }}>
-            <Grid container columnSpacing={4} alignItems='flex-start'>
+            <Grid container columnSpacing={4} rowSpacing={2} alignItems='flex-start'>
                 <Grid item container md={6} rowSpacing={1} columnSpacing={2}>
                     <ProfileFormPersonal formik={formik} />
                 </Grid>
@@ -78,14 +78,14 @@ const ProfileForm = ({ user }: ProfileFormProps) => {
                     </Accordion>
                 </Grid>
                 <Grid item xs={12}>
-                    <DialogActions>
-                        <DialogActions
-                            sx={{
-                                alignItems: 'center',
-                                justifyContent: 'flex-end',
-                            }}
+                    <Grid container alignItems='center'>
+                        <Grid
+                            item
+                            md={9}
+                            display='flex'
+                            justifyContent='flex-end'
+                            pb={2}
                         >
-                            {' '}
                             <TextField
                                 id='passwordInfo.currentPassword'
                                 name='passwordInfo.currentPassword'
@@ -97,7 +97,7 @@ const ProfileForm = ({ user }: ProfileFormProps) => {
                                 }
                                 onChange={formik.handleChange}
                                 variant='standard'
-                                sx={{ mt: -2 }}
+                                sx={{ mt: -1 }}
                                 error={
                                     formik.touched.passwordInfo
                                         ?.currentPassword &&
@@ -112,6 +112,13 @@ const ProfileForm = ({ user }: ProfileFormProps) => {
                                     formik.errors.passwordInfo?.currentPassword
                                 }
                             />
+                        </Grid>
+                        <Grid
+                            item
+                            md={3}
+                            display='flex'
+                            justifyContent='flex-end'
+                        >
                             <Button onClick={close}>Annuleren</Button>
                             <Button
                                 type='submit'
@@ -121,8 +128,8 @@ const ProfileForm = ({ user }: ProfileFormProps) => {
                             >
                                 Bevestigen
                             </Button>
-                        </DialogActions>
-                    </DialogActions>
+                        </Grid>
+                    </Grid>
                 </Grid>
             </Grid>
         </form>

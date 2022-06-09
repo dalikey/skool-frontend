@@ -80,11 +80,11 @@ const ProfileFormPersonal = ({ formik }: ProfileFormPersonalProps) => {
                                 label='Geboortedatum'
                                 mask=''
                                 value={formik.values.dateOfBirth ?? null}
-                                inputFormat='dd / MM / yyyy'
+                                inputFormat='dd/MM/yyyy'
                                 onChange={(value) =>
                                     formik.setFieldValue(
                                         'dateOfBirth',
-                                        format(new Date(value), 'dd/MM/yyyy')
+                                        Date.parse(value)
                                     )
                                 }
                                 renderInput={(params) => (

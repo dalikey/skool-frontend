@@ -24,6 +24,12 @@ const extendedApi = api.injectEndpoints({
             }),
             providesTags: [{ type: 'Users', id: 'LIST' }],
         }),
+        getPersonalProfile: build.query<getUserProfileResponse, void>({
+            query: () => ({
+                url: `user/@me`,
+            }),
+            providesTags: [{ type: 'Users', id: 'PROFILE' }],
+        }),
         getUserProfile: build.query<getUserProfileResponse, void>({
             query: () => ({
                 url: `user/@me`,
@@ -58,7 +64,7 @@ const extendedApi = api.injectEndpoints({
 
 export const {
     useGetAllUsersQuery,
-    useGetUserProfileQuery,
+    useGetPersonalProfileQuery,
     useActivateUserMutation,
     useDeactivateUserMutation,
     useUpdateUserProfileMutation,
