@@ -4,7 +4,11 @@ import { theme } from './app/theme';
 import AppLayout from './components/layout/AppLayout';
 import SignUp from './views/sign-up/SignUp';
 import SignIn from './views/sign-in/SignIn';
+import Profile from './views/profile/Profile';
 import UserManagement from './views/user-management/UserManagement';
+import CustomerManagement from './views/customer-management/CustomerManagement';
+
+
 import ShiftManagement from "./views/shift-management/ShiftManagement";
 import AddShiftForm from "./views/shift-management/AddShiftForm";
 
@@ -19,9 +23,11 @@ const App = () => {
                     <Route path='dashboard' element={<div></div>} />
                     <Route path='gebruikersbeheer' element={<UserManagement />} />
                     <Route path='workshops' element={<div></div>} />
-                    <Route path='profiel' element={<div></div>} />
+                    <Route path='profiel' element={<Profile />} />
+
                     <Route path='shiftbeheer' element={<ShiftManagement /> } />
                     <Route path='shiftbeheer/shift-aanmaken' element={<AddShiftForm/> } />
+                    <Route path='klantenbeheer' element={<CustomerManagement />} />
                 </Route>
             </Routes>
         </ThemeProvider>

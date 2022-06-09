@@ -22,7 +22,9 @@ const UserTable = ({ isLoading, users }: UserTableProps) => {
                         <TableCell>{user.lastName}</TableCell>
                         <TableCell>{user.emailAddress}</TableCell>
                         <TableCell>{user.role}</TableCell>
-                        <TableCell>{user.isActive}</TableCell>
+                        {user.isActive && (
+                            <TableCell>{user.isActive}</TableCell>
+                        )}
                         <TableCell align='right'>
                             {user.isActive && (
                                 <IconButton aria-label='edit' color='secondary'>
