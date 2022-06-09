@@ -20,12 +20,17 @@ import { WorkshopShiftSchema } from '../../schemas/workshopShiftSchemas';
 import { WorkshopShiftModel } from '../../models/workshopShiftModels';
 import { useCreateShiftMutation } from '../../api/workshop/workshopApi';
 import { AdapterLuxon } from '@mui/x-date-pickers/AdapterLuxon';
-import { DesktopDatePicker, LocalizationProvider } from '@mui/x-date-pickers';
+import {DatePicker, DesktopDatePicker, LocalizationProvider} from '@mui/x-date-pickers';
 import { FieldArray } from 'formik';
+import { DateTime } from 'luxon';
+import {AdapterDateFns} from "@mui/x-date-pickers/AdapterDateFns";
+import {format} from "date-fns";
+
 
 const AddShiftForm = () => {
     const [createShift, { isSuccess, isError, isLoading }] =
         useCreateShiftMutation();
+
     const customers = [
         {
             _id: '35345256455653456',
@@ -83,14 +88,14 @@ const AddShiftForm = () => {
                 address: '',
                 city: '',
                 postcode: '',
-                country: '',
+                country: 'Nederland',
             },
             targetAudience: '',
             level: '',
             date: new Date(),
             availableUntil: new Date(),
             hourRate: 0,
-            dayRate: '',
+            dayRate: 0,
             timestamps: [
                 {
                     startTime: '',
@@ -98,9 +103,8 @@ const AddShiftForm = () => {
                 },
             ],
         },
-        validationSchema: WorkshopShiftSchema,
         validateOnChange: true,
-        onSubmit: (values) => {console.log(values)},
+        onSubmit: handleSaveWorkshop,
     });
 
     const navigate = useNavigate();
@@ -242,27 +246,34 @@ const AddShiftForm = () => {
                                     </FormControl>
                                 </Stack>
                                 <Divider></Divider>
-                                <LocalizationProvider
-                                    dateAdapter={AdapterLuxon}
-                                >
-                                    <DesktopDatePicker
+                                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                                    <DatePicker
                                         label={'Datum'}
-                                        inputFormat={'dd-MM-yyyy'}
+                                        inputFormat={'dd / MM / yyyy'}
                                         renderInput={(params) => (
                                             <TextField {...params}></TextField>
                                         )}
-                                        onChange={formik.handleChange}
+                                        mask=''
+                                        minDate={Date.now()}
+                                        onChange={(value) =>
+                                            formik.setFieldValue(
+                                                'date',
+                                                new Date(value ?? '')
+                                            )
+                                    }
                                         value={formik.values.date}
-                                    ></DesktopDatePicker>
-                                    <DesktopDatePicker
+                                    />
+                                    <DatePicker
                                         label={'Beschikbaar tot'}
-                                        inputFormat={'dd-MM-yyyy'}
+                                        inputFormat={'dd / MM / yyyy'}
+                                        mask=''
+                                        minDate={Date.now()}
                                         renderInput={(params) => (
-                                            <TextField {...params}></TextField>
+                                            <TextField name={'availableUntil'} {...params}></TextField>
                                         )}
-                                        onChange={formik.handleChange}
-                                        value={formik.values.availableUntil}
-                                    ></DesktopDatePicker>
+                                        onChange={(value) => formik.setFieldValue('availableUntil', new Date(value ?? ''))}
+                                        value={formik.values.availableUntil ?? ''}
+                                    ></DatePicker>
                                 </LocalizationProvider>
                                 <TextField
                                     id='maximumParticipants'
