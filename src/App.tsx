@@ -6,6 +6,7 @@ import SignUp from './views/sign-up/SignUp';
 import SignIn from './views/sign-in/SignIn';
 import UserManagement from './views/user-management/UserManagement';
 import WorkshopManagement from './views/workshop-management/WorkshopOverview'
+import Profile from './views/profile/Profile';
 
 const App = () => {
     return (
@@ -19,7 +20,7 @@ const App = () => {
                     <Route path='gebruikersbeheer' element={<UserManagement />} />
                     <Route path='workshopbeheer' element={<WorkshopManagement />} />
                     <Route path='workshops' element={<div></div>} />
-                    <Route path='profiel' element={<div></div>} />
+                    <Route path='profiel' element={<Profile />} />
                 </Route>
             </Routes>
         </ThemeProvider>
