@@ -6,8 +6,6 @@ import {
     Select,
     TextField,
     Avatar,
-    Checkbox,
-    FormControlLabel,
 } from '@mui/material';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
@@ -79,7 +77,8 @@ const ProfileFormPersonal = ({ formik }: ProfileFormPersonalProps) => {
                         <LocalizationProvider dateAdapter={AdapterDateFns}>
                             <DatePicker
                                 label='Geboortedatum'
-                                value={formik.values.dateOfBirth ?? undefined}
+                                value={formik.values.dateOfBirth ?? null}
+                                inputFormat='dd / MM / yyyy'
                                 onChange={(value) =>
                                     formik.setFieldValue(
                                         'dateOfBirth',

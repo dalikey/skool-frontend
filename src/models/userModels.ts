@@ -54,8 +54,3 @@ interface transportBody {
     hasVehicle: boolean;
 }
 
-interface passwordBody {
-    password: string;
-    passwordConfirm: string;
-    currentPassword: string;
-}

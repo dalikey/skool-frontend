@@ -13,42 +13,34 @@ import PaymentIcon from '@mui/icons-material/Payment';
 import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
 import ProfileFormTransport from './components/ProfileFormTransport';
 import { UserUpdateSchema } from '../../schemas/userSchemas';
+import { useUpdateUserProfileMutation } from '../../api/user/userApi';
 
 interface ProfileFormProps {
     user: UserProfileModel;
 }
 
+interface PasswordBody {
+    passwordInfo: {
+        password: string;
+        passwordConfirm: string;
+        currentPassword: string;
+    }
+}
+
+type ProfileFormValues = UserProfileModel & PasswordBody;
+
 const ProfileForm = ({ user }: ProfileFormProps) => {
     const { close } = useFormDialogStore();
 
+    const [updateUser] = useUpdateUserProfileMutation();
+
     const handleSubmit = (values): void => {
-        console.log(values);
+        updateUser(values);
         close();
     };
 
     const formik = useFormik({
-        initialValues: {
-            ...user,
-            location: {
-                address: '',
-                postalCode: '',
-                country: '',
-                city: '',
-            },
-            paymentInfo: {
-                IBAN: '',
-                BIC: '',
-            },
-            transport: {
-                hasDriversLicense: false,
-                hasVehicle: false,
-            },
-            passwordInfo: {
-                password: '',
-                passwordConfirm: '',
-                currentPassword: '',
-            },
-        },
+        initialValues: user as ProfileFormValues,
         validateOnChange: false,
         validationSchema: UserUpdateSchema,
         onSubmit: handleSubmit,
@@ -82,6 +74,7 @@ const ProfileForm = ({ user }: ProfileFormProps) => {
                                 justifyContent: 'flex-end',
                             }}
                         >
+                            {' '}
                             <TextField
                                 id='passwordInfo.currentPassword'
                                 name='passwordInfo.currentPassword'
@@ -98,7 +91,8 @@ const ProfileForm = ({ user }: ProfileFormProps) => {
                                     formik.touched.passwordInfo
                                         ?.currentPassword &&
                                     Boolean(
-                                        formik.errors.passwordInfo?.currentPassword
+                                        formik.errors.passwordInfo
+                                            ?.currentPassword
                                     )
                                 }
                                 helperText={
