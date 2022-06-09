@@ -5,6 +5,7 @@ const WorkshopOverview = () => {
     return (
         <Paper sx={{ width: '100%' }}>
             <ConfirmDialog />
+            <button>Add</button>
             {/* <WorkshopTable  /> */}
         </Paper>
     );
