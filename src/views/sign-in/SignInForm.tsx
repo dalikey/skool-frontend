@@ -37,7 +37,7 @@ const SignInForm = () => {
 
     useEffect(() => {
         if (user && user.token) {
-            navigate('/');
+            navigate('/dashboard');
         }
     }, [user, navigate])
 
@@ -97,7 +97,6 @@ const SignInForm = () => {
                         E-mailadres en wachtwoord komen niet overeen
                     </FormHelperText>
                 )}
-                <Link href='#'>Wachtwoord vergeten?</Link>
                 <Button disabled={isLoading} type='submit' variant='contained'>
                     Aanmelden
                 </Button>
