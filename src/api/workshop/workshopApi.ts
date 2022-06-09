@@ -14,7 +14,7 @@ const extendedApi = api.injectEndpoints({
             Record<string, boolean | null>
         >({
             query: (isActive) => ({
-                url: 'workshop',
+                url: 'workshop/all',
                 params: isActive,
             }),
             providesTags: [{ type: 'Workshops', id: 'LIST' }],
