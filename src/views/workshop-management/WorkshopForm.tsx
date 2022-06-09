@@ -1,9 +1,17 @@
-import React from 'react';
+import { useFormik } from 'formik';
 
 const WorkshopForm = () => {
-    return (
-        <div>tiddies</div>
-    );
+    const formik = useFormik({
+        initialValues: {
+            name: '',
+            content: '',
+            material: [],
+        },
+        validateOnChange: false,
+        onSubmit: () => console.log('hey'),
+    });
+
+    return <div>tiddies</div>;
 };
 
 export default WorkshopForm;
