@@ -14,6 +14,7 @@ import SchoolIcon from '@mui/icons-material/School';
 import SupervisedUserCircleIcon from '@mui/icons-material/SupervisedUserCircle';
 import PersonIcon from '@mui/icons-material/Person';
 import Logo from '../../assets/logo.png';
+import {Work} from "@mui/icons-material";
 
 interface LinkItem {
     path: string;
@@ -49,6 +50,11 @@ const SidebarLinkList = ({ role }: SidebarLinkListProps) => {
             path: '/gebruikersbeheer',
             text: 'Gebruikersbeheer',
             icon: <SupervisedUserCircleIcon />,
+        },
+        {
+            path: '/shiftbeheer',
+            text: 'Shiftbeheer',
+            icon: <Work/>
         },
     ];
 

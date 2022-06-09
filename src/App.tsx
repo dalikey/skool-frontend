@@ -5,6 +5,8 @@ import AppLayout from './components/layout/AppLayout';
 import SignUp from './views/sign-up/SignUp';
 import SignIn from './views/sign-in/SignIn';
 import UserManagement from './views/user-management/UserManagement';
+import ShiftManagement from "./views/shift-management/ShiftManagement";
+import AddShiftForm from "./views/shift-management/AddShiftForm";
 
 const App = () => {
     return (
@@ -18,6 +20,8 @@ const App = () => {
                     <Route path='gebruikersbeheer' element={<UserManagement />} />
                     <Route path='workshops' element={<div></div>} />
                     <Route path='profiel' element={<div></div>} />
+                    <Route path='shiftbeheer' element={<ShiftManagement /> } />
+                    <Route path='shiftbeheer/shift-aanmaken' element={<AddShiftForm/> } />
                 </Route>
             </Routes>
         </ThemeProvider>
