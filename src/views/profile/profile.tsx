@@ -1,24 +1,27 @@
 import { Grid, Divider, Stack, Typography, Button } from '@mui/material';
 import { Edit as EditIcon } from '@mui/icons-material';
 import ProfileWorkshopStatusCards from '../../components/dashboard/ProfileWorkshopStatusCards';
-import { useLocalStorage } from '../../app/useLocalStorage';
-import { CredentialsModel } from '../../models/authModels';
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useGetPersonalProfileQuery } from '../../api/user/userApi';
+import FormDialog, { formDialog } from '../../components/dialog/FormDialog';
+import ProfileForm from './ProfileForm';
+import { UserProfileModel } from '../../models/userModels';
 
-const Profile = () => {
-    const [user] = useLocalStorage<CredentialsModel>('user');
+interface UserTableProps {
+    users?: UserProfileModel[];
+}
 
-    const navigate = useNavigate();
+const Profile = ({ users }: UserTableProps) => {
+    const { data } = useGetPersonalProfileQuery();
 
-    useEffect(() => {
-        if (!user) {
-            navigate('/sign-in');
+    const openProfileForm = () => {
+        if (data?.result) {
+            formDialog('Profiel bewerken', <ProfileForm user={data.result} />);
         }
-    }, [user, navigate]);
+    };
 
     return (
         <>
+            <FormDialog />
             <Grid container spacing={3} alignItems='stretch'>
                 <Grid item xs={12}>
                     <Stack direction='row' spacing={2}>
@@ -34,12 +37,12 @@ const Profile = () => {
                                 gutterBottom
                                 component='div'
                             >
-                                {user?.firstName + ' ' + user?.lastName}
+                                {/* {user?.firstName + ' ' + user?.lastName} */}
                             </Typography>
-                            {user?.role}
+                            {/* {user?.role} */}
                         </Typography>
                         <Stack direction='row' spacing={40}>
-                            <EditIcon />
+                            <EditIcon onClick={openProfileForm} />
                             <Button
                                 type='submit'
                                 variant='contained'

@@ -36,13 +36,6 @@ export const theme = createTheme(baseTheme, {
                 },
             },
         },
-        MuiGrid: {
-            styleOverrides: {
-                root: {
-                    backgroundColor: '#F9F9F9',
-                },
-            },
-        },
         MuiAppBar: {
             styleOverrides: {
                 root: {

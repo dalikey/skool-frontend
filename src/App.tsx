@@ -5,7 +5,7 @@ import AppLayout from './components/layout/AppLayout';
 import SignUp from './views/sign-up/SignUp';
 import SignIn from './views/sign-in/SignIn';
 import UserManagement from './views/user-management/UserManagement';
-import Profiel from './views/profile/Profile';
+import Profile from './views/profile/Profile';
 
 const App = () => {
     return (
@@ -21,7 +21,7 @@ const App = () => {
                         element={<UserManagement />}
                     />
                     <Route path='workshops' element={<div></div>} />
-                    <Route path='profiel' element={<Profiel />} />
+                    <Route path='profiel' element={<Profile />} />
                 </Route>
             </Routes>
         </ThemeProvider>

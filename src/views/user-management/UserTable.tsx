@@ -3,6 +3,8 @@ import Row from '../../components/table/Row';
 import Table from '../../components/table/Table';
 import { Delete, Edit } from '@mui/icons-material';
 import { UserModel } from '../../models/userModels';
+import ProfileForm from '../profile/ProfileForm';
+import { formDialog } from '../../components/dialog/FormDialog';
 
 interface UserTableProps {
     isLoading: boolean;
@@ -10,6 +12,12 @@ interface UserTableProps {
 }
 
 const UserTable = ({ isLoading, users }: UserTableProps) => {
+    // const openProfileForm = () => {
+    //     if (data?.result) {
+    //         formDialog('Profiel bewerken', <ProfileForm user={data.result}/>);
+    //     }
+    // };
+
     return (
         <Table
             columns={['Voornaam', 'Achternaam', 'E-mailadres', 'Rol', 'Actief']}
@@ -22,7 +30,9 @@ const UserTable = ({ isLoading, users }: UserTableProps) => {
                         <TableCell>{user.lastName}</TableCell>
                         <TableCell>{user.emailAddress}</TableCell>
                         <TableCell>{user.role}</TableCell>
-                        <TableCell>{user.isActive}</TableCell>
+                        {user.isActive && (
+                            <TableCell>{user.isActive}</TableCell>
+                        )}
                         <TableCell align='right'>
                             {user.isActive && (
                                 <IconButton aria-label='edit' color='secondary'>

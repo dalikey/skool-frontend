@@ -1,3 +1,4 @@
+import { UserProfileModel } from './../../models/userModels';
 import { RegistrationModel, UserModel } from '../../models/userModels';
 import { api } from './../api';
 
@@ -5,6 +6,10 @@ interface getAllUsersResponse {
     error?: string;
     message?: string;
     result?: RegistrationModel[] | UserModel[];
+}
+
+interface getUserProfileResponse {
+    result?: UserProfileModel;
 }
 
 const extendedApi = api.injectEndpoints({
@@ -18,6 +23,26 @@ const extendedApi = api.injectEndpoints({
                 params: isActive,
             }),
             providesTags: [{ type: 'Users', id: 'LIST' }],
+        }),
+        getPersonalProfile: build.query<getUserProfileResponse, void>({
+            query: () => ({
+                url: `user/@me`,
+            }),
+            providesTags: [{ type: 'Users', id: 'PROFILE' }],
+        }),
+        getUserProfile: build.query<getUserProfileResponse, void>({
+            query: () => ({
+                url: `user/@me`,
+            }),
+            providesTags: [{ type: 'Users', id: 'PROFILE' }],
+        }),
+        updateUserProfile: build.mutation<void, UserProfileModel>({
+            query: (userProfile) => ({
+                url: `user/${userProfile._id}`,
+                method: 'PUT',
+                body: userProfile
+            }),
+            invalidatesTags: [{ type: 'Users', id: 'PROFILE' }],
         }),
         activateUser: build.mutation<void, string>({
             query: (id) => ({
@@ -39,6 +64,8 @@ const extendedApi = api.injectEndpoints({
 
 export const {
     useGetAllUsersQuery,
+    useGetPersonalProfileQuery,
     useActivateUserMutation,
     useDeactivateUserMutation,
+    useUpdateUserProfileMutation,
 } = extendedApi;

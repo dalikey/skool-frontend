@@ -4,6 +4,7 @@ export interface CredentialsModel {
     role: string;
     token: string;
     isActive: boolean;
+    _id: string;
 }
 
 export interface LoginModel {
