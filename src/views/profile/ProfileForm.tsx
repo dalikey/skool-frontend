@@ -19,16 +19,6 @@ interface ProfileFormProps {
     user: UserProfileModel;
 }
 
-interface PasswordBody {
-    passwordInfo: {
-        password: string;
-        passwordConfirm: string;
-        currentPassword: string;
-    }
-}
-
-type ProfileFormValues = UserProfileModel & PasswordBody;
-
 const ProfileForm = ({ user }: ProfileFormProps) => {
     const { close } = useFormDialogStore();
 
@@ -40,7 +30,28 @@ const ProfileForm = ({ user }: ProfileFormProps) => {
     };
 
     const formik = useFormik({
-        initialValues: user as ProfileFormValues,
+        initialValues: {
+            location: {
+                address: '',
+                postalCode: '',
+                country: '',
+                city: '',
+            },
+            paymentInfo: {
+                IBAN: '',
+                BIC: '',
+            },
+            transport: {
+                hasDriversLicense: false,
+                hasVehicle: false,
+            },
+            passwordInfo: {
+                password: '',
+                passwordConfirm: '',
+                currentPassword: '',
+            },
+            ...user,
+        },
         validateOnChange: false,
         validationSchema: UserUpdateSchema,
         onSubmit: handleSubmit,

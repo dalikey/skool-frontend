@@ -9,6 +9,7 @@ import {
 } from '@mui/material';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { format } from 'date-fns';
 import ProfilePicture from '../../../assets/capybara.jpg';
 
 interface ProfileFormPersonalProps {
@@ -77,12 +78,13 @@ const ProfileFormPersonal = ({ formik }: ProfileFormPersonalProps) => {
                         <LocalizationProvider dateAdapter={AdapterDateFns}>
                             <DatePicker
                                 label='Geboortedatum'
+                                mask=''
                                 value={formik.values.dateOfBirth ?? null}
                                 inputFormat='dd / MM / yyyy'
                                 onChange={(value) =>
                                     formik.setFieldValue(
                                         'dateOfBirth',
-                                        new Date(value)
+                                        format(new Date(value), 'dd/MM/yyyy')
                                     )
                                 }
                                 renderInput={(params) => (
