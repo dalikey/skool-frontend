@@ -22,7 +22,9 @@ const CustomerTable = ({ isLoading, customers }: CustomerTableProps) => {
             <TableCell>{customer.contact.emailAddress}</TableCell>
             <TableCell>{customer.contact.phoneNumber}</TableCell>
             <TableCell>
-              {customer.location.address} {customer.location.city}
+              {customer.location.address}, <br />
+              {customer.location.postalCode} {customer.location.city} <br />
+              {customer.location.country}
             </TableCell>
             <TableCell align="right">
               <IconButton aria-label="edit" color="secondary">
