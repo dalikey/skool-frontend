@@ -17,7 +17,7 @@ interface LocationModel {
     address: string,
     country: "Nederland" | "België",
     postcode: string,
-    city: string,
+    city: string
 }
 
 interface TimeStampModel {

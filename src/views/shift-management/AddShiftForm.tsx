@@ -69,6 +69,7 @@ const AddShiftForm = () => {
     ];
 
     const handleSaveWorkshop = (values: WorkshopShiftModel): void => {
+        console.log(values);
         // register(values);
     };
 
@@ -82,14 +83,14 @@ const AddShiftForm = () => {
                 address: '',
                 city: '',
                 postcode: '',
-                country: 'Nederland',
+                country: '',
             },
-            targetAudience: 'School',
+            targetAudience: '',
             level: '',
             date: new Date(),
             availableUntil: new Date(),
             hourRate: 0,
-            dayRate: 0,
+            dayRate: '',
             timestamps: [
                 {
                     startTime: '',
@@ -99,7 +100,7 @@ const AddShiftForm = () => {
         },
         validationSchema: WorkshopShiftSchema,
         validateOnChange: true,
-        onSubmit: handleSaveWorkshop,
+        onSubmit: (values) => {console.log(values)},
     });
 
     const navigate = useNavigate();
@@ -109,8 +110,8 @@ const AddShiftForm = () => {
             navigate('/sign-in');
         }
     }, [isSuccess, navigate]);
-
     return (
+
         <Box
             display='flex'
             alignItems='center'
@@ -170,20 +171,45 @@ const AddShiftForm = () => {
                                 <Stack spacing={1} direction={'row'}>
                                     <TextField
                                         id='location.address'
-                                        name='address'
+                                        name='location.address'
                                         label='Adres'
+                                        value={formik.values.location.address}
+                                        onChange={formik.handleChange}
+                                        error={
+                                            formik.touched.location?.address &&
+                                            Boolean(formik.errors.location?.address)
+                                        }
+                                        helperText={
+                                            formik.touched.location?.address && formik.errors.location?.address
+                                        }
                                     ></TextField>
                                     <TextField
                                         id='location.city'
-                                        name='city'
+                                        name='location.city'
                                         label='Stad'
+                                        value={formik.values.location.city}
+                                        onChange={formik.handleChange}
+                                        helperText={
+                                            formik.touched.location?.city && formik.errors.location?.city
+                                        }
+                                        error={
+                                            formik.touched.location?.city &&
+                                            Boolean(
+                                                formik.errors.location?.city
+                                            )
+                                        }
                                     ></TextField>
                                 </Stack>
                                 <Stack spacing={1} direction={'row'}>
                                     <TextField
                                         id='location.postcode'
-                                        name='postcode'
+                                        name='location.postcode'
                                         label='Postcode'
+                                        value={formik.values.location.postcode}
+                                        onChange={formik.handleChange}
+                                        helperText={
+                                            formik.touched.location?.postcode && formik.errors.location?.postcode
+                                        }
                                         error={
                                             formik.touched.location?.postcode &&
                                             Boolean(
@@ -195,8 +221,16 @@ const AddShiftForm = () => {
                                         <InputLabel>Land</InputLabel>
                                         <Select
                                             id='location.country'
-                                            name='country'
+                                            name='location.country'
                                             label='Land'
+                                            value={formik.values.location.country}
+                                            onChange={formik.handleChange}
+                                            error={
+                                                formik.touched.location?.country &&
+                                                Boolean(
+                                                    formik.errors.location?.country
+                                                )
+                                            }
                                         >
                                             <MenuItem value={'Nederland'}>
                                                 Nederland
@@ -218,7 +252,7 @@ const AddShiftForm = () => {
                                             <TextField {...params}></TextField>
                                         )}
                                         onChange={formik.handleChange}
-                                        value={new Date()}
+                                        value={formik.values.date}
                                     ></DesktopDatePicker>
                                     <DesktopDatePicker
                                         label={'Beschikbaar tot'}
@@ -227,7 +261,7 @@ const AddShiftForm = () => {
                                             <TextField {...params}></TextField>
                                         )}
                                         onChange={formik.handleChange}
-                                        value={new Date()}
+                                        value={formik.values.availableUntil}
                                     ></DesktopDatePicker>
                                 </LocalizationProvider>
                                 <TextField
@@ -235,39 +269,93 @@ const AddShiftForm = () => {
                                     name='maximumParticipants'
                                     label='Aantal medewerkers'
                                     type={'number'}
+                                    value={formik.values.maximumParticipants}
+                                    onChange={formik.handleChange}
+                                    error={
+                                        formik.touched.maximumParticipants &&
+                                        Boolean(formik.errors.maximumParticipants)
+                                    }
+                                    helperText={
+                                        formik.touched.maximumParticipants && formik.errors.maximumParticipants
+                                    }
                                 ></TextField>
                                 <TextField
                                     id={'targetAudience'}
                                     name={'targetAudience'}
                                     label={'Doelgroep'}
+                                    value={formik.values.targetAudience}
+                                    onChange={formik.handleChange}
+                                    error={
+                                        formik.touched.targetAudience &&
+                                        Boolean(formik.errors.targetAudience)
+                                    }
+                                    helperText={
+                                        formik.touched.targetAudience && formik.errors.targetAudience
+                                    }
                                 ></TextField>
                                 <TextField
                                     id={'level'}
                                     name={'level'}
                                     label={'Niveau'}
+                                    value={formik.values.level}
+                                    onChange={formik.handleChange}
+                                    error={
+                                        formik.touched.level &&
+                                        Boolean(formik.errors.level)
+                                    }
+                                    helperText={
+                                        formik.touched.level && formik.errors.level
+                                    }
                                 ></TextField>
                                 <TextField
                                     id='extraInfo'
                                     name='extraInfo'
                                     label='Extra info'
+                                    value={formik.values.extraInfo}
+                                    onChange={formik.handleChange}
+                                    error={
+                                        formik.touched.extraInfo &&
+                                        Boolean(formik.errors.extraInfo)
+                                    }
+                                    helperText={
+                                        formik.touched.extraInfo && formik.errors.extraInfo
+                                    }
                                 ></TextField>
                                 <Stack direction={'row'} spacing={1}>
                                     <TextField
                                         id='hourRate'
                                         name='hourRate'
                                         label='Uurloon'
+                                        value={formik.values.hourRate}
+                                        onChange={formik.handleChange}
+                                        error={
+                                            formik.touched.hourRate &&
+                                            Boolean(formik.errors.hourRate)
+                                        }
+                                        helperText={
+                                            formik.touched.hourRate && formik.errors.hourRate
+                                        }
                                     ></TextField>
                                     <TextField
                                         id='dayRate'
                                         name='dayRate'
                                         label='Dagloon'
+                                        value={formik.values.dayRate}
+                                        onChange={formik.handleChange}
+                                        error={
+                                            formik.touched.dayRate &&
+                                            Boolean(formik.errors.dayRate)
+                                        }
+                                        helperText={
+                                            formik.touched.dayRate && formik.errors.dayRate
+                                        }
                                     ></TextField>
                                 </Stack>
 
                                 <FormikProvider value={formik}>
                                     <FieldArray
                                         name='timestamps'
-                                        render={({ insert, remove, push }) => (
+                                        render={({ remove, push }) => (
                                             <Stack spacing={1}>
                                                 <Stack
                                                     direction={'row'}
@@ -302,9 +390,7 @@ const AddShiftForm = () => {
                                                                         'startHour'
                                                                     }
                                                                     name={`timestamps.${index}.startTime`}
-                                                                    value={
-                                                                        timestamp.startTime
-                                                                    }
+
                                                                     label={
                                                                         'Start-tijd'
                                                                     }
@@ -317,19 +403,19 @@ const AddShiftForm = () => {
                                                                     label={
                                                                         'Eind-tijd'
                                                                     }
-                                                                    value={
-                                                                        timestamp.endTime
-                                                                    }
+
                                                                 ></TextField>
-                                                                <Button
-                                                                    onClick={() =>
-                                                                        remove(
-                                                                            index
-                                                                        )
-                                                                    }
-                                                                >
-                                                                    <Remove></Remove>
-                                                                </Button>
+                                                                { index !== 0 &&
+                                                                    <Button
+                                                                        onClick={() =>
+                                                                            remove(
+                                                                                index
+                                                                            )
+                                                                        }
+                                                                    >
+                                                                        <Remove></Remove>
+                                                                    </Button>}
+
                                                             </Stack>
                                                         )
                                                     )}

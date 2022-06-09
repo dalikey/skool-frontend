@@ -18,10 +18,10 @@ export const WorkshopShiftSchema = Yup.object({
         {
             address: Yup.string().required('Verplicht'),
             city: Yup.string().required('Verplicht'),
-            postcode: Yup.string().required('Verplicht').matches(/[1-9]{4}[A-Z]{2}/, 'Geen geldige postcode'),
+            postcode: Yup.string().required('Verplicht').matches(/\d{4}[A-Z]{2}/, 'Geen geldige postcode'),
             country: Yup.string().required('Verplicht')
         }
-    ),
+    ).required('Verplicht'),
     timestamps: Yup.array().of(Yup.object({
         startTime: Yup.string().required('Verplicht'),
         endTime: Yup.string().required('Verplicht')
