@@ -1,35 +1,44 @@
-import { WorkshopShiftModel } from '../../models/workshopShiftModels';
+import { WorkshopModel } from '../../models/workshopModels';
 import { api } from './../api';
 
-interface getAllShiftsResponse {
+interface getAllWorkshopsResponse {
     error?: string;
     message?: string;
-    result?: WorkshopShiftModel[] ;
+    result?: WorkshopModel[];
 }
 
 const extendedApi = api.injectEndpoints({
     endpoints: (build) => ({
-        getAllShifts: build.query<
-            getAllShiftsResponse,
+        getAllWorkshops: build.query<
+            getAllWorkshopsResponse,
             Record<string, boolean | null>
         >({
             query: (isActive) => ({
-                url: 'workshop/shift',
+                url: 'workshop',
+                params: isActive,
             }),
-            providesTags: [{ type: 'Users', id: 'LIST' }],
+            providesTags: [{ type: 'Workshops', id: 'LIST' }],
         }),
-        createShift: build.mutation<void, string>({
+        activateWorkshop: build.mutation<void, string>({
             query: (id) => ({
-                url: `workshop/shift`,
+                url: `workshop/${id}/activate`,
                 method: 'POST',
             }),
-            invalidatesTags: [{ type: 'Users', id: 'LIST' }],
+            invalidatesTags: [{ type: 'Workshops', id: 'LIST' }],
+        }),
+        deactivateWorkshop: build.mutation<void, string>({
+            query: (id) => ({
+                url: `workshop/${id}/deactivate`,
+                method: 'POST',
+            }),
+            invalidatesTags: [{ type: 'Workshops', id: 'LIST' }],
         }),
     }),
     overrideExisting: false,
 });
 
 export const {
-    useGetAllShiftsQuery,
-    useCreateShiftMutation,
+    useGetAllWorkshopsQuery,
+    useActivateWorkshopMutation,
+    useDeactivateWorkshopMutation,
 } = extendedApi;

@@ -1,4 +1,3 @@
-
 export interface RegistrationModel {
     _id: string;
     firstName: string;

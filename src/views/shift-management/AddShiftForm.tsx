@@ -9,7 +9,7 @@ import {
     Card,
     MenuItem,
     Select,
-    Divider,
+    Divider, InputAdornment,
 } from '@mui/material';
 import { Add, Remove } from '@mui/icons-material';
 import { FormikProvider, useFormik } from 'formik';
@@ -18,68 +18,23 @@ import { useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import { WorkshopShiftSchema } from '../../schemas/workshopShiftSchemas';
 import { WorkshopShiftModel } from '../../models/workshopShiftModels';
-import { useCreateShiftMutation } from '../../api/workshop/workshopApi';
+import { useGetAllWorkshopsQuery } from '../../api/workshop/workshopApi';
 import { useGetAllCustomersQuery } from '../../api/customer/customerApi'
-import { AdapterLuxon } from '@mui/x-date-pickers/AdapterLuxon';
 import {DatePicker, DesktopDatePicker, LocalizationProvider} from '@mui/x-date-pickers';
 import { FieldArray } from 'formik';
-import { DateTime } from 'luxon';
 import {AdapterDateFns} from "@mui/x-date-pickers/AdapterDateFns";
-import {format} from "date-fns";
-import assert from "assert";
+import {useCreateShiftMutation} from "../../api/shift/shiftApi";
 
 
 const AddShiftForm = () => {
-    const [createShift, { isSuccess, isError, isLoading }] =
-        useCreateShiftMutation();
-
     const { data: customers } = useGetAllCustomersQuery();
 
-    const customersOld = [
-        {
-            _id: '35345256455653456',
-            contact: {
-                emailAddress: 'markland@example.com',
-                phoneNumber: '+31612345678',
-            },
-            location: {
-                street_houseNr: 'Gildelaan 1',
-                postalcode: '4761NV',
-                city: 'Zevenbergen',
-                country: 'Nederland',
-            },
-            name: 'Markland College Zevenbergen',
-        },
-        {
-            _id: '3245234532454353452',
-            contact: {
-                emailAddress: 'markland@example.com',
-                phoneNumber: '+31612345678',
-            },
-            location: {
-                street_houseNr: 'Gildelaan 1',
-                postalcode: '4761NV',
-                city: 'Zevenbergen',
-                country: 'Nederland',
-            },
-            name: 'Markland College Oudenbosch',
-        },
-    ];
+    const {data: functions } = useGetAllWorkshopsQuery({isActive: true});
 
-    const functies = [
-        {
-            _id: '1434523452345435345',
-            name: 'Vloggen',
-        },
-        {
-            _id: '435234523543245435',
-            name: 'Breakdance',
-        },
-    ];
+    const [createShift, {isSuccess, isError, isLoading}] = useCreateShiftMutation();
 
     const handleSaveWorkshop = (values: WorkshopShiftModel): void => {
-        console.log(values);
-        // register(values);
+        createShift(values);
     };
 
     const formik = useFormik({
@@ -91,7 +46,7 @@ const AddShiftForm = () => {
             location: {
                 address: '',
                 city: '',
-                postcode: '',
+                postalCode: '',
                 country: 'Nederland',
             },
             targetAudience: '',
@@ -107,17 +62,29 @@ const AddShiftForm = () => {
                 },
             ],
         },
+        validationSchema: WorkshopShiftSchema,
         validateOnChange: true,
         onSubmit: handleSaveWorkshop,
     });
 
     const navigate = useNavigate();
 
+    const handleCustomerChange = (value) => {
+
+        customers?.result?.forEach((customerEntry) => {
+            console.log(customerEntry)
+            if (customerEntry._id === value.target.value) {
+                formik.setFieldValue('location.address', customerEntry.location.address);
+                formik.setFieldValue('location.postalCode', customerEntry.location.postalCode);
+                formik.setFieldValue('location.city', customerEntry.location.city);
+                formik.setFieldValue('location.country', customerEntry.location.country)
+            }
+        })
+        formik.handleChange(value);
+    }
+
     useEffect(() => {
-        if (isSuccess) {
-            navigate('/sign-in');
-        }
-    }, [isSuccess, navigate]);
+    }, [navigate]);
     return (
 
         <Box
@@ -140,7 +107,7 @@ const AddShiftForm = () => {
                                         label='Klant'
 
                                         value={formik.values.clientId}
-                                        onChange={formik.handleChange}
+                                        onChange={handleCustomerChange}
                                         error={
                                             formik.touched.clientId &&
                                             Boolean(formik.errors.clientId)
@@ -168,7 +135,7 @@ const AddShiftForm = () => {
                                         }
                                         variant='standard'
                                     >
-                                        {functies.map((item) => (
+                                        {functions?.result?.map((item) => (
                                             <MenuItem value={item._id}>
                                                 Workshopdocent {item.name}
                                             </MenuItem>
@@ -211,18 +178,18 @@ const AddShiftForm = () => {
                                 </Stack>
                                 <Stack spacing={1} direction={'row'}>
                                     <TextField
-                                        id='location.postcode'
-                                        name='location.postcode'
+                                        id='location.postalCode'
+                                        name='location.postalCode'
                                         label='Postcode'
-                                        value={formik.values.location.postcode}
+                                        value={formik.values.location.postalCode}
                                         onChange={formik.handleChange}
                                         helperText={
-                                            formik.touched.location?.postcode && formik.errors.location?.postcode
+                                            formik.touched.location?.postalCode && formik.errors.location?.postalCode
                                         }
                                         error={
-                                            formik.touched.location?.postcode &&
+                                            formik.touched.location?.postalCode &&
                                             Boolean(
-                                                formik.errors.location?.postcode
+                                                formik.errors.location?.postalCode
                                             )
                                         }
                                     ></TextField>
@@ -344,6 +311,7 @@ const AddShiftForm = () => {
                                         label='Uurloon'
                                         value={formik.values.hourRate}
                                         onChange={formik.handleChange}
+                                        type={'number'}
                                         error={
                                             formik.touched.hourRate &&
                                             Boolean(formik.errors.hourRate)
@@ -356,6 +324,7 @@ const AddShiftForm = () => {
                                         id='dayRate'
                                         name='dayRate'
                                         label='Dagloon'
+                                        type={'number'}
                                         value={formik.values.dayRate}
                                         onChange={formik.handleChange}
                                         error={
@@ -395,30 +364,27 @@ const AddShiftForm = () => {
                                                     .length > 0 &&
                                                     formik.values.timestamps.map(
                                                         (timestamp, index) => (
-                                                            <Stack
-                                                                direction={
-                                                                    'row'
-                                                                }
-                                                                spacing={1}
-                                                            >
+                                                            <Stack direction={'row'} spacing={1}>
                                                                 <TextField
-                                                                    id={
-                                                                        'startHour'
-                                                                    }
+                                                                    id={`timestamps.${index}.startTime`}
                                                                     name={`timestamps.${index}.startTime`}
 
                                                                     label={
-                                                                        'Start-tijd'
+                                                                        'Starttijd'
                                                                     }
+                                                                    value={formik.values.timestamps[index].startTime}
+                                                                    onChange={formik.handleChange}
                                                                 ></TextField>
                                                                 <TextField
                                                                     id={
-                                                                        'endHour'
+                                                                        `timestamps.${index}.endTime`
                                                                     }
                                                                     name={`timestamps.${index}.endTime`}
                                                                     label={
-                                                                        'Eind-tijd'
+                                                                        'Eindtijd'
                                                                     }
+                                                                    value={formik.values.timestamps[index].endTime}
+                                                                    onChange={formik.handleChange}
 
                                                                 ></TextField>
                                                                 { index !== 0 &&

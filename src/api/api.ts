@@ -5,7 +5,6 @@ const BASE_URL =
         ? process.env.REACT_APP_BASE_URL
         : 'http://localhost:3004/api';
 
-
 const baseQuery = () => {
     const baseQuery = fetchBaseQuery({
         baseUrl: BASE_URL,
@@ -13,7 +12,7 @@ const baseQuery = () => {
             const user = localStorage.getItem('user');
 
             if (user) {
-                headers.set('Authorization', JSON.parse(user).token);
+                headers.set('authorization', JSON.parse(user).token);
             }
 
             return headers;
@@ -27,16 +26,16 @@ const baseQuery = () => {
                 localStorage.clear();
                 window.location.href = '/sign-in';
             }
-            return { error: { status: error.status, data: error.data }}
+            return { error: { status: error.status, data: error.data } };
         }
 
-        return { data }
+        return { data };
     };
 };
 
 export const api = createApi({
     reducerPath: 'api',
     baseQuery: baseQuery(),
-    tagTypes: ['Users', 'Customers'],
+    tagTypes: ['Users', 'Workshops', 'Customers', 'Shift'],
     endpoints: () => ({}),
 });

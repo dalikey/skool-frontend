@@ -16,7 +16,7 @@ export interface WorkshopShiftModel {
 interface LocationModel {
     address: string,
     country: "Nederland" | "België",
-    postcode: string,
+    postalCode: string,
     city: string
 }
 

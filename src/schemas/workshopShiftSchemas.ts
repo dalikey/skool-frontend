@@ -4,7 +4,6 @@ import * as Yup from 'yup';
 export const WorkshopShiftSchema = Yup.object({
     clientId: Yup.string().required('Verplicht'),
     workshopId: Yup.string().required('Verplicht'),
-    function: Yup.string().required('Verplicht'),
     maximumParticipants: Yup.number()
         .required('Verplicht'),
     extraInfo: Yup.string(),
@@ -18,7 +17,7 @@ export const WorkshopShiftSchema = Yup.object({
         {
             address: Yup.string().required('Verplicht'),
             city: Yup.string().required('Verplicht'),
-            postcode: Yup.string().required('Verplicht').matches(/\d{4}[A-Z]{2}/, 'Geen geldige postcode'),
+            postalCode: Yup.string().required('Verplicht').matches(/\d{4}\s[A-Z]{2}/, 'Geen geldige postcode'),
             country: Yup.string().required('Verplicht')
         }
     ).required('Verplicht'),
