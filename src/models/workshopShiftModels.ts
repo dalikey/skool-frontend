@@ -2,7 +2,7 @@ export interface WorkshopShiftModel {
     clientId: string,
     workshopId: string,
     maximumParticipants: number;
-    details: string;
+    extraInfo: string;
     location: LocationModel;
     targetAudience: string,
     level: string,
@@ -21,6 +21,6 @@ interface LocationModel {
 }
 
 interface TimeStampModel {
-    startTime: "string"
-    endTime: "string"
+    startTime: string
+    endTime: string
 }

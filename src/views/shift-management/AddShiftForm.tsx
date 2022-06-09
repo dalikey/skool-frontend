@@ -6,18 +6,17 @@ import {
     InputLabel,
  Grow, CardContent, Card, MenuItem, Select, Divider
 } from '@mui/material';
-import {Add, InsertPageBreak, Visibility, VisibilityOff} from '@mui/icons-material';
-import { useFormik } from 'formik';
-import React, { useState, MouseEvent, useEffect } from 'react';
+import {Add, Remove} from '@mui/icons-material';
+import {useFormik} from 'formik';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Box from "@mui/material/Box";
 import {WorkshopShiftSchema} from "../../schemas/workshopShiftSchemas";
 import {WorkshopShiftModel} from "../../models/workshopShiftModels";
 import {useCreateShiftMutation} from "../../api/workshop/workshopApi";
-import {render} from "react-dom";
-import Row from "../../components/table/Row";
 import { AdapterLuxon } from '@mui/x-date-pickers/AdapterLuxon'
-import {DateTimePicker, DesktopDatePicker, LocalizationProvider} from "@mui/x-date-pickers";
+import {DesktopDatePicker, LocalizationProvider} from "@mui/x-date-pickers";
+import {FieldArray} from "formik";
 
 const AddShiftForm = () => {
 
@@ -68,14 +67,13 @@ const AddShiftForm = () => {
         // register(values);
     };
 
-    const handleChangeClient = () => {}
 
     const formik = useFormik({
         initialValues: {
             clientId: '',
             workshopId: '',
             maximumParticipants: 10,
-            details: '',
+            extraInfo: '',
             location: {
                 address: '',
                 city: '',
@@ -88,7 +86,12 @@ const AddShiftForm = () => {
             availableUntil: new Date(),
             hourRate: 0,
             dayRate: 0,
-            timestamps: []
+            timestamps: [
+                {
+                    startTime: '',
+                    endTime: ''
+                }
+            ]
 
         },
         validationSchema: WorkshopShiftSchema,
@@ -179,7 +182,7 @@ const AddShiftForm = () => {
                                             Boolean(formik.errors.location?.postcode)
                                         }
                                         ></TextField>
-                                    <FormControl variant={"standard"} fullWidth>
+                                    <FormControl variant={"filled"} fullWidth>
                                     <InputLabel>Land</InputLabel>
                                     <Select
                                         id='location.country'
@@ -202,6 +205,11 @@ const AddShiftForm = () => {
                                         inputFormat={"dd-MM-yyyy"}
                                         renderInput={(params) => <TextField {...params}></TextField>}
                                      onChange={formik.handleChange} value={new Date()}></DesktopDatePicker>
+                                    <DesktopDatePicker
+                                        label={"Beschikbaar tot"}
+                                        inputFormat={"dd-MM-yyyy"}
+                                        renderInput={(params) => <TextField {...params}></TextField>}
+                                        onChange={formik.handleChange} value={new Date()}></DesktopDatePicker>
                                 </LocalizationProvider>
                                 <TextField
                                     id='maximumParticipants'
@@ -220,8 +228,8 @@ const AddShiftForm = () => {
                                     label={'Niveau'}
                                 ></TextField>
                                 <TextField
-                                    id='details'
-                                    name='details'
+                                    id='extraInfo'
+                                    name='extraInfo'
                                     label="Extra info"
                                     >
                                 </TextField>
@@ -239,17 +247,44 @@ const AddShiftForm = () => {
                                     >
                                     </TextField>
                                 </Stack>
-                                <InputLabel>
-                                    Blokuren
-                                </InputLabel>
-                                <Stack direction={"row"} spacing={1}>
-                                    <TextField></TextField>
-                                    <TextField></TextField>
-                                    <Button
-                                    >
-                                        <Add></Add>
-                                    </Button>
-                                </Stack>
+
+                                <FieldArray name={'timestamps'}
+                                            render={({ insert, remove, push}) => (
+                                                <Stack spacing={1}>
+                                                    <Stack direction={'row'} spacing={1}>
+                                                        <InputLabel>
+                                                            Uren
+                                                        </InputLabel>
+                                                        <Button onClick={() => push({endHour: '', startHour: ''})}>
+                                                            <Add></Add>
+                                                        </Button>
+                                                    </Stack>
+                                                    {formik.values.timestamps.length > 0 &&
+                                                        formik.values.timestamps.map((block, index) => (
+                                                            <Stack direction={'row'} spacing={1}>
+                                                                <TextField
+                                                                    id={'startHour'}
+                                                                    name={`timestamps.${index}.startTime`}
+                                                                    value={formik.values.timestamps[index].startTime}
+                                                                    label={'Start-tijd'}
+                                                                ></TextField>
+                                                                <TextField
+                                                                    id={'endHour'}
+                                                                    name={`timestamps.${index}.endTime`}
+                                                                    label={'Eind-tijd'}
+                                                                    value={formik.values.timestamps[index].endTime}
+                                                                >
+                                                                </TextField>
+                                                                <Button onClick={() => remove(index)}>
+                                                                    <Remove></Remove>
+                                                                </Button>
+                                                            </Stack>
+                                                        ))
+                                                    }
+
+                                                </Stack>
+                                            )}
+                                />
                                 <Button
                                     disabled={isLoading}
                                     type='submit'
