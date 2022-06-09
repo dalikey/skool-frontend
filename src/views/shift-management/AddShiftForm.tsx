@@ -19,19 +19,23 @@ import Box from '@mui/material/Box';
 import { WorkshopShiftSchema } from '../../schemas/workshopShiftSchemas';
 import { WorkshopShiftModel } from '../../models/workshopShiftModels';
 import { useCreateShiftMutation } from '../../api/workshop/workshopApi';
+import { useGetAllCustomersQuery } from '../../api/customer/customerApi'
 import { AdapterLuxon } from '@mui/x-date-pickers/AdapterLuxon';
 import {DatePicker, DesktopDatePicker, LocalizationProvider} from '@mui/x-date-pickers';
 import { FieldArray } from 'formik';
 import { DateTime } from 'luxon';
 import {AdapterDateFns} from "@mui/x-date-pickers/AdapterDateFns";
 import {format} from "date-fns";
+import assert from "assert";
 
 
 const AddShiftForm = () => {
     const [createShift, { isSuccess, isError, isLoading }] =
         useCreateShiftMutation();
 
-    const customers = [
+    const { data: customers } = useGetAllCustomersQuery();
+
+    const customersOld = [
         {
             _id: '35345256455653456',
             contact: {
@@ -134,6 +138,7 @@ const AddShiftForm = () => {
                                         id='clientId'
                                         name='clientId'
                                         label='Klant'
+
                                         value={formik.values.clientId}
                                         onChange={formik.handleChange}
                                         error={
@@ -142,7 +147,7 @@ const AddShiftForm = () => {
                                         }
                                         variant='standard'
                                     >
-                                        {customers.map((item) => (
+                                        {customers?.result?.map((item) => (
                                             <MenuItem value={item._id}>
                                                 {item.name}
                                             </MenuItem>

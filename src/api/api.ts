@@ -13,7 +13,7 @@ const baseQuery = () => {
             const user = localStorage.getItem('user');
 
             if (user) {
-                headers.set('authorization', JSON.parse(user).token);
+                headers.set('Authorization', JSON.parse(user).token);
             }
 
             return headers;
