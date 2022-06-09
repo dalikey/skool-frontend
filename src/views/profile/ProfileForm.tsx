@@ -94,6 +94,18 @@ const ProfileForm = ({ user }: ProfileFormProps) => {
                                 onChange={formik.handleChange}
                                 variant='standard'
                                 sx={{ mt: -2 }}
+                                error={
+                                    formik.touched.passwordInfo
+                                        ?.currentPassword &&
+                                    Boolean(
+                                        formik.errors.passwordInfo?.currentPassword
+                                    )
+                                }
+                                helperText={
+                                    formik.touched.passwordInfo
+                                        ?.currentPassword &&
+                                    formik.errors.passwordInfo?.currentPassword
+                                }
                             />
                             <Button onClick={close}>Annuleren</Button>
                             <Button

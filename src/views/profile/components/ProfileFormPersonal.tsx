@@ -79,7 +79,6 @@ const ProfileFormPersonal = ({ formik }: ProfileFormPersonalProps) => {
                         <LocalizationProvider dateAdapter={AdapterDateFns}>
                             <DatePicker
                                 label='Geboortedatum'
-                                inputFormat='dd-MM-yyyy'
                                 value={formik.values.dateOfBirth ?? undefined}
                                 onChange={(value) =>
                                     formik.setFieldValue(
