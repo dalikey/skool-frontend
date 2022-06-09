@@ -12,20 +12,12 @@ interface WorkshopTableProps {
 const WorkshopTable = ({ isLoading, workshops }: WorkshopTableProps) => {
     return (
         <Table
-            columns={['', 'Naam', 'Beschrijving', 'Benodigde materialen']}
+            columns={['Naam', 'Beschrijving', 'Benodigde materialen']}
             isLoading={isLoading}
         >
             {workshops &&
                 workshops.map((workshop) => (
                     <Row key={workshop._id}>
-                        <TableCell>
-                            <img
-                                src={workshop.imageUrl}
-                                alt='Geen afbeelding beschikbaar'
-                                width='100'
-                                height='100'
-                            />
-                        </TableCell>
                         <TableCell>{workshop.name}</TableCell>
                         <TableCell>{workshop.description}</TableCell>
                         <TableCell>{workshop.materials}</TableCell>
