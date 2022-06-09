@@ -1,9 +1,16 @@
 export interface WorkshopShiftModel {
     clientId: string,
-    function: string;
-    maxAmountOfParticipants: number;
+    workshopId: string,
+    maximumParticipants: number;
     details: string;
     location: LocationModel;
+    targetAudience: string,
+    level: string,
+    date: Date,
+    availableUntil: Date
+    hourRate?: number
+    dayRate?: number
+    timestamps: Array<TimeStampModel>
 }
 
 interface LocationModel {
@@ -11,4 +18,9 @@ interface LocationModel {
     country: "Nederland" | "België",
     postcode: string,
     city: string,
+}
+
+interface TimeStampModel {
+    startTime: "string"
+    endTime: "string"
 }
