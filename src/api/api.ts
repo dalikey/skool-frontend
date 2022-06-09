@@ -37,6 +37,6 @@ const baseQuery = () => {
 export const api = createApi({
     reducerPath: 'api',
     baseQuery: baseQuery(),
-    tagTypes: ['Users'],
+    tagTypes: ['Users', 'Customers'],
     endpoints: () => ({}),
 });
