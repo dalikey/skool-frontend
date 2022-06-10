@@ -1,5 +1,8 @@
 import { Grid, Divider, Stack, Typography, Button } from '@mui/material';
-import { Edit as EditIcon } from '@mui/icons-material';
+import {
+    Edit as EditIcon,
+    AttachFile as AttachFileIcon,
+} from '@mui/icons-material';
 import ProfileWorkshopStatusCards from '../../components/dashboard/ProfileWorkshopStatusCards';
 import { useGetPersonalProfileQuery } from '../../api/user/userApi';
 import FormDialog, { formDialog } from '../../components/dialog/FormDialog';
@@ -44,11 +47,13 @@ const Profile = ({ users }: UserTableProps) => {
                         <Stack direction='row' spacing={40}>
                             <EditIcon onClick={openProfileForm} />
                             <Button
-                                type='submit'
                                 variant='contained'
+                                component='label'
                                 sx={{ my: '16px' }}
                             >
+                                <AttachFileIcon />
                                 Een bestand toevoegen
+                                <input type='file' hidden />
                             </Button>
                         </Stack>
                     </Stack>
