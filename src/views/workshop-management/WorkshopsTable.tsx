@@ -1,4 +1,4 @@
-import { Button, IconButton, TableCell } from '@mui/material';
+import { IconButton, TableCell } from '@mui/material';
 import Row from '../../components/table/Row';
 import Table from '../../components/table/Table';
 import { Delete, Edit, Share } from '@mui/icons-material';
@@ -62,6 +62,3 @@ const WorkshopTable = ({ isLoading, workshops }: WorkshopTableProps) => {
 };
 
 export default WorkshopTable;
-function activateWorkshop(_id: any) {
-    throw new Error('Function not implemented.');
-}

@@ -23,4 +23,5 @@ export interface NonExistingModel {
     firstName: string;
     lastName: string;
     emailAddress: string;
+    phoneNumber: string;
 }

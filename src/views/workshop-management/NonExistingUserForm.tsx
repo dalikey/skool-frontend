@@ -22,6 +22,7 @@ const NonExistingUserForm = () => {
             firstName: '',
             lastName: '',
             emailAddress: '',
+            phoneNumber: '',
         },
         onSubmit: handleNonExistingUser,
     });
@@ -80,6 +81,21 @@ const NonExistingUserForm = () => {
                     helperText={
                         formik.touched.emailAddress &&
                         formik.errors.emailAddress
+                    }
+                    variant='standard'
+                />
+                <TextField
+                    id='phoneNumber'
+                    name='phoneNumber'
+                    label='Telefoonnummer'
+                    value={formik.values.phoneNumber}
+                    onChange={formik.handleChange}
+                    error={
+                        formik.touched.phoneNumber &&
+                        Boolean(formik.errors.phoneNumber)
+                    }
+                    helperText={
+                        formik.touched.phoneNumber && formik.errors.phoneNumber
                     }
                     variant='standard'
                 />
