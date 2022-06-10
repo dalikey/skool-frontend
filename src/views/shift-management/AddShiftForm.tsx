@@ -24,9 +24,12 @@ import {DatePicker, DesktopDatePicker, LocalizationProvider} from '@mui/x-date-p
 import { FieldArray } from 'formik';
 import {AdapterDateFns} from "@mui/x-date-pickers/AdapterDateFns";
 import {useCreateShiftMutation} from "../../api/shift/shiftApi";
+import { useFormDialogStore } from '../../components/dialog/FormDialog';
 
 
-const AddShiftForm = () => {
+export const AddShiftForm = () => {
+    const { close } = useFormDialogStore();
+
     const { data: customers } = useGetAllCustomersQuery();
 
     const {data: functions } = useGetAllWorkshopsQuery({isActive: true});
@@ -95,8 +98,6 @@ const AddShiftForm = () => {
             width='100%'
         >
             <Grow in={true}>
-                <Card sx={{ minWidth: '350px' }}>
-                    <CardContent>
                         <form onSubmit={formik.handleSubmit}>
                             <Stack spacing={1}>
                                 <FormControl variant={'standard'} fullWidth>
@@ -312,6 +313,9 @@ const AddShiftForm = () => {
                                         value={formik.values.hourRate}
                                         onChange={formik.handleChange}
                                         type={'number'}
+                                        InputProps={{
+                                            startAdornment: <InputAdornment position="start">€</InputAdornment>,
+                                        }}
                                         error={
                                             formik.touched.hourRate &&
                                             Boolean(formik.errors.hourRate)
@@ -325,6 +329,9 @@ const AddShiftForm = () => {
                                         name='dayRate'
                                         label='Dagloon'
                                         type={'number'}
+                                        InputProps={{
+                                            startAdornment: <InputAdornment position="start">€</InputAdornment>,
+                                        }}
                                         value={formik.values.dayRate}
                                         onChange={formik.handleChange}
                                         error={
@@ -343,6 +350,7 @@ const AddShiftForm = () => {
                                         render={({ remove, push }) => (
                                             <Stack spacing={1}>
                                                 <Stack
+                                                    justifyContent={'space-between'}
                                                     direction={'row'}
                                                     spacing={1}
                                                 >
@@ -405,18 +413,24 @@ const AddShiftForm = () => {
                                         )}
                                     />
                                 </FormikProvider>
-                                <Button
-                                    disabled={isLoading}
-                                    type='submit'
-                                    variant='contained'
-                                    sx={{ my: '16px' }}
-                                >
-                                    Aanmaken
-                                </Button>
+                                <Stack justifyContent={'space-between'} direction={'row'} >
+                                    <Button
+                                        onClick={close}
+                                        variant='text'
+                                        sx={{ my: '16px'}}
+                                    >Annuleren
+                                    </Button>
+                                    <Button
+                                        disabled={isLoading}
+                                        type='submit'
+                                        variant='contained'
+                                        sx={{ my: '16px' }}
+                                    >
+                                        Aanmaken
+                                    </Button>
+                                </Stack>
                             </Stack>
                         </form>
-                    </CardContent>
-                </Card>
             </Grow>
         </Box>
     );

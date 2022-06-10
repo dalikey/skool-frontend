@@ -1,9 +1,9 @@
-import { useGetUserProfileQuery } from '../../api/user/userApi';
+import { useGetPersonalProfileQuery } from '../../api/user/userApi';
 import FormDialog, { formDialog } from '../../components/dialog/FormDialog';
 import ProfileForm from './ProfileForm';
 
 const Profile = () => {
-    const { data } = useGetUserProfileQuery();
+    const { data } = useGetPersonalProfileQuery();
 
     const openProfileForm = () => {
         if (data?.result) {

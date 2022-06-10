@@ -5,7 +5,8 @@ import ConfirmDialog from '../../components/dialog/ConfirmDialog';
 import { UserModel } from '../../models/userModels';
 import { useNavigate } from 'react-router-dom';
 import {Add} from "@mui/icons-material";
-
+import FormDialog, { formDialog } from '../../components/dialog/FormDialog';
+import { AddShiftForm } from '../../views/shift-management/AddShiftForm';
 
 
 const ShiftManagement = () => {
@@ -14,13 +15,16 @@ const ShiftManagement = () => {
     const handleAddShift = () => {
         navigate('shift-aanmaken');
     }
-
+    
+    const openShiftForm = () => {
+        formDialog('Shift toevoegen', <AddShiftForm/>);
+    }
+ 
     return (
-        <Paper sx={{ width: '100%' }}>
-            <Fab onClick={handleAddShift} color='primary' aria-label="shift-toevoegen">
-                <Add></Add>
-                </Fab>
-        </Paper>
+        <>
+            <FormDialog />
+            <Fab onClick={openShiftForm}><Add></Add></Fab>
+        </>
     );
 };
 
