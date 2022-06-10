@@ -1,40 +1,43 @@
-import {Box, Collapse, IconButton, TableCell, Typography } from '@mui/material';
+import { TableCell } from '@mui/material';
 import Row from '../../components/table/Row';
 import CollapsibleRow from '../../components/table/CollapsibleRow';
 import Table from '../../components/table/Table';
-import { Delete, Edit } from '@mui/icons-material';
-import { WorkshopModel } from '../../models/workshopModels';
-import { WorkshopShiftModel } from '../../models/workshopShiftModels';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import {RetrievedWorkshopShiftModel} from '../../models/workshopShiftModels';
 import React from 'react';
+import ShiftDetails from "./ShiftDetails";
 
 interface ShiftTableProps {
     isLoading: boolean;
-    shifts?: WorkshopShiftModel[];
+    shifts?: RetrievedWorkshopShiftModel[];
 }
 
 
 const ShiftTable = ({ isLoading, shifts }: ShiftTableProps) => {
 
-
-
-
     return (
         <Table
-            columns={['Naam', 'Beschrijving', 'Benodigde materialen']}
+            columns={['Naam', 'Aantal medewerkers', 'Loon', 'Type', 'Plaats', 'Status', 'Datum', '']}
             isLoading={isLoading}
         >
             {shifts &&
                 shifts.map((workshop) => (
                         <CollapsibleRow key={workshop.workshopId}
                                         innerContent={
-                                            <Typography>Je moeder is een plopkoek</Typography>
+                                            <ShiftDetails
+                                                shift={workshop}
+                                            />
                                         }
-                        >
-                            <TableCell>{workshop.maximumParticipants}</TableCell>
+                        >{workshop.workshop &&
+                            workshop.workshop.map((ws) => (
+                                <TableCell>Workshopdocent {ws.name}</TableCell>
+                            ))}
+
+                            <TableCell>{(workshop.participants.length + workshop.candidates.length)} / {workshop.maximumParticipants}</TableCell>
+                            <TableCell>€ {workshop.total_Amount}</TableCell>
+                            <TableCell>{workshop.targetAudience}</TableCell>
                             <TableCell>{workshop.location.city}</TableCell>
-                            <TableCell>{workshop.location.country}</TableCell>
+                            <TableCell>Beschikbaar</TableCell>
+                            <TableCell>{new Date(workshop.date).toLocaleDateString('nl-NL')}</TableCell>
                         </CollapsibleRow>
                 ))}
             {shifts?.length === 0 && (

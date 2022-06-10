@@ -1,23 +1,22 @@
 import { Box, Paper, Tab, Tabs } from '@mui/material';
 import { useState } from 'react';
 import { useGetAllShiftsQuery } from '../../api/shift/shiftApi';
-import { useGetAllWorkshopsQuery } from '../../api/workshop/workshopApi';
 import ConfirmDialog from '../../components/dialog/ConfirmDialog';
-import { WorkshopShiftModel } from '../../models/workshopShiftModels';
+import {RetrievedWorkshopShiftModel} from '../../models/workshopShiftModels';
 import ShiftTable from './ShiftsTable';
 
 const getIsActiveValue = (tab: number): boolean | null => {
-    return tab === 0 ? true : false;
+    return tab === 0;
 };
 
 const Shifts = () => {
-    const [tab, setTab] = useState<number>(1);
+    const [tab, setTab] = useState<number>(0);
 
     const { data, isLoading } = useGetAllShiftsQuery({
         isActive: getIsActiveValue(tab),
     });
     
-    
+
 
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         setTab(newValue);
@@ -32,14 +31,20 @@ const Shifts = () => {
                     onChange={handleChange}
                     aria-label='basic tabs example'
                 >
-                    <Tab label='ACTIEVE WORKSHOPS' />
-                    <Tab label='INACTIEVE WORKSHOPS' />
+                    <Tab label='BESCHIKBARE WORKSHOPS' />
+                    <Tab label='AANGEMELDDE WORKSHOPS' />
                 </Tabs>
             </Box>
-            <ShiftTable
+            {tab === 0 ? (
+                <ShiftTable
+                    isLoading={isLoading}
+                    shifts={data?.result as RetrievedWorkshopShiftModel[]}
+                />
+            ) : (<ShiftTable
                 isLoading={isLoading}
-                shifts={data?.result as WorkshopShiftModel[]}
-            />
+                //shifts={myShifts as RetrievedWorkshopShiftModel[]}
+            />)
+            }
         </Paper>
     );
 };

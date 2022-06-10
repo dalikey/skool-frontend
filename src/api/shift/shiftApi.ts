@@ -1,10 +1,10 @@
 import { api } from './../api';
-import {WorkshopShiftModel} from "../../models/workshopShiftModels";
+import {RetrievedWorkshopShiftModel, WorkshopShiftModel} from "../../models/workshopShiftModels";
 
 interface createShiftResponse {
     error?: string;
     message?: string;
-    result?: WorkshopShiftModel | WorkshopShiftModel[];
+    result?: RetrievedWorkshopShiftModel | RetrievedWorkshopShiftModel[];
 }
 
 const extendedApi = api.injectEndpoints({

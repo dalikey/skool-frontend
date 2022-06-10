@@ -1,7 +1,6 @@
 import { TableRow, TableCell, IconButton, Collapse } from '@mui/material';
-import {ReactElement, ReactNode, useState } from 'react';
+import { ReactNode, useState } from 'react';
 import { KeyboardArrowUp, KeyboardArrowDown } from '@mui/icons-material';
-import Row from './Row';
 import React from 'react';
 
 interface CollabsibleRowProps {
@@ -14,7 +13,7 @@ const CollapsibleRow = ({ children, innerContent }: CollabsibleRowProps) => {
 
     return (
         <React.Fragment>
-            <Row>
+            <TableRow hover={true} sx={{ '& > *': { borderBottom: 'unset' } }} onClick={() => setOpen(!open)}>
                 {children}
                 <TableCell>
                     <IconButton
@@ -25,14 +24,14 @@ const CollapsibleRow = ({ children, innerContent }: CollabsibleRowProps) => {
                         {open ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
                     </IconButton>
                 </TableCell>
-            </Row>
-            <Row>
+            </TableRow>
+            <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
                 <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
                     <Collapse in={open} timeout={'auto'} unmountOnExit>
                         { innerContent}
                     </Collapse>
                 </TableCell>
-            </Row>
+            </TableRow>
         </React.Fragment>
     );
 };
