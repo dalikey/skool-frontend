@@ -2,6 +2,7 @@ import {
     RegistrationModel,
     LoginModel,
     CredentialsModel,
+    NonExistingModel,
 } from '../../models/authModels';
 import { api } from './../api';
 
@@ -27,9 +28,19 @@ const extendedApi = api.injectEndpoints({
                 body,
             }),
         }),
+        addNonExisting: build.mutation<void, NonExistingModel>({
+            query: (body) => ({
+                url: 'auth/PLACEHOLDER',
+                method: 'POST',
+                body,
+            }),
+        }),
     }),
     overrideExisting: false,
 });
 
-export const { useRegisterMutation, useLoginMutation } =
-    extendedApi;
+export const {
+    useRegisterMutation,
+    useLoginMutation,
+    useAddNonExistingMutation,
+} = extendedApi;

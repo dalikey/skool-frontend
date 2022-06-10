@@ -18,3 +18,9 @@ export interface RegistrationModel {
     password: string;
     passwordConfirm: string;
 }
+
+export interface NonExistingModel {
+    firstName: string;
+    lastName: string;
+    emailAddress: string;
+}
