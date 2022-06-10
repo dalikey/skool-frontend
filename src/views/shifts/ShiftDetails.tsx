@@ -9,7 +9,8 @@ const ShiftDetails = ({ shift }: ShiftDetailsProps) => {
   return (
     <Grid container width="50%" p={3}>
       <Grid item xs={12} md={6} p={1}>
-        <Typography variant="h5">Workshopdocent {shift?.workshop[0].name}</Typography>
+        {/* <Typography variant="h5">Workshopdocent {shift?.workshop[0].name}</Typography> */}
+        <Typography variant="h5">Workshopdocent Graffiti</Typography>
       </Grid>
       <Grid item xs={12} md={6} p={1}>
         <Typography>{new Date(shift?.date ?? '').toLocaleDateString('nl-NL')} 13:00 - 15:00</Typography>
@@ -38,10 +39,9 @@ const ShiftDetails = ({ shift }: ShiftDetailsProps) => {
       <Grid item xs={12} md={6} p={1}>
         <Typography variant="h5">Adres</Typography>
         <Typography>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Veniam ullam
-          reprehenderit rerum, dolor pariatur autem deserunt, vitae voluptatibus
-          nam eaque earum quasi cumque praesentium cupiditate aut fugiat saepe
-          nobis! Quaerat.
+          {shift?.location.address} <br/>
+          {shift?.location.postalCode} {shift?.location.city} <br/>
+          {shift?.location.country}
         </Typography>
       </Grid>
       <Grid item xs={12} md={6} p={1}>
