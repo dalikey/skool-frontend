@@ -49,13 +49,13 @@ const Profile = () => {
                                     <br /> Geboortedatum:{' '}
                                     {user?.dateOfBirth?.toString().slice(0, 10)}
                                     <br />
-                                    E-mailadres: {user?.emailAddress}
-                                    <br />
                                     Nationaliteit: {user?.nationality}
                                     <br />
                                     Land van herkomst: {user?.countryOfOrigin}
                                     <br />
-                                    Telefoonnummer: {user?.mobileNumber}{' '}
+                                    Telefoonnummer: {user?.mobileNumber}
+                                    <br />
+                                    E-mailadres: {user?.emailAddress}
                                 </Grid>
                                 <Grid item xs={6}>
                                     Opleiding niveau: {user?.levelPreference}
