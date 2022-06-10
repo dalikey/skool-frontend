@@ -12,7 +12,7 @@ import CustomerManagement from './views/customer-management/CustomerManagement';
 
 import ShiftManagement from "./views/shift-management/ShiftManagement";
 import AddShiftForm from "./views/shift-management/AddShiftForm";
-
+import Shifts from './views/shifts/Shifts'
 const App = () => {
     return (
         <ThemeProvider theme={theme}>
@@ -23,7 +23,7 @@ const App = () => {
                 <Route path='' element={<AppLayout />}>
                     <Route path='dashboard' element={<div></div>} />
                     <Route path='gebruikersbeheer' element={<UserManagement />} />
-                    <Route path='workshops' element={<div></div>} />
+                    <Route path='shifts' element={<Shifts/>} />
                     <Route
                         path='workshopbeheer'
                         element={<WorkshopsManagement />}
