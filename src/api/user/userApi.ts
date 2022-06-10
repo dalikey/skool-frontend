@@ -30,9 +30,9 @@ const extendedApi = api.injectEndpoints({
             }),
             providesTags: [{ type: 'Users', id: 'PROFILE' }],
         }),
-        getUserProfile: build.query<getUserProfileResponse, void>({
-            query: () => ({
-                url: `user/@me`,
+        getUserProfile: build.query<getUserProfileResponse, string>({
+            query: (id) => ({
+                url: `user/${id}`,
             }),
             providesTags: [{ type: 'Users', id: 'PROFILE' }],
         }),
@@ -40,9 +40,12 @@ const extendedApi = api.injectEndpoints({
             query: (userProfile) => ({
                 url: `user/${userProfile._id}`,
                 method: 'PUT',
-                body: userProfile
+                body: userProfile,
             }),
-            invalidatesTags: [{ type: 'Users', id: 'PROFILE' }],
+            invalidatesTags: [
+                { type: 'Users', id: 'PROFILE' },
+                { type: 'Users', id: 'LIST' },
+            ],
         }),
         activateUser: build.mutation<void, string>({
             query: (id) => ({
@@ -68,4 +71,5 @@ export const {
     useActivateUserMutation,
     useDeactivateUserMutation,
     useUpdateUserProfileMutation,
+    useGetUserProfileQuery,
 } = extendedApi;

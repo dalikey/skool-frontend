@@ -18,7 +18,7 @@ const ProfileFormAddress = ({ formik }: AddressFormPersonalProps) => {
                 <TextField
                     id='address'
                     name='location.address'
-                    label='Adres'
+                    label='Straat en huisnummer'
                     value={formik.values.location.address ?? ''}
                     onChange={formik.handleChange}
                     variant='standard'

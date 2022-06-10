@@ -9,14 +9,17 @@ import {
 } from '@mui/material';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { format } from 'date-fns';
+import { useLocalStorage } from '../../../app/useLocalStorage';
 import ProfilePicture from '../../../assets/capybara.jpg';
+import { CredentialsModel } from '../../../models/authModels';
 
 interface ProfileFormPersonalProps {
     formik: any;
 }
 
 const ProfileFormPersonal = ({ formik }: ProfileFormPersonalProps) => {
+    const [user] = useLocalStorage<CredentialsModel>('user');
+
     return (
         <>
             <Grid
@@ -58,7 +61,7 @@ const ProfileFormPersonal = ({ formik }: ProfileFormPersonalProps) => {
                             value={formik.values.firstName ?? ''}
                             onChange={formik.handleChange}
                             variant='standard'
-                            disabled
+                            disabled={user?.role !== 'owner'}
                             fullWidth
                         />
                     </Grid>
@@ -70,7 +73,7 @@ const ProfileFormPersonal = ({ formik }: ProfileFormPersonalProps) => {
                             value={formik.values.lastName ?? ''}
                             onChange={formik.handleChange}
                             variant='standard'
-                            disabled
+                            disabled={user?.role !== 'owner'}
                             fullWidth
                         />
                     </Grid>
@@ -134,7 +137,7 @@ const ProfileFormPersonal = ({ formik }: ProfileFormPersonalProps) => {
                     <Select
                         id='nationality'
                         name='nationality'
-                        value={formik.values.nationality ?? ''}
+                        value={(formik.values.nationality ?? '').toLowerCase()}
                         onChange={formik.handleChange}
                         label='Nationaliteit'
                     >

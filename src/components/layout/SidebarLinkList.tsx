@@ -17,7 +17,6 @@ import WorkIcon from '@mui/icons-material/Work';
 import StoreRoundedIcon from '@mui/icons-material/StoreRounded';
 import EventNoteIcon from '@mui/icons-material/EventNote';
 import Logo from '../../assets/logo.png';
-import {Work} from "@mui/icons-material";
 
 interface LinkItem {
     path: string;
