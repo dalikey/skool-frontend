@@ -42,7 +42,10 @@ const extendedApi = api.injectEndpoints({
                 method: 'PUT',
                 body: userProfile,
             }),
-            invalidatesTags: [{ type: 'Users', id: 'PROFILE' }],
+            invalidatesTags: [
+                { type: 'Users', id: 'PROFILE' },
+                { type: 'Users', id: 'LIST' },
+            ],
         }),
         activateUser: build.mutation<void, string>({
             query: (id) => ({

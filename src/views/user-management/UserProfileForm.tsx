@@ -1,6 +1,5 @@
 import {
     Grid,
-    TextField,
     Button,
     DialogActions,
     CircularProgress,
@@ -11,7 +10,6 @@ import {
     useUpdateUserProfileMutation,
 } from '../../api/user/userApi';
 import { useFormDialogStore } from '../../components/dialog/FormDialog';
-import { UserUpdateSchema } from '../../schemas/userSchemas';
 import Accordion from '../../components/accordion/Accordion';
 import ProfileFormAddress from '../profile/components/ProfileFormAddress';
 import ProfileFormDetails from '../profile/components/ProfileFormDetails';

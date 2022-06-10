@@ -3,9 +3,7 @@ import Row from '../../components/table/Row';
 import Table from '../../components/table/Table';
 import { Delete, Edit } from '@mui/icons-material';
 import { UserModel } from '../../models/userModels';
-import ProfileForm from '../profile/ProfileForm';
 import { formDialog } from '../../components/dialog/FormDialog';
-import { useGetUserProfileQuery } from '../../api/user/userApi';
 import AdminProfileForm from './UserProfileForm';
 
 interface UserTableProps {

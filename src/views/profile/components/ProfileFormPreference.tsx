@@ -13,7 +13,7 @@ interface ProfileFormProps {
 }
 
 const ProfileFormPreference = ({ formik }: ProfileFormProps) => {
-    const { data, isLoading } = useGetWorkshopsQuery();
+    const { data } = useGetWorkshopsQuery();
 
     const levelPreferences: string[] = [
         'basisschool',
