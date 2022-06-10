@@ -12,6 +12,11 @@ interface loginResponse {
     error?: string;
 }
 
+interface enrollRequestBody {
+    id: number;
+    body: NonExistingModel;
+}
+
 const extendedApi = api.injectEndpoints({
     endpoints: (build) => ({
         register: build.mutation<void, RegistrationModel>({
@@ -28,9 +33,9 @@ const extendedApi = api.injectEndpoints({
                 body,
             }),
         }),
-        addNonExisting: build.mutation<void, NonExistingModel>({
-            query: (body) => ({
-                url: 'auth/PLACEHOLDER',
+        addNonExisting: build.mutation<void, enrollRequestBody>({
+            query: ({ id, body }) => ({
+                url: `workshop/shift/${id}/enroll/unknownUser`,
                 method: 'POST',
                 body,
             }),

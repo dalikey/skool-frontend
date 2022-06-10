@@ -13,7 +13,7 @@ const NonExistingUserForm = () => {
         useAddNonExistingMutation();
 
     const handleNonExistingUser = (values: NonExistingModel): void => {
-        addNonExisting(values);
+        addNonExisting({ id: 1, body: values });
         close();
     };
 
