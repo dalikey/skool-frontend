@@ -15,6 +15,7 @@ import SupervisedUserCircleIcon from '@mui/icons-material/SupervisedUserCircle';
 import PersonIcon from '@mui/icons-material/Person';
 import WorkIcon from '@mui/icons-material/Work';
 import StoreRoundedIcon from '@mui/icons-material/StoreRounded';
+import EventNoteIcon from '@mui/icons-material/EventNote';
 import Logo from '../../assets/logo.png';
 import {Work} from "@mui/icons-material";
 
@@ -61,7 +62,7 @@ const SidebarLinkList = ({ role }: SidebarLinkListProps) => {
         {
             path: '/shiftbeheer',
             text: 'Shiftbeheer',
-            icon: <Work/>
+            icon: <EventNoteIcon/>
         },
         {
             path: '/klantenbeheer',

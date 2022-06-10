@@ -31,7 +31,6 @@ const App = () => {
                     <Route path='profiel' element={<Profile />} />
 
                     <Route path='shiftbeheer' element={<ShiftManagement /> } />
-                    <Route path='shiftbeheer/shift-aanmaken' element={<AddShiftForm/> } />
                     <Route path='klantenbeheer' element={<CustomerManagement />} />
                 </Route>
             </Routes>
