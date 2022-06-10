@@ -33,6 +33,14 @@ const extendedApi = api.injectEndpoints({
             }),
             invalidatesTags: [{ type: 'Workshops', id: 'LIST' }],
         }),
+        createWorkshop: build.mutation<void, WorkshopModel>({
+            query: (body) => ({
+                url: `workshop/add`,
+                method: 'POST',
+                body,
+            }),
+            invalidatesTags: [{ type: 'Workshops', id: 'LIST' }],
+        }),
     }),
     overrideExisting: false,
 });
@@ -41,4 +49,5 @@ export const {
     useGetAllWorkshopsQuery,
     useActivateWorkshopMutation,
     useDeactivateWorkshopMutation,
+    useCreateWorkshopMutation,
 } = extendedApi;
