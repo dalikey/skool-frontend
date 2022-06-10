@@ -6,7 +6,7 @@ interface ProfileFormDetailsProps {
 
 const ProfileFormDetails = ({ formik }: ProfileFormDetailsProps) => {
     return (
-        <Grid container mt={-4}>
+        <Grid container mt={-4} rowSpacing={2}>
             <Grid item xs={12}>
                 <TextField
                     id='kvkNumber'

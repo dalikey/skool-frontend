@@ -5,6 +5,8 @@ import { Delete, Edit } from '@mui/icons-material';
 import { UserModel } from '../../models/userModels';
 import ProfileForm from '../profile/ProfileForm';
 import { formDialog } from '../../components/dialog/FormDialog';
+import { useGetUserProfileQuery } from '../../api/user/userApi';
+import AdminProfileForm from './UserProfileForm';
 
 interface UserTableProps {
     isLoading: boolean;
@@ -12,15 +14,13 @@ interface UserTableProps {
 }
 
 const UserTable = ({ isLoading, users }: UserTableProps) => {
-    // const openProfileForm = () => {
-    //     if (data?.result) {
-    //         formDialog('Profiel bewerken', <ProfileForm user={data.result}/>);
-    //     }
-    // };
+    const openProfileForm = (id: string): void => {
+        formDialog('Profiel bewerken', <AdminProfileForm id={id}/>)
+    };
 
     return (
         <Table
-            columns={['Voornaam', 'Achternaam', 'E-mailadres', 'Rol', 'Actief']}
+            columns={['Voornaam', 'Achternaam', 'E-mailadres', 'Rol']}
             isLoading={isLoading}
         >
             {users &&
@@ -30,12 +30,9 @@ const UserTable = ({ isLoading, users }: UserTableProps) => {
                         <TableCell>{user.lastName}</TableCell>
                         <TableCell>{user.emailAddress}</TableCell>
                         <TableCell>{user.role}</TableCell>
-                        {user.isActive && (
-                            <TableCell>{user.isActive}</TableCell>
-                        )}
                         <TableCell align='right'>
                             {user.isActive && (
-                                <IconButton aria-label='edit' color='secondary'>
+                                <IconButton aria-label='edit' color='secondary' onClick={() => openProfileForm(user._id)}>
                                     <Edit />
                                 </IconButton>
                             )}
