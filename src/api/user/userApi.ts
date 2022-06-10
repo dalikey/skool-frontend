@@ -61,6 +61,13 @@ const extendedApi = api.injectEndpoints({
             }),
             invalidatesTags: [{ type: 'Users', id: 'LIST' }],
         }),
+        deleteUser: build.mutation<void, string>({
+            query: (id) => ({
+                url: `user/${id}`,
+                method: 'DELETE',
+            }),
+            invalidatesTags: [{ type: 'Users', id: 'LIST' }],
+        }),
     }),
     overrideExisting: false,
 });
@@ -72,4 +79,5 @@ export const {
     useDeactivateUserMutation,
     useUpdateUserProfileMutation,
     useGetUserProfileQuery,
+    useDeleteUserMutation,
 } = extendedApi;
