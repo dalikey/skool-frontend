@@ -38,6 +38,7 @@ export const AddShiftForm = () => {
 
     const handleSaveWorkshop = (values: WorkshopShiftModel): void => {
         createShift(values);
+        close();
     };
 
     const formik = useFormik({
@@ -253,6 +254,11 @@ export const AddShiftForm = () => {
                                     name='maximumParticipants'
                                     label='Aantal medewerkers'
                                     type={'number'}
+                                    inputProps={
+                                        {"inputProps": {
+                                            min: 1
+                                            }}
+                                    }
                                     value={formik.values.maximumParticipants}
                                     onChange={formik.handleChange}
                                     error={
@@ -312,8 +318,11 @@ export const AddShiftForm = () => {
                                         label='Uurloon'
                                         value={formik.values.hourRate}
                                         onChange={formik.handleChange}
-                                        type={'number'}
+                                        type='number'
                                         InputProps={{
+                                            inputProps: {
+                                                min: 0
+                                            },
                                             startAdornment: <InputAdornment position="start">€</InputAdornment>,
                                         }}
                                         error={
@@ -328,8 +337,12 @@ export const AddShiftForm = () => {
                                         id='dayRate'
                                         name='dayRate'
                                         label='Dagloon'
-                                        type={'number'}
+                                        type='number'
+
                                         InputProps={{
+                                            inputProps: {
+                                                min: 0
+                                            },
                                             startAdornment: <InputAdornment position="start">€</InputAdornment>,
                                         }}
                                         value={formik.values.dayRate}
