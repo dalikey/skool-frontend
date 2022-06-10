@@ -29,12 +29,14 @@ export interface UserProfileModel {
     mobileNumber?: string;
     location?: locationBody;
     paymentInfo?: paymentBody;
-    transportBody?: transportBody;
+    transport?: transportBody;
     kvkNumber?: string;
-    vatId?: string;
+    vatID?: string;
     workshopPreferences?: string[];
     emailCampaigns?: boolean;
     textCampaigns?: boolean;
+    levelPreference?: string;
+    contractType?: 'freelancer' | 'full-time';
 }
 
 interface locationBody {
@@ -53,4 +55,3 @@ interface transportBody {
     hasDriversLicense: boolean;
     hasVehicle: boolean;
 }
-

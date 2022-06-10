@@ -3,18 +3,14 @@ import {
     Edit as EditIcon,
     AttachFile as AttachFileIcon,
 } from '@mui/icons-material';
-import ProfileWorkshopStatusCards from '../../components/dashboard/ProfileWorkshopStatusCards';
 import { useGetPersonalProfileQuery } from '../../api/user/userApi';
 import FormDialog, { formDialog } from '../../components/dialog/FormDialog';
 import ProfileForm from './ProfileForm';
-import { UserProfileModel } from '../../models/userModels';
 
-interface UserTableProps {
-    users?: UserProfileModel[];
-}
-
-const Profile = ({ users }: UserTableProps) => {
+const Profile = () => {
     const { data } = useGetPersonalProfileQuery();
+    const user = data?.result;
+    console.log(data?.result);
 
     const openProfileForm = () => {
         if (data?.result) {
@@ -29,51 +25,65 @@ const Profile = ({ users }: UserTableProps) => {
                 <Grid item xs={12}>
                     <Stack direction='row' spacing={2}>
                         <img
-                            src={`https://images.unsplash.com/photo-1551963831-b3b1ca40c98e?w=164&h=164&fit=crop&auto=format`}
-                            srcSet={`https://images.unsplash.com/photo-1551963831-b3b1ca40c98e?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+                            style={{
+                                height: 150,
+                                width: 150,
+                                borderRadius: 25,
+                            }}
+                            src={`https://www.personality-insights.com/wp-content/uploads/2017/12/default-profile-pic-e1513291410505.jpg`}
+                            srcSet={`https://www.personality-insights.com/wp-content/uploads/2017/12/default-profile-pic-e1513291410505.jpg&dpr=2 2x`}
                             alt={'Coffee'}
                             loading='lazy'
                         />
-                        <Typography>
+                        <Stack direction='column'>
                             <Typography
                                 variant='h6'
                                 gutterBottom
                                 component='div'
                             >
-                                {/* {user?.firstName + ' ' + user?.lastName} */}
+                                {user?.firstName + ' ' + user?.lastName} <br />
                             </Typography>
-                            {/* {user?.role} */}
-                        </Typography>
-                        <Stack direction='row' spacing={40}>
-                            <EditIcon onClick={openProfileForm} />
-                            <Button
-                                variant='contained'
-                                component='label'
-                                sx={{ my: '16px' }}
-                            >
-                                <AttachFileIcon />
-                                Een bestand toevoegen
-                                <input type='file' hidden />
-                            </Button>
+                            <Grid container spacing={2}>
+                                <Grid item xs={6}>
+                                    Geboorteplaats: {user?.placeOfBirth}
+                                    <br /> Geboortedatum:{' '}
+                                    {user?.dateOfBirth?.toString().slice(0, 10)}
+                                    <br />
+                                    E-mailadres: {user?.emailAddress}
+                                    <br />
+                                    Nationaliteit: {user?.nationality}
+                                    <br />
+                                    Land van herkomst: {user?.countryOfOrigin}
+                                    <br />
+                                    Telefoonnummer: {user?.mobileNumber}{' '}
+                                </Grid>
+                                <Grid item xs={6}>
+                                    Opleiding niveau: {user?.levelPreference}
+                                    <br />
+                                    Contract type: {user?.contractType}
+                                    <br />
+                                    Kvk nummer: {user?.kvkNumber}
+                                    <br />
+                                    Vat ID: {user?.vatID}
+                                    <br />
+                                    Workshop voorkeuren:{' '}
+                                    {user?.workshopPreferences}{' '}
+                                </Grid>
+                            </Grid>
                         </Stack>
+                        <EditIcon onClick={openProfileForm} />
                     </Stack>
+                    <Button
+                        variant='contained'
+                        component='label'
+                        sx={{ my: '16px' }}
+                    >
+                        <AttachFileIcon />
+                        Een bestand toevoegen
+                        <input type='file' hidden />
+                    </Button>
                     <br />
                     <Divider></Divider>
-                </Grid>
-                <Grid item xs={12}>
-                    <Stack direction='column' spacing={2}>
-                        <Typography variant='h6' gutterBottom component='div'>
-                            Workshops
-                        </Typography>
-                        <Stack direction='row' spacing={2}>
-                            <ProfileWorkshopStatusCards />
-                        </Stack>
-                    </Stack>
-                </Grid>
-                <Grid item xs={12}>
-                    Workshops <br />
-                    Workshops <br />
-                    Workshops <br />
                 </Grid>
             </Grid>
         </>
