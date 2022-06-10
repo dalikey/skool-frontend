@@ -1,10 +1,8 @@
 export interface WorkshopModel {
-    city: string;
+    _id: string;
+    name: string;
     description: string;
     imageUrl: string;
-    isActive: boolean;
-    maxParticipants: number;
-    name: string;
-    street: string;
-    _id: string;
+    materials: string;
+    isActive: boolean | null;
 }

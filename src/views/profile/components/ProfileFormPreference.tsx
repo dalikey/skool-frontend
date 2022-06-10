@@ -6,14 +6,14 @@ import {
     Typography,
 } from '@mui/material';
 import { FieldArray, FormikContextType, FormikProvider } from 'formik';
-import { useGetWorkshopsQuery } from '../../../api/workshop/workshopApi';
+import { useGetAllWorkshopsQuery } from '../../../api/workshop/workshopApi';
 
 interface ProfileFormProps {
     formik: FormikContextType<any>;
 }
 
 const ProfileFormPreference = ({ formik }: ProfileFormProps) => {
-    const { data } = useGetWorkshopsQuery();
+    const { data } = useGetAllWorkshopsQuery({ isActive: true });
 
     const levelPreferences: string[] = [
         'basisschool',
