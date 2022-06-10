@@ -22,7 +22,7 @@ const UserTable = ({ isLoading, users }: UserTableProps) => {
 
     const handleClickDelete = (user: UserModel): void => {
         confirmDialog(
-            'Registratie goedkeuren',
+            'Gebruiker verwijderen',
             `Weet u zeker dat u de gebruiker "${user.firstName} ${user.lastName}" wilt verwijderen?`,
             () => deleteUser(user._id)
         );
