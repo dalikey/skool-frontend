@@ -30,14 +30,13 @@ const WorkshopTable = ({ isLoading, workshops }: WorkshopTableProps) => {
                         <TableCell align='right'>
                             {workshop.isActive && (
                                 <>
+                                    <FormDialog />
                                     <IconButton
                                         aria-label='share'
                                         color='secondary'
+                                        onClick={openNonExistingUserForm}
                                     >
-                                        <FormDialog />
-                                        <Share
-                                            onClick={openNonExistingUserForm}
-                                        />
+                                        <Share />
                                     </IconButton>
                                     <IconButton
                                         aria-label='edit'
