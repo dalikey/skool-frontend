@@ -4,9 +4,10 @@ import { api } from './../api';
 const extendedApi = api.injectEndpoints({
     endpoints: (build) => ({
         createWorkshop: build.mutation<void, Workshop>({
-            query: () => ({
-                url: `workshop`,
+            query: (body) => ({
+                url: `workshop/add`,
                 method: 'POST',
+                body
             }),
             invalidatesTags: [{ type: 'Workshops', id: 'LIST' }],
         }),
