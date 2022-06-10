@@ -18,10 +18,18 @@ const extendedApi = api.injectEndpoints({
             }),
             providesTags: [{ type: 'Customers', id: 'LIST' }],
         }),
+        createCustomer: build.mutation<void, CustomerModel>({
+            query: (body) => ({
+                url: 'customer',
+                method: 'POST',
+                body,
+            }),
+        }),
     }),
     overrideExisting: false,
 });
 
 export const {
     useGetAllCustomersQuery,
+    useCreateCustomerMutation,
 } = extendedApi;
