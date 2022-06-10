@@ -10,7 +10,7 @@ import {
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { useLocalStorage } from '../../../app/useLocalStorage';
-import ProfilePicture from '../../../assets/capybara.jpg';
+import ProfilePicture from '../../../assets/no_profile_picture.jpg';
 import { CredentialsModel } from '../../../models/authModels';
 
 interface ProfileFormPersonalProps {
