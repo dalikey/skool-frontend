@@ -7,7 +7,7 @@ import { CustomerModel } from '../../models/customerModels';
 import CustomerTable from './CustomerTable';
 
 const CustomerManagement = () => {
-    const [tab, setTab] = useState<number>(1);
+    const [tab, setTab] = useState<number>(0);
 
     const { data, isLoading } = useGetAllCustomersQuery();
 
@@ -17,9 +17,6 @@ const CustomerManagement = () => {
 
     return (
         <Paper sx={{ width: '100%' }}>
-            <IconButton aria-label='add' color='primary'>
-                <Add />
-            </IconButton>
             <ConfirmDialog />
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                 <Tabs
@@ -28,6 +25,13 @@ const CustomerManagement = () => {
                     aria-label='basic tabs example'
                 >
                     <Tab label='KLANTEN' />
+                    <IconButton
+                        aria-label='add'
+                        color='primary'
+                        sx={{ padding: 2, marginLeft: 'auto' }}
+                    >
+                        <Add />
+                    </IconButton>
                 </Tabs>
             </Box>
             <CustomerTable
