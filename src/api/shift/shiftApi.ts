@@ -1,5 +1,5 @@
 import { api } from './../api';
-import {WorkshopShiftModel} from "../../models/workshopShiftModels";
+import { WorkshopShiftModel } from '../../models/workshopShiftModels';
 
 interface createShiftResponse {
     error?: string;
@@ -13,7 +13,7 @@ const extendedApi = api.injectEndpoints({
             query: (body) => ({
                 url: `workshop/shift`,
                 method: 'POST',
-                body
+                body,
             }),
             invalidatesTags: [{ type: 'Shift', id: 'OBJECT' }],
         }),
@@ -21,6 +21,4 @@ const extendedApi = api.injectEndpoints({
     overrideExisting: false,
 });
 
-export const {
-    useCreateShiftMutation,
-} = extendedApi;
+export const { useCreateShiftMutation } = extendedApi;
