@@ -1,16 +1,18 @@
-import { Button, DialogActions, Grid, TextField } from '@mui/material';
+import { Button, Grid, TextField } from '@mui/material';
 import { useFormik } from 'formik';
 import { useFormDialogStore } from '../../components/dialog/FormDialog';
 import { UserProfileModel } from '../../models/userModels';
 import ProfileFormPersonal from './components/ProfileFormPersonal';
 import Accordion from '../../components/accordion/Accordion';
-import FmdGoodIcon from '@mui/icons-material/FmdGood';
-import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+import {
+    FmdGood as FmdGoodIcon,
+    ThumbUp as ThumbUpIcon,
+    DirectionsCar as DirectionsCarIcon,
+    Payment as PaymentIcon,
+} from '@mui/icons-material';
 import ProfileFormAddress from './components/ProfileFormAddress';
 import ProfileFormPreference from './components/ProfileFormPreference';
 import ProfileFormDetails from './components/ProfileFormDetails';
-import PaymentIcon from '@mui/icons-material/Payment';
-import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
 import ProfileFormTransport from './components/ProfileFormTransport';
 import { UserUpdateSchema } from '../../schemas/userSchemas';
 import { useUpdateUserProfileMutation } from '../../api/user/userApi';
@@ -59,7 +61,12 @@ const ProfileForm = ({ user }: ProfileFormProps) => {
 
     return (
         <form onSubmit={formik.handleSubmit} style={{ maxWidth: '1000px' }}>
-            <Grid container columnSpacing={4} rowSpacing={2} alignItems='flex-start'>
+            <Grid
+                container
+                columnSpacing={4}
+                rowSpacing={2}
+                alignItems='flex-start'
+            >
                 <Grid item container md={6} rowSpacing={1} columnSpacing={2}>
                     <ProfileFormPersonal formik={formik} />
                 </Grid>
