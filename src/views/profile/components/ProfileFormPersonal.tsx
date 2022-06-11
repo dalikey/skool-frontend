@@ -9,7 +9,6 @@ import {
 } from '@mui/material';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { format } from 'date-fns';
 import ProfilePicture from '../../../assets/capybara.jpg';
 
 interface ProfileFormPersonalProps {
