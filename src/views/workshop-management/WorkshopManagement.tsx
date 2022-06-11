@@ -14,7 +14,7 @@ const getIsActiveValue = (tab: number): boolean | null => {
 
 const WorkshopManagement = () => {
     const openWorkshopForm = () => {
-        formDialog('Profiel bewerken', <WorkshopForm />);
+        formDialog('Workshop toevoegen', <WorkshopForm />);
     };
 
     const [tab, setTab] = useState<number>(0);
@@ -28,31 +28,31 @@ const WorkshopManagement = () => {
     };
 
     return (
-        <Paper sx={{ width: '100%' }}>
-            <ConfirmDialog />
-            <FormDialog />
-            <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                <Tabs
-                    value={tab}
-                    onChange={handleChange}
-                    aria-label='basic tabs example'
-                >
-                    <Tab label='ACTIEVE WORKSHOPS' />
-                    <Tab label='INACTIEVE WORKSHOPS' />
-                    <IconButton
-                        onClick={openWorkshopForm}
-                        color='primary'
-                        sx={{ padding: 2, marginLeft: 'auto' }}
+        <>
+            <Paper sx={{ width: '100%' }}>
+                <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                    <Tabs
+                        value={tab}
+                        onChange={handleChange}
+                        aria-label='basic tabs example'
                     >
-                        <AddIcon>Add</AddIcon>
-                    </IconButton>
-                </Tabs>
-            </Box>
-            <WorkshopTable
-                isLoading={isLoading}
-                workshops={data?.result as WorkshopModel[]}
-            />
-        </Paper>
+                        <Tab label='ACTIEVE WORKSHOPS' />
+                        <Tab label='INACTIEVE WORKSHOPS' />
+                        <IconButton
+                            onClick={openWorkshopForm}
+                            color='primary'
+                            sx={{ padding: 2, marginLeft: 'auto' }}
+                        >
+                            <AddIcon>Add</AddIcon>
+                        </IconButton>
+                    </Tabs>
+                </Box>
+                <WorkshopTable
+                    isLoading={isLoading}
+                    workshops={data?.result as WorkshopModel[]}
+                />
+            </Paper>{' '}
+        </>
     );
 };
 
