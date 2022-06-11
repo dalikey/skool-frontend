@@ -1,4 +1,11 @@
-import { Grid, Divider, Stack, Typography, Button } from '@mui/material';
+import {
+    Grid,
+    Divider,
+    Stack,
+    Typography,
+    Button,
+    IconButton,
+} from '@mui/material';
 import {
     Edit as EditIcon,
     AttachFile as AttachFileIcon,
@@ -10,6 +17,17 @@ import ProfileForm from './ProfileForm';
 const Profile = () => {
     const { data } = useGetPersonalProfileQuery();
     const user = data?.result;
+
+    let workshopString, workshopPref, levelString, levelPref;
+    if (user?.workshopPreferences) {
+        workshopString = user?.workshopPreferences;
+        workshopPref = workshopString.join('\r\n');
+    }
+    if (user?.levelPreferences) {
+        levelString = user?.levelPreferences;
+        levelPref = levelString.join('\r\n');
+    }
+    console.log(user?.levelPreferences);
 
     const openProfileForm = () => {
         if (data?.result) {
@@ -31,46 +49,50 @@ const Profile = () => {
                             }}
                             src={`https://www.personality-insights.com/wp-content/uploads/2017/12/default-profile-pic-e1513291410505.jpg`}
                             srcSet={`https://www.personality-insights.com/wp-content/uploads/2017/12/default-profile-pic-e1513291410505.jpg&dpr=2 2x`}
-                            alt={'Coffee'}
+                            alt={'Not available'}
                             loading='lazy'
                         />
                         <Stack direction='column'>
-                            <Typography
-                                variant='h6'
-                                gutterBottom
-                                component='div'
-                            >
-                                {user?.firstName + ' ' + user?.lastName} <br />
-                            </Typography>
-                            <Grid container spacing={2}>
-                                <Grid item xs={6}>
-                                    Geboorteplaats: {user?.placeOfBirth}
+                            <Stack direction='row'>
+                                <Typography
+                                    variant='h6'
+                                    style={{ marginTop: '4px' }}
+                                    component='div'
+                                >
+                                    {user?.firstName + ' ' + user?.lastName}
+                                </Typography>
+                                <IconButton
+                                    onClick={openProfileForm}
+                                    color='primary'
+                                >
+                                    <EditIcon />
+                                </IconButton>
+                            </Stack>
+                            <Grid container spacing={1}>
+                                <Grid item xs={4}>
+                                    Geboorteplaats: {user?.countryOfOrigin}
                                     <br /> Geboortedatum:{' '}
                                     {user?.dateOfBirth?.toString().slice(0, 10)}
                                     <br />
-                                    Nationaliteit: {user?.nationality}
+                                    Nationaliteit: {user?.countryOfOrigin}
                                     <br />
                                     Land van herkomst: {user?.countryOfOrigin}
                                     <br />
-                                    Telefoonnummer: {user?.mobileNumber}
-                                    <br />
                                     E-mailadres: {user?.emailAddress}
                                 </Grid>
-                                <Grid item xs={6}>
-                                    Opleiding niveau: {user?.levelPreference}
-                                    <br />
-                                    Contract type: {user?.contractType}
+                                <Grid item xs={4}>
+                                    Opleiding niveau: {'\r\n'}
+                                    {levelPref}
                                     <br />
                                     Kvk nummer: {user?.kvkNumber}
                                     <br />
                                     Vat ID: {user?.vatID}
                                     <br />
-                                    Workshop voorkeuren:{' '}
-                                    {user?.workshopPreferences}{' '}
-                                </Grid>
+                                    Workshop voorkeuren: {'\r\n'}
+                                    {workshopPref}
+                                </Grid>{' '}
                             </Grid>
                         </Stack>
-                        <EditIcon onClick={openProfileForm} />
                     </Stack>
                     <Button
                         variant='contained'
