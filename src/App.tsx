@@ -7,7 +7,7 @@ import SignIn from './views/sign-in/SignIn';
 import Profile from './views/profile/Profile';
 import UserManagement from './views/user-management/UserManagement';
 import CustomerManagement from './views/customer-management/CustomerManagement';
-import WorkshopManagement from './views/workshop-management/Workshops';
+import WorkshopManagement from './views/workshop-management/WorkshopManagement';
 import ShiftManagement from './views/shift-management/ShiftManagement';
 
 const App = () => {
@@ -19,10 +19,6 @@ const App = () => {
                 <Route path='sign-in' element={<SignIn />} />
                 <Route path='' element={<AppLayout />}>
                     <Route path='dashboard' element={<div></div>} />
-                    <Route
-                        path='gebruikersbeheer'
-                        element={<UserManagement />}
-                    />
                     <Route path='workshops' element={<div></div>} />
                     <Route
                         path='workshopbeheer'
@@ -30,6 +26,10 @@ const App = () => {
                     />
                     <Route path='profiel' element={<Profile />} />
                     <Route path='shiftbeheer' element={<ShiftManagement />} />
+                    <Route
+                        path='gebruikersbeheer'
+                        element={<UserManagement />}
+                    />
                     <Route
                         path='klantenbeheer'
                         element={<CustomerManagement />}
