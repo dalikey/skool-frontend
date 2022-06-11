@@ -6,7 +6,7 @@ interface ProfileFormDetailsProps {
 
 const ProfileFormDetails = ({ formik }: ProfileFormDetailsProps) => {
     return (
-        <Grid container mt={-4}>
+        <Grid container mt={-4} rowSpacing={2}>
             <Grid item xs={12}>
                 <TextField
                     id='kvkNumber'
@@ -20,10 +20,10 @@ const ProfileFormDetails = ({ formik }: ProfileFormDetailsProps) => {
             </Grid>
             <Grid item xs={12}>
                 <TextField
-                    id='vatId'
-                    name='vatId'
+                    id='vatID'
+                    name='vatID'
                     label='VAT nummer'
-                    value={formik.values.vatId ?? ''}
+                    value={formik.values.vatID ?? ''}
                     onChange={formik.handleChange}
                     variant='standard'
                     fullWidth

@@ -1,4 +1,4 @@
-import { Button, DialogActions, Grid, TextField } from '@mui/material';
+import { Button, Grid, TextField } from '@mui/material';
 import { useFormik } from 'formik';
 import { useFormDialogStore } from '../../components/dialog/FormDialog';
 import { UserProfileModel } from '../../models/userModels';
@@ -14,6 +14,7 @@ import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
 import ProfileFormTransport from './components/ProfileFormTransport';
 import { UserUpdateSchema } from '../../schemas/userSchemas';
 import { useUpdateUserProfileMutation } from '../../api/user/userApi';
+import { defaultUserProfile } from '../../models/userModels';
 
 interface ProfileFormProps {
     user: UserProfileModel;
@@ -31,26 +32,13 @@ const ProfileForm = ({ user }: ProfileFormProps) => {
 
     const formik = useFormik({
         initialValues: {
-            location: {
-                address: '',
-                postalCode: '',
-                country: '',
-                city: '',
-            },
-            paymentInfo: {
-                IBAN: '',
-                BIC: '',
-            },
-            transport: {
-                hasDriversLicense: false,
-                hasVehicle: false,
-            },
+            ...defaultUserProfile,
+            ...user,
             passwordInfo: {
                 password: '',
-                passwordConfirm: '',
+                confirmPassword: '',
                 currentPassword: '',
             },
-            ...user,
         },
         validateOnChange: false,
         validationSchema: UserUpdateSchema,
@@ -59,7 +47,12 @@ const ProfileForm = ({ user }: ProfileFormProps) => {
 
     return (
         <form onSubmit={formik.handleSubmit} style={{ maxWidth: '1000px' }}>
-            <Grid container columnSpacing={4} rowSpacing={2} alignItems='flex-start'>
+            <Grid
+                container
+                columnSpacing={4}
+                rowSpacing={2}
+                alignItems='flex-start'
+            >
                 <Grid item container md={6} rowSpacing={1} columnSpacing={2}>
                     <ProfileFormPersonal formik={formik} />
                 </Grid>

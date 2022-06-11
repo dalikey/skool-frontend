@@ -33,6 +33,7 @@ export interface UserProfileModel {
     kvkNumber?: string;
     vatID?: string;
     workshopPreferences?: string[];
+    levelPreferences?: string[];
     emailCampaigns?: boolean;
     textCampaigns?: boolean;
     levelPreference?: string;
@@ -43,7 +44,7 @@ interface locationBody {
     address: string;
     postalCode: string;
     city: string;
-    country: 'nl' | 'be';
+    country?: 'nl' | 'be';
 }
 
 interface paymentBody {
@@ -55,3 +56,38 @@ interface transportBody {
     hasDriversLicense: boolean;
     hasVehicle: boolean;
 }
+
+export const defaultUserProfile: UserProfileModel = {
+    _id: '',
+    firstName: '',
+    lastName: '',
+    emailAddress: '',
+    role: 'user',
+    isActive: false,
+    nationality: undefined,
+    gender: undefined,
+    dateOfBirth: undefined,
+    placeOfBirth: '',
+    countryOfOrigin: '',
+    mobileNumber: '',
+    location: {
+        address: '',
+        postalCode: '',
+        city: '',
+        country: undefined,
+    },
+    paymentInfo: {
+        IBAN: '',
+        BIC: '',
+    },
+    transport: {
+        hasDriversLicense: false,
+        hasVehicle: false,
+    },
+    kvkNumber: '',
+    vatID: '',
+    workshopPreferences: [],
+    levelPreferences: [],
+    emailCampaigns: false,
+    textCampaigns: false,
+};
