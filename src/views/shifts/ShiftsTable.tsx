@@ -3,14 +3,12 @@ import Row from '../../components/table/Row';
 import CollapsibleRow from '../../components/table/CollapsibleRow';
 import Table from '../../components/table/Table';
 import {RetrievedWorkshopShiftModel} from '../../models/workshopShiftModels';
-import React from 'react';
 import ShiftDetails from "./ShiftDetails";
 
 interface ShiftTableProps {
     isLoading: boolean;
     shifts?: RetrievedWorkshopShiftModel[];
 }
-
 
 const ShiftTable = ({ isLoading, shifts }: ShiftTableProps) => {
 
@@ -27,10 +25,11 @@ const ShiftTable = ({ isLoading, shifts }: ShiftTableProps) => {
                                                 shift={workshop}
                                             />
                                         }
-                        >{workshop.workshop &&
+                        >
+                            {/* {workshop.workshop &&
                             workshop.workshop.map((ws) => (
                                 <TableCell>Workshopdocent {ws.name}</TableCell>
-                            ))}
+                            ))} */}
 
                             <TableCell>{(workshop.participants.length + workshop.candidates.length)} / {workshop.maximumParticipants}</TableCell>
                             <TableCell>€ {workshop.total_Amount}</TableCell>

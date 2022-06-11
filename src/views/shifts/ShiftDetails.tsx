@@ -1,5 +1,11 @@
 import { Button, Grid, Typography } from "@mui/material";
+import { formDialog } from "../../components/dialog/FormDialog";
 import {RetrievedWorkshopShiftModel} from "../../models/workshopShiftModels";
+import SignInFormShift from "./SignInFormShift";
+
+const openSignInForm = () => {
+    formDialog('Inschrijven', <SignInFormShift />);
+};
 
 interface ShiftDetailsProps {
     shift?: RetrievedWorkshopShiftModel;
@@ -7,7 +13,7 @@ interface ShiftDetailsProps {
 
 const ShiftDetails = ({ shift }: ShiftDetailsProps) => {
   return (
-    <Grid container width="50%" p={3}>
+    <Grid container width="100%" p={3}>
       <Grid item xs={12} md={6} p={1}>
         {/* <Typography variant="h5">Workshopdocent {shift?.workshop[0].name}</Typography> */}
         <Typography variant="h5">Workshopdocent Graffiti</Typography>
@@ -45,7 +51,7 @@ const ShiftDetails = ({ shift }: ShiftDetailsProps) => {
         </Typography>
       </Grid>
       <Grid item xs={12} md={6} p={1}>
-        <Button variant="contained">Inschrijven</Button>
+        <Button variant="contained" onClick={openSignInForm}>Inschrijven</Button>
       </Grid>
       <Grid item xs={12} md={6} p={1}>
         <Typography variant="h5">Loon: € {shift?.total_Amount}</Typography>
