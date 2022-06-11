@@ -10,7 +10,6 @@ import ProfileForm from './ProfileForm';
 const Profile = () => {
     const { data } = useGetPersonalProfileQuery();
     const user = data?.result;
-    console.log(data?.result);
 
     const openProfileForm = () => {
         if (data?.result) {

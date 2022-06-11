@@ -19,7 +19,6 @@ interface ProfileFormPersonalProps {
 
 const ProfileFormPersonal = ({ formik }: ProfileFormPersonalProps) => {
     const [user] = useLocalStorage<CredentialsModel>('user');
-
     return (
         <>
             <Grid
@@ -123,7 +122,7 @@ const ProfileFormPersonal = ({ formik }: ProfileFormPersonalProps) => {
                     id='mobileNumber'
                     name='mobileNumber'
                     label='Telefoonnummer'
-                    value={formik.values.countryOfOrigin ?? ''}
+                    value={formik.values.mobileNumber ?? ''}
                     onChange={formik.handleChange}
                     variant='standard'
                     fullWidth

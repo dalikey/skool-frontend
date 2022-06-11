@@ -7,7 +7,7 @@ import { CustomerSchema } from '../../schemas/customerSchemas';
 const CustomerForm = () => {
     const { close } = useFormDialogStore();
 
-    const [createCustomer, { isSuccess, isError, isLoading }] =
+    const [createCustomer, { isError, isLoading }] =
         useCreateCustomerMutation();
 
     const handleCreateCustomer = (values): void => {
