@@ -8,10 +8,7 @@ import Profile from './views/profile/Profile';
 import UserManagement from './views/user-management/UserManagement';
 import WorkshopsManagement from './views/workshop-management/Workshops';
 import CustomerManagement from './views/customer-management/CustomerManagement';
-
-
-import ShiftManagement from "./views/shift-management/ShiftManagement";
-import AddShiftForm from "./views/shift-management/AddShiftForm";
+import ShiftManagement from './views/shift-management/ShiftManagement';
 
 const App = () => {
     return (
@@ -22,7 +19,10 @@ const App = () => {
                 <Route path='sign-in' element={<SignIn />} />
                 <Route path='' element={<AppLayout />}>
                     <Route path='dashboard' element={<div></div>} />
-                    <Route path='gebruikersbeheer' element={<UserManagement />} />
+                    <Route
+                        path='gebruikersbeheer'
+                        element={<UserManagement />}
+                    />
                     <Route path='workshops' element={<div></div>} />
                     <Route
                         path='workshopbeheer'
@@ -30,8 +30,11 @@ const App = () => {
                     />
                     <Route path='profiel' element={<Profile />} />
 
-                    <Route path='shiftbeheer' element={<ShiftManagement /> } />
-                    <Route path='klantenbeheer' element={<CustomerManagement />} />
+                    <Route path='shiftbeheer' element={<ShiftManagement />} />
+                    <Route
+                        path='klantenbeheer'
+                        element={<CustomerManagement />}
+                    />
                 </Route>
             </Routes>
         </ThemeProvider>
