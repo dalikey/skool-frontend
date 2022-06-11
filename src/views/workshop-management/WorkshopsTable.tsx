@@ -1,7 +1,7 @@
 import { IconButton, TableCell } from '@mui/material';
 import Row from '../../components/table/Row';
 import Table from '../../components/table/Table';
-import { Delete, Edit, Share } from '@mui/icons-material';
+import { Delete, Edit, Share, PersonAddAlt } from '@mui/icons-material';
 import { WorkshopModel } from '../../models/workshopModels';
 import NonExistingUserForm from './NonExistingUserForm';
 import FormDialog, { formDialog } from '../../components/dialog/FormDialog';
@@ -36,7 +36,7 @@ const WorkshopTable = ({ isLoading, workshops }: WorkshopTableProps) => {
                                         color='secondary'
                                         onClick={openNonExistingUserForm}
                                     >
-                                        <Share />
+                                        <PersonAddAlt />
                                     </IconButton>
                                     <IconButton
                                         aria-label='edit'
