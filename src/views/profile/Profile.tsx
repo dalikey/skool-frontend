@@ -13,6 +13,7 @@ import {
 import { useGetPersonalProfileQuery } from '../../api/user/userApi';
 import FormDialog, { formDialog } from '../../components/dialog/FormDialog';
 import ProfileForm from './ProfileForm';
+import ProfilePicture from '../../assets/no_profile_picture.jpg';
 
 const Profile = () => {
     const { data } = useGetPersonalProfileQuery();
@@ -42,15 +43,14 @@ const Profile = () => {
                 <Grid item xs={12}>
                     <Stack direction='row' spacing={2}>
                         <img
+                            src={ProfilePicture}
+                            alt='Profile picture'
                             style={{
                                 height: 150,
                                 width: 150,
                                 borderRadius: 25,
+                                marginTop: '12px',
                             }}
-                            src={`https://www.personality-insights.com/wp-content/uploads/2017/12/default-profile-pic-e1513291410505.jpg`}
-                            srcSet={`https://www.personality-insights.com/wp-content/uploads/2017/12/default-profile-pic-e1513291410505.jpg&dpr=2 2x`}
-                            alt={'Not available'}
-                            loading='lazy'
                         />
                         <Stack direction='column'>
                             <Stack direction='row'>
