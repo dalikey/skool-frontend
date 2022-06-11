@@ -25,7 +25,7 @@ const WorkshopTable = ({ isLoading, workshops }: WorkshopTableProps) => {
                 workshops.map((workshop) => (
                     <Row key={workshop._id}>
                         <TableCell>{workshop.name}</TableCell>
-                        <TableCell>{workshop.description}</TableCell>
+                        <TableCell>{workshop.content}</TableCell>
                         <TableCell>{workshop.materials}</TableCell>
                         <TableCell align='right'>
                             {workshop.isActive && (

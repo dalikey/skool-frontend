@@ -15,8 +15,12 @@ const WorkshopOverview = () => {
 
             <Stack direction='row'>
                 <WorkshopTable isLoading={false} />
-                <IconButton color='primary' sx={{ padding: 2 }}>
-                    <AddIcon onClick={openWorkshopForm}>Add</AddIcon>
+                <IconButton
+                    onClick={openWorkshopForm}
+                    color='primary'
+                    sx={{ padding: 2 }}
+                >
+                    <AddIcon>Add</AddIcon>
                 </IconButton>
             </Stack>
         </Paper>

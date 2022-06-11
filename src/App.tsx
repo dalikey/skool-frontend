@@ -5,7 +5,7 @@ import AppLayout from './components/layout/AppLayout';
 import SignUp from './views/sign-up/SignUp';
 import SignIn from './views/sign-in/SignIn';
 import UserManagement from './views/user-management/UserManagement';
-import WorkshopManagement from './views/workshop-management/WorkshopOverview';
+import WorkshopManagement from './views/workshop-management/WorkshopManagement';
 import Profile from './views/profile/Profile';
 
 const App = () => {

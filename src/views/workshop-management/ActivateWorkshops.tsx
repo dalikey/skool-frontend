@@ -14,7 +14,10 @@ interface WorkshopTableProps {
     workshops?: WorkshopModel[];
 }
 
-const RegistrationTable = ({ isLoading, workshops }: WorkshopTableProps) => {
+const ActivateWorkshopsTable = ({
+    isLoading,
+    workshops,
+}: WorkshopTableProps) => {
     const [activateWorkshop, { isLoading: isActivateLoading }] =
         useActivateWorkshopMutation();
     const [deactivateWorkshop, { isLoading: isDeactiveLoading }] =
@@ -45,7 +48,7 @@ const RegistrationTable = ({ isLoading, workshops }: WorkshopTableProps) => {
                 workshops.map((workshop) => (
                     <Row key={workshop._id}>
                         <TableCell>{workshop.name}</TableCell>
-                        <TableCell>{workshop.description}</TableCell>
+                        <TableCell>{workshop.content}</TableCell>
                         <TableCell>{workshop.materials}</TableCell>
                         <TableCell align='right'>
                             <IconButton
@@ -74,4 +77,4 @@ const RegistrationTable = ({ isLoading, workshops }: WorkshopTableProps) => {
     );
 };
 
-export default RegistrationTable;
+export default ActivateWorkshopsTable;

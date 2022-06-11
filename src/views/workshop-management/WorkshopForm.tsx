@@ -20,13 +20,14 @@ const WorkshopForm = () => {
     const handleSubmit = (values) => {
         createWorkshop(values);
         close();
-    }
+    };
 
     const formik = useFormik({
         initialValues: {
             name: '',
             content: '',
             materials: [],
+            isActive: true,
         },
         validateOnChange: false,
         onSubmit: handleSubmit,
