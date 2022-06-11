@@ -1,10 +1,9 @@
 import { Box, Paper, Tab, Tabs, IconButton } from '@mui/material';
 import { SyntheticEvent, useState } from 'react';
 import { useGetAllWorkshopsQuery } from '../../api/workshop/workshopApi';
-import ConfirmDialog from '../../components/dialog/ConfirmDialog';
 import { WorkshopModel } from '../../models/workshopModels';
 import WorkshopTable from './WorkshopsTable';
-import FormDialog, { formDialog } from '../../components/dialog/FormDialog';
+import { formDialog } from '../../components/dialog/FormDialog';
 import WorkshopForm from './WorkshopForm';
 import AddIcon from '@mui/icons-material/Add';
 
@@ -51,7 +50,7 @@ const WorkshopManagement = () => {
                     isLoading={isLoading}
                     workshops={data?.result as WorkshopModel[]}
                 />
-            </Paper>{' '}
+            </Paper>
         </>
     );
 };

@@ -22,7 +22,6 @@ const ProfileForm = ({ user }: ProfileFormProps) => {
     const { close } = useFormDialogStore();
 
     const handleSubmit = (values): void => {
-        console.log(values);
         close();
     };
 
@@ -98,7 +97,8 @@ const ProfileForm = ({ user }: ProfileFormProps) => {
                                     formik.touched.passwordInfo
                                         ?.currentPassword &&
                                     Boolean(
-                                        formik.errors.passwordInfo?.currentPassword
+                                        formik.errors.passwordInfo
+                                            ?.currentPassword
                                     )
                                 }
                                 helperText={
