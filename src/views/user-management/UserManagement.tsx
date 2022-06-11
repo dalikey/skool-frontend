@@ -40,9 +40,12 @@ const UserManagement = () => {
                 </Tabs>
             </Box>
             {tab === 1 ? (
-                <RegistrationTable isLoading={isLoading} users={data?.result}/>
+                <RegistrationTable isLoading={isLoading} users={data?.result} />
             ) : (
-                <UserTable isLoading={isLoading} users={data?.result as UserModel[]}/>
+                <UserTable
+                    isLoading={isLoading}
+                    users={data?.result as UserModel[]}
+                />
             )}
         </Paper>
     );
