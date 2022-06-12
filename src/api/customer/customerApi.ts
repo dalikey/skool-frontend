@@ -46,6 +46,6 @@ const extendedApi = api.injectEndpoints({
 
 export const {
     useGetAllCustomersQuery,
-    useGetOneCustomerQuery
+    useGetOneCustomerQuery,
     useCreateCustomerMutation,
 } = extendedApi;
