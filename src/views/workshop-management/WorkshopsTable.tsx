@@ -5,6 +5,7 @@ import { Delete, Edit, PersonAddAlt } from '@mui/icons-material';
 import { WorkshopModel } from '../../models/workshopModels';
 import NonExistingUserForm from './NonExistingUserForm';
 import FormDialog, { formDialog } from '../../components/dialog/FormDialog';
+import EditWorkshopForm from './EditWorkshopForm';
 
 interface WorkshopTableProps {
     isLoading: boolean;
@@ -14,6 +15,10 @@ interface WorkshopTableProps {
 const WorkshopTable = ({ isLoading, workshops }: WorkshopTableProps) => {
     const openNonExistingUserForm = () => {
         formDialog('Nieuwe gebruiker toevoegen', <NonExistingUserForm />);
+    };
+
+    const openEditWorkshopForm = (): void => {
+        formDialog('Workshop bewerken', <EditWorkshopForm />);
     };
 
     return (
@@ -42,6 +47,7 @@ const WorkshopTable = ({ isLoading, workshops }: WorkshopTableProps) => {
                                         <IconButton
                                             aria-label='edit'
                                             color='secondary'
+                                            onClick={openEditWorkshopForm}
                                         >
                                             <Edit />
                                         </IconButton>

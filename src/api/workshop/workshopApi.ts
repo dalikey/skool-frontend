@@ -19,6 +19,13 @@ const extendedApi = api.injectEndpoints({
             }),
             providesTags: [{ type: 'Workshops', id: 'LIST' }],
         }),
+        updateWorkshop: build.mutation<void, WorkshopModel>({
+            query: (workshop) => ({
+                url: `workshop/${workshop._id}`,
+                method: 'PUT',
+                body: workshop,
+            }),
+        }),
         activateWorkshop: build.mutation<void, string>({
             query: (id) => ({
                 url: `workshop/${id}/activate`,
@@ -47,6 +54,7 @@ const extendedApi = api.injectEndpoints({
 
 export const {
     useGetAllWorkshopsQuery,
+    useUpdateWorkshopMutation,
     useActivateWorkshopMutation,
     useDeactivateWorkshopMutation,
     useCreateWorkshopMutation,

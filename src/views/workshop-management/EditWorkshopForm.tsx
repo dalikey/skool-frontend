@@ -10,14 +10,14 @@ import { FieldArray, FormikProvider, useFormik } from 'formik';
 import { useFormDialogStore } from '../../components/dialog/FormDialog';
 import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { useCreateWorkshopMutation } from '../../api/workshop/workshopApi';
+import { useUpdateWorkshopMutation } from '../../api/workshop/workshopApi';
 
 const WorkshopForm = () => {
-    const [createWorkshop] = useCreateWorkshopMutation();
     const { close } = useFormDialogStore();
+    const [updateWorkshop] = useUpdateWorkshopMutation();
 
     const handleSubmit = (values) => {
-        createWorkshop(values);
+        updateWorkshop(values);
         close();
     };
 
