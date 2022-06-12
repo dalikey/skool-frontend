@@ -28,7 +28,6 @@ const Profile = () => {
         levelString = user?.levelPreferences;
         levelPref = levelString.join('\r\n');
     }
-    console.log(user?.levelPreferences);
 
     const openProfileForm = () => {
         if (data?.result) {
