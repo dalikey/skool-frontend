@@ -11,8 +11,13 @@ import { useFormDialogStore } from '../../components/dialog/FormDialog';
 import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useUpdateWorkshopMutation } from '../../api/workshop/workshopApi';
+import {WorkshopModel} from "../../models/workshopModels";
 
-const WorkshopForm = () => {
+interface WorkshopFormProps {
+    workshop: WorkshopModel
+}
+
+const WorkshopForm = ({workshop}: WorkshopFormProps) => {
     const { close } = useFormDialogStore();
     const [updateWorkshop] = useUpdateWorkshopMutation();
 
@@ -23,10 +28,11 @@ const WorkshopForm = () => {
 
     const formik = useFormik({
         initialValues: {
-            name: '',
-            content: '',
-            materials: [],
-            isActive: true,
+            _id: workshop._id ?? '',
+            name: workshop.name ?? '',
+            content: workshop.content ?? '',
+            materials: workshop.materials ?? [],
+            isActive: workshop.isActive ?? true,
         },
         validateOnChange: false,
         onSubmit: handleSubmit,

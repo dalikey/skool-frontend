@@ -23,8 +23,8 @@ const WorkshopTable = ({ isLoading, workshops }: WorkshopTableProps) => {
         formDialog('Nieuwe gebruiker toevoegen', <NonExistingUserForm />);
     };
 
-    const openEditWorkshopForm = (): void => {
-        formDialog('Workshop bewerken', <EditWorkshopForm />);
+    const openEditWorkshopForm = (workshop: WorkshopModel): void => {
+        formDialog('Workshop bewerken', <EditWorkshopForm workshop={workshop}/>);
     };
 
     const handleClickDelete = (workshop: WorkshopModel): void => {
@@ -62,7 +62,7 @@ const WorkshopTable = ({ isLoading, workshops }: WorkshopTableProps) => {
                                         <IconButton
                                             aria-label='edit'
                                             color='secondary'
-                                            onClick={openEditWorkshopForm}
+                                            onClick={() => openEditWorkshopForm(workshop)}
                                         >
                                             <Edit />
                                         </IconButton>
