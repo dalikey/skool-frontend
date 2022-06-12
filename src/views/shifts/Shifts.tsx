@@ -4,6 +4,8 @@ import { useGetAllShiftsQuery } from '../../api/shift/shiftApi';
 import ConfirmDialog from '../../components/dialog/ConfirmDialog';
 import {RetrievedWorkshopShiftModel} from '../../models/workshopShiftModels';
 import ShiftTable from './ShiftsTable';
+import {CredentialsModel} from "../../models/authModels";
+import {useLocalStorage} from "../../app/useLocalStorage";
 
 const getIsActiveValue = (tab: number): boolean | null => {
     return tab === 0;
@@ -22,6 +24,23 @@ const Shifts = () => {
         setTab(newValue);
     };
 
+    const enrolledShifts: RetrievedWorkshopShiftModel[] = [];
+    const availableShifts: RetrievedWorkshopShiftModel[] = [];
+
+    const [user] = useLocalStorage<CredentialsModel>('user');
+
+    // @ts-ignore
+    data?.result?.forEach((shift) => {
+        const userIds = shift.candidates.map((candidate) => (
+            candidate.userId
+        ))
+        if (userIds.includes(user?._id)) {
+            enrolledShifts.push(shift);
+        } else {
+            availableShifts.push(shift);
+        }
+    })
+
     return (
         <Paper sx={{ width: '100%' }}>
             <ConfirmDialog />
@@ -38,11 +57,13 @@ const Shifts = () => {
             {tab === 0 ? (
                 <ShiftTable
                     isLoading={isLoading}
-                    shifts={data?.result as RetrievedWorkshopShiftModel[]}
+                    isParticipating={false}
+                    shifts={availableShifts as RetrievedWorkshopShiftModel[]}
                 />
             ) : (<ShiftTable
                 isLoading={isLoading}
-                //shifts={myShifts as RetrievedWorkshopShiftModel[]}
+                isParticipating={true}
+                shifts={enrolledShifts as RetrievedWorkshopShiftModel[]}
             />)
             }
         </Paper>

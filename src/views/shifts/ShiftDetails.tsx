@@ -1,64 +1,69 @@
 import { Button, Grid, Typography } from '@mui/material';
 import {
     RetrievedWorkshopShiftModel,
-    WorkshopShiftModel,
 } from '../../models/workshopShiftModels';
 import { useSignInWorkshopMutation } from '../../api/workshop/workshopApi';
-import { useFormDialogStore } from '../../components/dialog/FormDialog';
+
 import ConfirmDialog, {
     confirmDialog,
 } from '../../components/dialog/ConfirmDialog';
+import {useNavigate} from "react-router-dom";
 
 interface ShiftDetailsProps {
     shift?: RetrievedWorkshopShiftModel;
+    isParticipating?: boolean
 }
 
-const ShiftDetails = ({ shift }: ShiftDetailsProps) => {
-    const [signInWorkshop, { isLoading: isActivateLoading }] =
-        useSignInWorkshopMutation();
-    const { close } = useFormDialogStore();
 
-    const handleClickActivate = (workshopShift: WorkshopShiftModel): void => {
+
+const ShiftDetails = ({ shift, isParticipating }: ShiftDetailsProps) => {
+    const [signInWorkshop] =
+        useSignInWorkshopMutation();
+
+    const navigate = useNavigate();
+
+    const handleClickActivate = (workshopShift: RetrievedWorkshopShiftModel | undefined): void => {
+        if (workshopShift !== undefined) {
         confirmDialog(
             'Registratie goedkeuren',
             `Weet u zeker dat u zich wilt inschrijven voor ${workshopShift.workshopId}?`,
-            () => signInWorkshop(workshopShift.clientId)
+            () => {signInWorkshop(workshopShift._id); setTimeout(() => window.location.reload(),50) ;}
         );
+
+    }
     };
 
     return (
         <Grid container width='100%' p={3}>
             <Grid item xs={12} md={6} p={1}>
-                {/* <Typography variant="h5">Workshopdocent {shift?.workshop[0].name}</Typography> */}
-                <Typography variant='h5'>Workshopdocent Graffiti</Typography>
+                <Typography variant='h5'>Workshopdocent {shift?.workshop.name}</Typography>
             </Grid>
             <Grid item xs={12} md={6} p={1}>
-                <Typography>
+                <Typography variant={'h5'}>Data</Typography>
+                <Typography variant={'h6'}>
                     {new Date(shift?.date ?? '').toLocaleDateString('nl-NL')}{' '}
-                    13:00 - 15:00
+                </Typography>
+                {shift?.timestamps && shift?.timestamps.map((timestamp) => (
+                    <Typography>{timestamp.startTime} - {timestamp.endTime}</Typography>
+                ))}
+            </Grid>
+            <Grid item xs={12} p={1}>
+                <Typography variant={'h5'}>Onderwerp</Typography>
+                <Typography>
+                    {shift?.workshop.content}
                 </Typography>
             </Grid>
             <Grid item xs={12} p={1}>
-                <Typography>Onderwerp - type</Typography>
-            </Grid>
-            <Grid item xs={12} p={1}>
+                <Typography
+                variant={'h5'}>
+                    Materiaal
+                </Typography>
                 <Typography>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Non
-                    dolor laborum, voluptates expedita eum ab facere in maxime
-                    eveniet perferendis deleniti placeat, magnam necessitatibus
-                    quas deserunt. Distinctio asperiores quo eligendi!Lorem
-                    ipsum dolor sit amet consectetur adipisicing elit. Non dolor
-                    laborum, voluptates expedita eum ab facere in maxime eveniet
-                    perferendis deleniti placeat, magnam necessitatibus quas
-                    deserunt. Distinctio asperiores quo eligendi!Lorem ipsum
-                    dolor sit amet consectetur adipisicing elit. Non dolor
-                    laborum, voluptates expedita eum ab facere in maxime eveniet
-                    perferendis deleniti placeat, magnam necessitatibus quas
-                    deserunt. Distinctio asperiores quo eligendi!
+                    {shift?.workshop.materials ?? 'Geen extra materiaal benodigd!'}
                 </Typography>
             </Grid>
             <Grid item xs={12} md={6} p={1}>
-                <Typography>GOOGLE MAPS IMPLEMENTATIE</Typography>
+                <iframe title={'Location in Maps'} src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyCh26TeMpBSqb0qfOZwxcr_MMKDvGdUxF4&q=${shift?.location.address}, ${shift?.location.city}`}></iframe>
             </Grid>
             <Grid item xs={12} md={6} p={1}>
                 <Typography variant='h5'>Adres</Typography>
@@ -68,15 +73,18 @@ const ShiftDetails = ({ shift }: ShiftDetailsProps) => {
                     {shift?.location.country}
                 </Typography>
             </Grid>
-            <Grid item xs={12} md={6} p={1}>
-                <ConfirmDialog />
-                <Button
-                    variant='contained'
-                    // onClick={() => handleClickActivate(shift)}
-                >
-                    Inschrijven
-                </Button>
-            </Grid>
+            {!isParticipating &&
+                <Grid item xs={12} md={6} p={1}>
+
+                    <ConfirmDialog/>
+                    <Button
+                        variant='contained'
+                        onClick={() => handleClickActivate(shift)}
+                    >
+                        Inschrijven
+                    </Button>
+                </Grid>
+            }
             <Grid item xs={12} md={6} p={1}>
                 <Typography variant='h5'>
                     Loon: € {shift?.total_Amount}

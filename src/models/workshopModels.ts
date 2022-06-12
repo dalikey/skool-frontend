@@ -1,7 +1,7 @@
 export interface WorkshopModel {
     _id: string;
     name: string;
-    description: string;
+    content: string;
     imageUrl: string;
     materials: string;
     isActive: boolean | null;

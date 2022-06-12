@@ -1,5 +1,6 @@
 import {WorkshopModel} from "./workshopModels";
 import {CustomerModel} from "./customerModels";
+import {UserModel} from "./userModels";
 
 export interface WorkshopShiftModel {
     clientId: string,
@@ -29,10 +30,11 @@ interface TimeStampModel {
 }
 
 export interface RetrievedWorkshopShiftModel {
+    _id: string
     clientId: string,
     workshopId: string,
-    workshop: WorkshopModel[]
-    client: CustomerModel[]
+    workshop: WorkshopModel
+    client: CustomerModel
     maximumParticipants: number
     location: LocationModel
     date: Date
@@ -43,6 +45,8 @@ export interface RetrievedWorkshopShiftModel {
     tariff: number
     total_Amount: number
     participants: Array<any>
+    participantUsers: UserModel[]
+    candidateUsers: UserModel[]
     candidates: Array<any>
     targetAudience: string
 

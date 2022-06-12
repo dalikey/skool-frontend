@@ -38,6 +38,7 @@ const extendedApi = api.injectEndpoints({
                 url: `workshop/shift/${id}/enroll`,
                 method: 'POST',
             }),
+            invalidatesTags: [{type: 'Workshops', id: 'OBJECT'}],
         }),
     }),
     overrideExisting: false,

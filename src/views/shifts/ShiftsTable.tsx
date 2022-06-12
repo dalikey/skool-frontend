@@ -8,9 +8,12 @@ import ShiftDetails from "./ShiftDetails";
 interface ShiftTableProps {
     isLoading: boolean;
     shifts?: RetrievedWorkshopShiftModel[];
+    isParticipating: boolean
 }
 
-const ShiftTable = ({ isLoading, shifts }: ShiftTableProps) => {
+const ShiftTable = ({ isLoading, shifts, isParticipating }: ShiftTableProps) => {
+
+    console.log(shifts);
 
     return (
         <Table
@@ -22,16 +25,15 @@ const ShiftTable = ({ isLoading, shifts }: ShiftTableProps) => {
                         <CollapsibleRow key={workshop.workshopId}
                                         innerContent={
                                             <ShiftDetails
+                                                isParticipating={isParticipating}
                                                 shift={workshop}
                                             />
                                         }
                         >
-                            {/* {workshop.workshop &&
-                            workshop.workshop.map((ws) => (
-                                <TableCell>Workshopdocent {ws.name}</TableCell>
-                            ))} */}
 
-                            <TableCell>{(workshop.participants.length + workshop.candidates.length)} / {workshop.maximumParticipants}</TableCell>
+                                <TableCell>Workshopdocent {workshop.workshop.name}</TableCell>
+
+                            <TableCell>{(workshop.participants.length)} / {workshop.maximumParticipants}</TableCell>
                             <TableCell>€ {workshop.total_Amount}</TableCell>
                             <TableCell>{workshop.targetAudience}</TableCell>
                             <TableCell>{workshop.location.city}</TableCell>
