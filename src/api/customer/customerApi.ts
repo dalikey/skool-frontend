@@ -7,6 +7,12 @@ interface getAllCustomersResponse {
     result?: CustomerModel[];
 }
 
+interface getOneCustomerResponse {
+    error?: string
+    message?: string
+    result?: CustomerModel
+}
+
 const extendedApi = api.injectEndpoints({
     endpoints: (build) => ({
         getAllCustomers: build.query<
@@ -25,11 +31,21 @@ const extendedApi = api.injectEndpoints({
                 body,
             }),
         }),
+        getOneCustomer: build.query<
+            getOneCustomerResponse,
+            string
+            >({
+            query: (clientId) => ({
+                url: `customer/${clientId}`,
+            }),
+            providesTags: [{ type: 'Customers', id: 'LIST' }],
+        }),
     }),
     overrideExisting: false,
 });
 
 export const {
     useGetAllCustomersQuery,
+    useGetOneCustomerQuery
     useCreateCustomerMutation,
 } = extendedApi;

@@ -36,8 +36,8 @@ const SidebarLinkList = ({ role }: SidebarLinkListProps) => {
             icon: <DashboardIcon />,
         },
         {
-            path: '/workshops',
-            text: 'Workshops',
+            path: '/shifts',
+            text: 'Diensten',
             icon: <SchoolIcon />,
         },
         {

@@ -1,10 +1,10 @@
 import { api } from './../api';
-import { WorkshopShiftModel } from '../../models/workshopShiftModels';
+import {RetrievedWorkshopShiftModel, WorkshopShiftModel} from "../../models/workshopShiftModels";
 
 interface createShiftResponse {
     error?: string;
     message?: string;
-    result?: WorkshopShiftModel;
+    result?: RetrievedWorkshopShiftModel | RetrievedWorkshopShiftModel[];
 }
 
 const extendedApi = api.injectEndpoints({
@@ -17,8 +17,21 @@ const extendedApi = api.injectEndpoints({
             }),
             invalidatesTags: [{ type: 'Shift', id: 'OBJECT' }],
         }),
+        getAllShifts: build.query<
+            createShiftResponse,
+            Record<string, boolean | null>
+            >({
+            query: (isActive) => ({
+                url: 'workshop/shift',
+                params: isActive,
+            }),
+            providesTags: [{ type: 'Shift', id: 'LIST' }],
+        }),
     }),
     overrideExisting: false,
 });
 
-export const { useCreateShiftMutation } = extendedApi;
+export const {
+    useCreateShiftMutation,
+    useGetAllShiftsQuery
+} = extendedApi;
