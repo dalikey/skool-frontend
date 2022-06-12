@@ -7,7 +7,6 @@ import { useSignInWorkshopMutation } from '../../api/workshop/workshopApi';
 import ConfirmDialog, {
     confirmDialog,
 } from '../../components/dialog/ConfirmDialog';
-import {useNavigate} from "react-router-dom";
 
 interface ShiftDetailsProps {
     shift?: RetrievedWorkshopShiftModel;
@@ -20,13 +19,11 @@ const ShiftDetails = ({ shift, isParticipating }: ShiftDetailsProps) => {
     const [signInWorkshop] =
         useSignInWorkshopMutation();
 
-    const navigate = useNavigate();
-
     const handleClickActivate = (workshopShift: RetrievedWorkshopShiftModel | undefined): void => {
         if (workshopShift !== undefined) {
         confirmDialog(
-            'Registratie goedkeuren',
-            `Weet u zeker dat u zich wilt inschrijven voor ${workshopShift.workshopId}?`,
+            'Registratie bevestigen',
+            `Weet u zeker dat u zich wilt inschrijven voor Workshopdocent ${workshopShift.workshop.name}?`,
             () => {signInWorkshop(workshopShift._id); setTimeout(() => window.location.reload(),50) ;}
         );
 
@@ -39,7 +36,7 @@ const ShiftDetails = ({ shift, isParticipating }: ShiftDetailsProps) => {
                 <Typography variant='h5'>Workshopdocent {shift?.workshop.name}</Typography>
             </Grid>
             <Grid item xs={12} md={6} p={1}>
-                <Typography variant={'h5'}>Data</Typography>
+                <Typography variant={'h5'}>Datum & Tijdschema</Typography>
                 <Typography variant={'h6'}>
                     {new Date(shift?.date ?? '').toLocaleDateString('nl-NL')}{' '}
                 </Typography>
@@ -85,6 +82,19 @@ const ShiftDetails = ({ shift, isParticipating }: ShiftDetailsProps) => {
                     </Button>
                 </Grid>
             }
+
+            {/*{isParticipating &&
+                <Grid item xs={12} md={6} p={1}>
+
+                    <ConfirmDialog/>
+                    <Button
+                        variant='contained'
+                        onClick={() => handleClickDeActivate(shift)}
+                    >
+                        Uitschrijven
+                    </Button>
+                </Grid>
+            }*/}
             <Grid item xs={12} md={6} p={1}>
                 <Typography variant='h5'>
                     Loon: € {shift?.total_Amount}

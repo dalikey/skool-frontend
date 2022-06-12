@@ -51,7 +51,7 @@ const Shifts = () => {
                     aria-label='basic tabs example'
                 >
                     <Tab label='BESCHIKBARE WORKSHOPS' />
-                    <Tab label='AANGEMELDDE WORKSHOPS' />
+                    <Tab label='AANGEMELDE WORKSHOPS' />
                 </Tabs>
             </Box>
             {tab === 0 ? (
