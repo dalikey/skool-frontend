@@ -25,6 +25,7 @@ const extendedApi = api.injectEndpoints({
                 method: 'PUT',
                 body: workshop,
             }),
+            invalidatesTags: [{ type: 'Workshops', id: 'LIST' }],
         }),
         activateWorkshop: build.mutation<void, string>({
             query: (id) => ({
@@ -48,6 +49,13 @@ const extendedApi = api.injectEndpoints({
             }),
             invalidatesTags: [{ type: 'Workshops', id: 'LIST' }],
         }),
+        deleteWorkshop: build.mutation<void, string>({
+            query: (id) => ({
+                url: `workshop/${id}`,
+                method: 'DELETE',
+            }),
+            invalidatesTags: [{ type: 'Workshops', id: 'LIST' }],
+        }),
     }),
     overrideExisting: false,
 });
@@ -58,4 +66,5 @@ export const {
     useActivateWorkshopMutation,
     useDeactivateWorkshopMutation,
     useCreateWorkshopMutation,
+    useDeleteWorkshopMutation,
 } = extendedApi;

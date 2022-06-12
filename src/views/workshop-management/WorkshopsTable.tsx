@@ -6,6 +6,10 @@ import { WorkshopModel } from '../../models/workshopModels';
 import NonExistingUserForm from './NonExistingUserForm';
 import FormDialog, { formDialog } from '../../components/dialog/FormDialog';
 import EditWorkshopForm from './EditWorkshopForm';
+import ConfirmDialog, {
+    confirmDialog,
+} from '../../components/dialog/ConfirmDialog';
+import { useDeleteWorkshopMutation } from '../../api/workshop/workshopApi';
 
 interface WorkshopTableProps {
     isLoading: boolean;
@@ -13,6 +17,8 @@ interface WorkshopTableProps {
 }
 
 const WorkshopTable = ({ isLoading, workshops }: WorkshopTableProps) => {
+    const [deleteWorkshop] = useDeleteWorkshopMutation();
+
     const openNonExistingUserForm = () => {
         formDialog('Nieuwe gebruiker toevoegen', <NonExistingUserForm />);
     };
@@ -21,9 +27,18 @@ const WorkshopTable = ({ isLoading, workshops }: WorkshopTableProps) => {
         formDialog('Workshop bewerken', <EditWorkshopForm />);
     };
 
+    const handleClickDelete = (workshop: WorkshopModel): void => {
+        confirmDialog(
+            'Workshop verwijderen',
+            `Weet u zeker dat u deze workshop "${workshop.name}" wilt verwijderen?`,
+            () => deleteWorkshop(workshop._id)
+        );
+    };
+
     return (
         <>
             <FormDialog />
+            <ConfirmDialog />
             <Table
                 columns={['Naam', 'Beschrijving', 'Benodigde materialen']}
                 isLoading={isLoading}
@@ -56,6 +71,7 @@ const WorkshopTable = ({ isLoading, workshops }: WorkshopTableProps) => {
                                 <IconButton
                                     aria-label='delete'
                                     color='secondary'
+                                    onClick={() => handleClickDelete(workshop)}
                                 >
                                     <Delete />
                                 </IconButton>
