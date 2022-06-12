@@ -16,7 +16,7 @@ const WorkshopManagement = () => {
         formDialog('Workshop toevoegen', <WorkshopForm />);
     };
 
-    const [tab, setTab] = useState<number>(1);
+    const [tab, setTab] = useState<number>(0);
 
     const { data, isLoading } = useGetAllWorkshopsQuery({
         isActive: getIsActiveValue(tab),
