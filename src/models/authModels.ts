@@ -4,6 +4,7 @@ export interface CredentialsModel {
     role: string;
     token: string;
     isActive: boolean;
+    _id: string;
 }
 
 export interface LoginModel {
@@ -17,4 +18,11 @@ export interface RegistrationModel {
     emailAddress: string;
     password: string;
     passwordConfirm: string;
+}
+
+export interface NonExistingModel {
+    firstName: string;
+    lastName: string;
+    emailAddress: string;
+    phoneNumber: string;
 }

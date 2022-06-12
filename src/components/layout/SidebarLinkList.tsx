@@ -13,6 +13,9 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import SchoolIcon from '@mui/icons-material/School';
 import SupervisedUserCircleIcon from '@mui/icons-material/SupervisedUserCircle';
 import PersonIcon from '@mui/icons-material/Person';
+import WorkIcon from '@mui/icons-material/Work';
+import StoreRoundedIcon from '@mui/icons-material/StoreRounded';
+import EventNoteIcon from '@mui/icons-material/EventNote';
 import Logo from '../../assets/logo.png';
 
 interface LinkItem {
@@ -33,8 +36,8 @@ const SidebarLinkList = ({ role }: SidebarLinkListProps) => {
             icon: <DashboardIcon />,
         },
         {
-            path: '/workshops',
-            text: 'Workshops',
+            path: '/shifts',
+            text: 'Diensten',
             icon: <SchoolIcon />,
         },
         {
@@ -50,13 +53,28 @@ const SidebarLinkList = ({ role }: SidebarLinkListProps) => {
             text: 'Gebruikersbeheer',
             icon: <SupervisedUserCircleIcon />,
         },
+        {
+            path: '/workshopbeheer',
+            text: 'Workshopbeheer',
+            icon: <WorkIcon />,
+        },
+        {
+            path: '/shiftbeheer',
+            text: 'Shiftbeheer',
+            icon: <EventNoteIcon/>
+        },
+        {
+            path: '/klantenbeheer',
+            text: 'Klantenbeheer',
+            icon: <StoreRoundedIcon />,
+        },
     ];
 
     const { pathname } = useLocation();
 
     return (
-        <Box sx={{ pl: '20px' }}>
-            <Box pt='15px'>
+        <Box>
+            <Box pt='15px' pl={2}>
                 <img width='150px' src={Logo} alt='logo' />
             </Box>
             <List>
@@ -70,7 +88,7 @@ const SidebarLinkList = ({ role }: SidebarLinkListProps) => {
                                 width: '100%',
                             }}
                         >
-                            <ListItemButton disableGutters>
+                            <ListItemButton sx={{pl: 2}} disableGutters>
                                 <ListItemIcon
                                     sx={{
                                         minWidth: '40px',
@@ -98,7 +116,7 @@ const SidebarLinkList = ({ role }: SidebarLinkListProps) => {
             </List>
             {role === 'owner' && (
                 <>
-                    <Box mt={5}>
+                    <Box mt={5} pl={2}>
                         <Typography variant='subtitle1' color='secondary'>
                             Admin
                         </Typography>
@@ -115,7 +133,7 @@ const SidebarLinkList = ({ role }: SidebarLinkListProps) => {
                                         width: '100%',
                                     }}
                                 >
-                                    <ListItemButton disableGutters>
+                                    <ListItemButton sx={{pl: 2}} disableGutters>
                                         <ListItemIcon
                                             sx={{
                                                 minWidth: '40px',
