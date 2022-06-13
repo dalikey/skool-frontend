@@ -40,6 +40,13 @@ const extendedApi = api.injectEndpoints({
             }),
             providesTags: [{ type: 'Customers', id: 'LIST' }],
         }),
+        deleteCustomer: build.mutation<void, string>({
+            query: (id) => ({
+                url: `customer/${id}/delete`,
+                method: 'DELETE',
+            }),
+            invalidatesTags: [{ type: 'Customers', id: 'LIST' }],
+        }),
     }),
     overrideExisting: false,
 });
@@ -48,4 +55,5 @@ export const {
     useGetAllCustomersQuery,
     useGetOneCustomerQuery,
     useCreateCustomerMutation,
+    useDeleteCustomerMutation,
 } = extendedApi;
