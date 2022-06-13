@@ -44,7 +44,7 @@ const Profile = () => {
                     <Stack direction='row' spacing={2}>
                         <img
                             src={ProfilePicture}
-                            alt='Profile picture'
+                            alt='Profile'
                             style={{
                                 height: 150,
                                 width: 150,
