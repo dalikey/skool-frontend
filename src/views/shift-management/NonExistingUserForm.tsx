@@ -2,18 +2,23 @@ import { Button, Stack, TextField, FormHelperText } from '@mui/material';
 import { useFormik } from 'formik';
 import { useEffect } from 'react';
 import { NonExistingModel } from '../../models/authModels';
-import { useAddNonExistingMutation } from '../../api/auth/authApi';
+import { useAddNonExistingMutation } from '../../api/shift/shiftApi';
 import { useNavigate } from 'react-router-dom';
 import { useFormDialogStore } from '../../components/dialog/FormDialog';
+import {RetrievedWorkshopShiftModel} from "../../models/workshopShiftModels";
 
-const NonExistingUserForm = () => {
+interface NonExistingUserFormProps {
+    shift: RetrievedWorkshopShiftModel
+}
+
+const NonExistingUserForm = ({ shift }: NonExistingUserFormProps) => {
     const { close } = useFormDialogStore();
 
     const [addNonExisting, { isSuccess, isError, isLoading }] =
         useAddNonExistingMutation();
 
     const handleNonExistingUser = (values: NonExistingModel): void => {
-        addNonExisting({ id: 1, body: values });
+        addNonExisting({ id: shift._id, body: values });
         close();
     };
 

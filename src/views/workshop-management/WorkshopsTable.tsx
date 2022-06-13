@@ -3,13 +3,14 @@ import Row from '../../components/table/Row';
 import Table from '../../components/table/Table';
 import { Delete, Edit, PersonAddAlt } from '@mui/icons-material';
 import { WorkshopModel } from '../../models/workshopModels';
-import NonExistingUserForm from './NonExistingUserForm';
+import NonExistingUserForm from '../shift-management/NonExistingUserForm';
 import FormDialog, { formDialog } from '../../components/dialog/FormDialog';
 import EditWorkshopForm from './EditWorkshopForm';
 import ConfirmDialog, {
     confirmDialog,
 } from '../../components/dialog/ConfirmDialog';
 import { useDeleteWorkshopMutation } from '../../api/workshop/workshopApi';
+import {RetrievedWorkshopShiftModel} from "../../models/workshopShiftModels";
 
 interface WorkshopTableProps {
     isLoading: boolean;
@@ -18,10 +19,6 @@ interface WorkshopTableProps {
 
 const WorkshopTable = ({ isLoading, workshops }: WorkshopTableProps) => {
     const [deleteWorkshop] = useDeleteWorkshopMutation();
-
-    const openNonExistingUserForm = () => {
-        formDialog('Nieuwe gebruiker toevoegen', <NonExistingUserForm />);
-    };
 
     const openEditWorkshopForm = (workshop: WorkshopModel): void => {
         formDialog('Workshop bewerken', <EditWorkshopForm workshop={workshop}/>);
@@ -52,13 +49,6 @@ const WorkshopTable = ({ isLoading, workshops }: WorkshopTableProps) => {
                             <TableCell align='right'>
                                 {workshop.isActive && (
                                     <>
-                                        <IconButton
-                                            aria-label='share'
-                                            color='secondary'
-                                            onClick={openNonExistingUserForm}
-                                        >
-                                            <PersonAddAlt />
-                                        </IconButton>
                                         <IconButton
                                             aria-label='edit'
                                             color='secondary'
