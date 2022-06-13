@@ -10,6 +10,7 @@ import CustomerManagement from './views/customer-management/CustomerManagement';
 import WorkshopManagement from './views/workshop-management/WorkshopManagement';
 import ShiftManagement from './views/shift-management/ShiftManagement';
 import Shifts from './views/shifts/Shifts';
+import Dashboard from './views/dashboard/Dashboard';
 
 const App = () => {
     return (
@@ -19,17 +20,18 @@ const App = () => {
                 <Route path='sign-up' element={<SignUp />} />
                 <Route path='sign-in' element={<SignIn />} />
                 <Route path='' element={<AppLayout />}>
-                <Route path='dashboard' element={<div></div>} />
-                <Route path='gebruikersbeheer' element={<UserManagement />}/>
-                <Route path='shifts' element={<Shifts />} />
-                <Route path='workshopbeheer' element={<WorkshopManagement />}/>
-                <Route path='profiel' element={<Profile />} />
-                <Route path='shiftbeheer' element={<ShiftManagement />} />
+                    <Route path='' element={<Dashboard />} />
                     <Route
-                        path='klantenbeheer'
-                        element={<CustomerManagement />}
+                        path='gebruikersbeheer'
+                        element={<UserManagement />}
                     />
-
+                    <Route path='diensten' element={<Shifts />} />
+                    <Route
+                        path='workshopbeheer'
+                        element={<WorkshopManagement />}
+                    />
+                    <Route path='profiel' element={<Profile />} />
+                    <Route path='shiftbeheer' element={<ShiftManagement />} />
                     <Route
                         path='klantenbeheer'
                         element={<CustomerManagement />}

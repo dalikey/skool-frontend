@@ -6,7 +6,6 @@ import {
     Typography,
 } from '@mui/material';
 import { FieldArray, FormikContextType, FormikProvider } from 'formik';
-import { useEffect } from 'react';
 import { useGetAllWorkshopsQuery } from '../../../api/workshop/workshopApi';
 
 interface ProfileFormProps {
