@@ -36,7 +36,7 @@ export interface UserProfileModel {
     levelPreferences?: string[];
     emailCampaigns?: boolean;
     textCampaigns?: boolean;
-    levelPreference?: string;
+    hourRate?: number;
     contractType?: 'freelancer' | 'full-time';
 }
 
@@ -86,6 +86,7 @@ export const defaultUserProfile: UserProfileModel = {
     },
     kvkNumber: '',
     vatID: '',
+    hourRate: 0,
     workshopPreferences: [],
     levelPreferences: [],
     emailCampaigns: false,
