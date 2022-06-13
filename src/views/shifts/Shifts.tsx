@@ -31,10 +31,13 @@ const Shifts = () => {
 
     // @ts-ignore
     data?.result?.forEach((shift) => {
-        const userIds = shift.candidates.map((candidate) => (
+        const candidateUserIds = shift.candidates.map((candidate) => (
             candidate.userId
+        ));
+        const participantUserIds = shift.participants.map((participant) => (
+            participant.userId
         ))
-        if (userIds.includes(user?._id)) {
+        if (candidateUserIds.includes(user?._id) || participantUserIds.includes(user?._id)) {
             enrolledShifts.push(shift);
         } else {
             availableShifts.push(shift);

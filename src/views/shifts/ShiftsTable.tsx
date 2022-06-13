@@ -14,7 +14,7 @@ interface ShiftTableProps {
 const ShiftTable = ({ isLoading, shifts, isParticipating }: ShiftTableProps) => {
     return (
         <Table
-            columns={['Naam', 'Aantal medewerkers', 'Loon', 'Type', 'Plaats', 'Status', 'Datum', '']}
+            columns={['Naam', 'Loon', 'Type', 'Plaats', 'Status', 'Datum', '']}
             isLoading={isLoading}
         >
             {shifts &&
@@ -30,7 +30,6 @@ const ShiftTable = ({ isLoading, shifts, isParticipating }: ShiftTableProps) => 
 
                                 <TableCell>Workshopdocent {workshop.workshop.name}</TableCell>
 
-                            <TableCell>{(workshop.participants.length)} / {workshop.maximumParticipants}</TableCell>
                             <TableCell>€ {workshop.total_Amount}</TableCell>
                             <TableCell>{workshop.targetAudience}</TableCell>
                             <TableCell>{workshop.location.city}</TableCell>

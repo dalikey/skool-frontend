@@ -9,7 +9,6 @@ export const WorkshopShiftSchema = Yup.object({
     level: Yup.string().required('Verplicht'),
     date: Yup.date().required('Verplicht'),
     availableUntil: Yup.date().required('Verplicht'),
-    hourRate: Yup.number(),
     dayRate: Yup.number(),
     location: Yup.object({
         address: Yup.string().required('Verplicht'),

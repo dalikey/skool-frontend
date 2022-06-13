@@ -26,7 +26,7 @@ const CollapsibleRow = ({ children, innerContent }: CollabsibleRowProps) => {
                 </TableCell>
             </TableRow>
             <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
-                <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
+                <TableCell style={{ paddingBottom: 0, paddingTop: 0, paddingLeft: 0, paddingRight: 0 }} colSpan={6}>
                     <Collapse in={open} timeout={'auto'} unmountOnExit>
                         { innerContent}
                     </Collapse>
