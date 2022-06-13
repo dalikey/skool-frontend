@@ -3,6 +3,8 @@ import Row from '../../components/table/Row';
 import Table from '../../components/table/Table';
 import { Delete, Edit } from '@mui/icons-material';
 import { CustomerModel } from '../../models/customerModels';
+import { formDialog } from '../../components/dialog/FormDialog';
+import CustomerForm from './CustomerForm';
 
 interface CustomerTableProps {
     isLoading: boolean;
@@ -10,6 +12,11 @@ interface CustomerTableProps {
 }
 
 const CustomerTable = ({ isLoading, customers }: CustomerTableProps) => {
+
+    const openCustomerForm = (customer: CustomerModel): void => {
+        formDialog('Klant bewerken', <CustomerForm customer={customer}/>);
+    }
+
     return (
         <Table
             columns={[
@@ -34,7 +41,7 @@ const CustomerTable = ({ isLoading, customers }: CustomerTableProps) => {
                             {customer.location.country}
                         </TableCell>
                         <TableCell align='right'>
-                            <IconButton aria-label='edit' color='secondary'>
+                            <IconButton aria-label='edit' color='secondary' onClick={() => openCustomerForm(customer)}>
                                 <Edit />
                             </IconButton>
                             <IconButton aria-label='delete' color='secondary'>

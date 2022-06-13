@@ -12,9 +12,6 @@ interface ShiftTableProps {
 }
 
 const ShiftTable = ({ isLoading, shifts, isParticipating }: ShiftTableProps) => {
-
-    console.log(shifts);
-
     return (
         <Table
             columns={['Naam', 'Aantal medewerkers', 'Loon', 'Type', 'Plaats', 'Status', 'Datum', '']}
