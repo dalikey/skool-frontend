@@ -3,6 +3,10 @@ import Row from '../../components/table/Row';
 import Table from '../../components/table/Table';
 import { Delete, Edit } from '@mui/icons-material';
 import { UserModel } from '../../models/userModels';
+import { formDialog } from '../../components/dialog/FormDialog';
+import AdminProfileForm from './UserProfileForm';
+import { confirmDialog } from '../../components/dialog/ConfirmDialog';
+import { useDeleteUserMutation } from '../../api/user/userApi';
 
 interface UserTableProps {
     isLoading: boolean;
@@ -10,9 +14,23 @@ interface UserTableProps {
 }
 
 const UserTable = ({ isLoading, users }: UserTableProps) => {
+    const [deleteUser] = useDeleteUserMutation();
+
+    const openProfileForm = (id: string): void => {
+        formDialog('Profiel bewerken', <AdminProfileForm id={id} />);
+    };
+
+    const handleClickDelete = (user: UserModel): void => {
+        confirmDialog(
+            'Gebruiker verwijderen',
+            `Weet u zeker dat u de gebruiker "${user.firstName} ${user.lastName}" wilt verwijderen?`,
+            () => deleteUser(user._id)
+        );
+    };
+
     return (
         <Table
-            columns={['Voornaam', 'Achternaam', 'E-mailadres', 'Rol', 'Actief']}
+            columns={['Voornaam', 'Achternaam', 'E-mailadres', 'Rol']}
             isLoading={isLoading}
         >
             {users &&
@@ -22,14 +40,21 @@ const UserTable = ({ isLoading, users }: UserTableProps) => {
                         <TableCell>{user.lastName}</TableCell>
                         <TableCell>{user.emailAddress}</TableCell>
                         <TableCell>{user.role}</TableCell>
-                        <TableCell>{user.isActive}</TableCell>
                         <TableCell align='right'>
                             {user.isActive && (
-                                <IconButton aria-label='edit' color='secondary'>
+                                <IconButton
+                                    aria-label='edit'
+                                    color='secondary'
+                                    onClick={() => openProfileForm(user._id)}
+                                >
                                     <Edit />
                                 </IconButton>
                             )}
-                            <IconButton aria-label='delete' color='secondary'>
+                            <IconButton
+                                aria-label='delete'
+                                color='secondary'
+                                onClick={() => handleClickDelete(user)}
+                            >
                                 <Delete />
                             </IconButton>
                         </TableCell>

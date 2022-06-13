@@ -2,6 +2,7 @@ import {
     RegistrationModel,
     LoginModel,
     CredentialsModel,
+    NonExistingModel,
 } from '../../models/authModels';
 import { api } from './../api';
 
@@ -9,6 +10,11 @@ interface loginResponse {
     status: number;
     result?: CredentialsModel;
     error?: string;
+}
+
+interface enrollRequestBody {
+    id: number;
+    body: NonExistingModel;
 }
 
 const extendedApi = api.injectEndpoints({
@@ -27,9 +33,19 @@ const extendedApi = api.injectEndpoints({
                 body,
             }),
         }),
+        addNonExisting: build.mutation<void, enrollRequestBody>({
+            query: ({ id, body }) => ({
+                url: `workshop/shift/${id}/enroll/unknownUser`,
+                method: 'POST',
+                body,
+            }),
+        }),
     }),
     overrideExisting: false,
 });
 
-export const { useRegisterMutation, useLoginMutation } =
-    extendedApi;
+export const {
+    useRegisterMutation,
+    useLoginMutation,
+    useAddNonExistingMutation,
+} = extendedApi;

@@ -2,6 +2,7 @@ import { Box, Paper, Tab, Tabs } from '@mui/material';
 import { useState } from 'react';
 import { useGetAllUsersQuery } from '../../api/user/userApi';
 import ConfirmDialog from '../../components/dialog/ConfirmDialog';
+import FormDialog from '../../components/dialog/FormDialog';
 import { UserModel } from '../../models/userModels';
 import RegistrationTable from './RegistrationTable';
 import UserTable from './UserTable';
@@ -27,6 +28,7 @@ const UserManagement = () => {
 
     return (
         <Paper sx={{ width: '100%' }}>
+            <FormDialog />
             <ConfirmDialog />
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                 <Tabs

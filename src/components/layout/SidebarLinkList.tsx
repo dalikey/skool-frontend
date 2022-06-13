@@ -13,6 +13,9 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import SchoolIcon from '@mui/icons-material/School';
 import SupervisedUserCircleIcon from '@mui/icons-material/SupervisedUserCircle';
 import PersonIcon from '@mui/icons-material/Person';
+import WorkIcon from '@mui/icons-material/Work';
+import StoreRoundedIcon from '@mui/icons-material/StoreRounded';
+import EventNoteIcon from '@mui/icons-material/EventNote';
 import Logo from '../../assets/logo.png';
 
 interface LinkItem {
@@ -49,6 +52,21 @@ const SidebarLinkList = ({ role }: SidebarLinkListProps) => {
             path: '/gebruikersbeheer',
             text: 'Gebruikersbeheer',
             icon: <SupervisedUserCircleIcon />,
+        },
+        {
+            path: '/workshopbeheer',
+            text: 'Workshopbeheer',
+            icon: <WorkIcon />,
+        },
+        {
+            path: '/shiftbeheer',
+            text: 'Shiftbeheer',
+            icon: <EventNoteIcon/>
+        },
+        {
+            path: '/klantenbeheer',
+            text: 'Klantenbeheer',
+            icon: <StoreRoundedIcon />,
         },
     ];
 
