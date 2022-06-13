@@ -14,7 +14,7 @@ import { Add, Remove } from '@mui/icons-material';
 import { FormikProvider, useFormik } from 'formik';
 import Box from '@mui/material/Box';
 import { WorkshopShiftSchema } from '../../schemas/workshopShiftSchemas';
-import { WorkshopShiftModel } from '../../models/workshopShiftModels';
+import {RetrievedWorkshopShiftModel, WorkshopShiftModel} from '../../models/workshopShiftModels';
 import { useGetAllWorkshopsQuery } from '../../api/workshop/workshopApi';
 import { useGetAllCustomersQuery } from '../../api/customer/customerApi';
 import {
@@ -23,25 +23,36 @@ import {
 } from '@mui/x-date-pickers';
 import { FieldArray } from 'formik';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { useCreateShiftMutation } from '../../api/shift/shiftApi';
+import {useCreateShiftMutation, useEditShiftMutation} from '../../api/shift/shiftApi';
 import { useFormDialogStore } from '../../components/dialog/FormDialog';
 
-export const AddShiftForm = () => {
+interface AddShiftFormProps {
+    shift?: RetrievedWorkshopShiftModel
+}
+
+export const AddShiftForm = ( { shift }: AddShiftFormProps) => {
     const { close } = useFormDialogStore();
 
     const { data: customers } = useGetAllCustomersQuery();
 
     const { data: functions } = useGetAllWorkshopsQuery({ isActive: true });
 
-    const [createShift, { isLoading }] = useCreateShiftMutation();
+    const [createShift, { isLoading: createIsLoading }] = useCreateShiftMutation();
 
-    const handleSaveWorkshop = (values: WorkshopShiftModel): void => {
-        createShift(values);
+    const [editShift, { isLoading: editIsLoading }] = useEditShiftMutation();
+
+    const handleSaveWorkshop = (values: WorkshopShiftModel | RetrievedWorkshopShiftModel): void => {
+        if (shift && shift._id) {
+            editShift(values)
+        } else {
+            createShift(values);
+        }
         close();
     };
 
     const formik = useFormik({
-        initialValues: {
+        initialValues: shift ?? {
+            _id: '',
             clientId: '',
             workshopId: '',
             maximumParticipants: 10,
@@ -70,6 +81,10 @@ export const AddShiftForm = () => {
         onSubmit: handleSaveWorkshop,
     });
 
+    if (shift) {
+        console.log(shift);
+    }
+
     const handleCustomerChange = (value) => {
         customers?.result?.forEach((customerEntry) => {
             if (customerEntry._id === value.target.value) {
@@ -95,14 +110,7 @@ export const AddShiftForm = () => {
     };
 
     return (
-        <Box
-            display='flex'
-            alignItems='center'
-            justifyContent='center'
-            height='80vh'
-            width='100%'
-        >
-            <Grow in={true}>
+        <Grow in={true}>
                 <form onSubmit={formik.handleSubmit}>
                     <Stack spacing={1}>
                         <FormControl variant={'standard'} fullWidth>
@@ -461,19 +469,28 @@ export const AddShiftForm = () => {
                             >
                                 Annuleren
                             </Button>
-                            <Button
-                                disabled={isLoading}
-                                type='submit'
-                                variant='contained'
-                                sx={{ my: '16px' }}
-                            >
-                                Aanmaken
-                            </Button>
+                            {shift?._id ?
+                                <Button
+                                    disabled={createIsLoading}
+                                    type='submit'
+                                    variant='contained'
+                                    sx={{ my: '16px' }}
+                                >
+                                    Aanpassen
+                                </Button>
+                                : <Button
+                                    disabled={createIsLoading}
+                                    type='submit'
+                                    variant='contained'
+                                    sx={{ my: '16px' }}
+                                >
+                                    Aanmaken
+                                </Button>
+                            }
                         </Stack>
                     </Stack>
                 </form>
             </Grow>
-        </Box>
     );
 };
 
