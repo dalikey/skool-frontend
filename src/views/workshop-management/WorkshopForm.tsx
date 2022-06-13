@@ -62,6 +62,10 @@ const WorkshopForm = ({ workshop }: WorkshopFormProps) => {
                         label='Naam'
                         value={formik.values.name}
                         onChange={formik.handleChange}
+                        error={
+                            formik.touched.name && Boolean(formik.errors.name)
+                        }
+                        helperText={formik.touched.name && formik.errors.name}
                         variant='standard'
                         fullWidth
                     />
@@ -73,6 +77,13 @@ const WorkshopForm = ({ workshop }: WorkshopFormProps) => {
                         label='Content'
                         value={formik.values.content}
                         onChange={formik.handleChange}
+                        error={
+                            formik.touched.content &&
+                            Boolean(formik.errors.content)
+                        }
+                        helperText={
+                            formik.touched.content && formik.errors.content
+                        }
                         variant='standard'
                         fullWidth
                     />
