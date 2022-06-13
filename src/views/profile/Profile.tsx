@@ -5,9 +5,10 @@ import {
     Typography,
     Button,
     IconButton,
+    Avatar,
 } from '@mui/material';
 import {
-    Edit as EditIcon,
+    Edit,
     AttachFile as AttachFileIcon,
 } from '@mui/icons-material';
 import { useGetPersonalProfileQuery } from '../../api/user/userApi';
@@ -35,78 +36,69 @@ const Profile = () => {
         }
     };
 
+    console.log(user);
+
     return (
-        <>
+        <Grid container spacing={2}>
             <FormDialog />
-            <Grid container spacing={3} alignItems='stretch'>
-                <Grid item xs={12}>
-                    <Stack direction='row' spacing={2}>
-                        <img
-                            src={ProfilePicture}
-                            alt='Profile picture'
-                            style={{
-                                height: 150,
-                                width: 150,
-                                borderRadius: 25,
-                                marginTop: '12px',
-                            }}
-                        />
-                        <Stack direction='column'>
-                            <Stack direction='row'>
-                                <Typography
-                                    variant='h6'
-                                    style={{ marginTop: '4px' }}
-                                    component='div'
-                                >
-                                    {user?.firstName + ' ' + user?.lastName}
-                                </Typography>
-                                <IconButton
-                                    onClick={openProfileForm}
-                                    color='primary'
-                                >
-                                    <EditIcon />
-                                </IconButton>
-                            </Stack>
-                            <Grid container spacing={1}>
-                                <Grid item xs={4}>
-                                    Geboorteplaats: {user?.countryOfOrigin}
-                                    <br /> Geboortedatum:{' '}
-                                    {user?.dateOfBirth?.toString().slice(0, 10)}
-                                    <br />
-                                    Nationaliteit: {user?.countryOfOrigin}
-                                    <br />
-                                    Land van herkomst: {user?.countryOfOrigin}
-                                    <br />
-                                    E-mailadres: {user?.emailAddress}
-                                </Grid>
-                                <Grid item xs={4}>
-                                    Opleiding niveau: {'\r\n'}
-                                    {levelPref}
-                                    <br />
-                                    Kvk nummer: {user?.kvkNumber}
-                                    <br />
-                                    Vat ID: {user?.vatID}
-                                    <br />
-                                    Workshop voorkeuren: {'\r\n'}
-                                    {workshopPref}
-                                </Grid>{' '}
-                            </Grid>
-                        </Stack>
-                    </Stack>
-                    <Button
-                        variant='contained'
-                        component='label'
-                        sx={{ my: '16px' }}
-                    >
-                        <AttachFileIcon />
-                        Een bestand toevoegen
-                        <input type='file' hidden />
-                    </Button>
-                    <br />
-                    <Divider></Divider>
-                </Grid>
+            <Grid item xs={12} md={4}>
+                <Avatar
+                    alt='Profile picture'
+                    src={ProfilePicture}
+                    sx={{
+                        width: 150,
+                        height: 150,
+                    }}
+                />
+                <Typography variant='subtitle1' color='secondary'>
+                    Adresgegevens
+                </Typography>
+                <Typography>
+                    {user?.location?.address}
+                </Typography>
+                <Typography>
+                    {user?.location?.city}
+                </Typography>
+                <Typography>
+                    {user?.location?.country}
+                </Typography>
+                <Typography>
+                    {user?.location?.postalCode}
+                </Typography>
             </Grid>
-        </>
+            <Grid item xs={12} md={8}>
+                <Typography fontSize='20px' fontWeight='bold'>
+                    {user?.firstName} {user?.lastName}
+                </Typography>
+                <Typography>
+                    {user?.gender}
+                </Typography>
+                <Typography>
+                    {user?.emailAddress}
+                </Typography>
+                <Typography>
+                    {`${user?.dateOfBirth?.toString()}`}
+                </Typography>
+                <Typography>
+                    {user?.mobileNumber}
+                </Typography>
+                <Typography>
+                    {user?.countryOfOrigin}
+                </Typography>
+                <Typography>
+                    {user?.nationality}
+                </Typography>
+                <Typography>
+                    {user?.placeOfBirth}
+                </Typography>
+                <IconButton
+                    onClick={() => openProfileForm()}
+                    aria-label='edit'
+                    color='primary'>
+                        <Edit />
+                </IconButton>
+            </Grid>
+        </Grid>
     );
 };
 
