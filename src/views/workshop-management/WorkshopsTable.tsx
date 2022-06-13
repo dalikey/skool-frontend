@@ -5,7 +5,7 @@ import { Delete, Edit, PersonAddAlt } from '@mui/icons-material';
 import { WorkshopModel } from '../../models/workshopModels';
 import NonExistingUserForm from './NonExistingUserForm';
 import FormDialog, { formDialog } from '../../components/dialog/FormDialog';
-import EditWorkshopForm from './EditWorkshopForm';
+import EditWorkshopForm from './WorkshopForm';
 import ConfirmDialog, {
     confirmDialog,
 } from '../../components/dialog/ConfirmDialog';

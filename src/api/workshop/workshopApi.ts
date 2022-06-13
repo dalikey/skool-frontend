@@ -21,7 +21,7 @@ const extendedApi = api.injectEndpoints({
         }),
         updateWorkshop: build.mutation<void, WorkshopModel>({
             query: (workshop) => ({
-                url: `workshop/${workshop._id}`,
+                url: `workshop/${workshop._id}/update`,
                 method: 'PUT',
                 body: workshop,
             }),
