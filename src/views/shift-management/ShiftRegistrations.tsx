@@ -4,9 +4,8 @@ import {
 } from '../../models/workshopShiftModels';
 import {
     useCancelParticipationMutation,
-    useConfirmEnrollmentMutation,
-    useRejectEnrollmentMutation,
-    useSignInWorkshopMutation
+    useConfirmEnrollmentMutation, useDoneParticipationMutation,
+    useRejectEnrollmentMutation
 } from '../../api/shift/shiftApi';
 
 import Table from "../../components/table/Table";
@@ -16,20 +15,14 @@ import {useState} from "react";
 import {formDialog} from "../../components/dialog/FormDialog";
 import NonExistingUserForm from "./NonExistingUserForm";
 import ConfirmDialog, {confirmDialog} from "../../components/dialog/ConfirmDialog";
-import {useLocalStorage} from "../../app/useLocalStorage";
-import {CredentialsModel} from "../../models/authModels";
 
 interface ShiftRegistrationsProps {
     shift: RetrievedWorkshopShiftModel;
-    isParticipating?: boolean
 }
 
 
-const ShiftRegistrations = ({ shift, isParticipating }: ShiftRegistrationsProps) => {
+const ShiftRegistrations = ({ shift }: ShiftRegistrationsProps) => {
     const [tab, setTab] = useState<number>(0);
-
-    const [signInWorkshop] =
-        useSignInWorkshopMutation();
 
     const [confirmEnrollment] = useConfirmEnrollmentMutation();
 
@@ -37,7 +30,7 @@ const ShiftRegistrations = ({ shift, isParticipating }: ShiftRegistrationsProps)
 
     const [cancelParticipation] = useCancelParticipationMutation();
 
-    const [user] = useLocalStorage<CredentialsModel>('user');
+    const [doneParticipation] = useDoneParticipationMutation();
 
     const handleClickActivate = (workshopShift: RetrievedWorkshopShiftModel | undefined): void => {
         if (workshopShift !== undefined) {
@@ -49,7 +42,7 @@ const ShiftRegistrations = ({ shift, isParticipating }: ShiftRegistrationsProps)
     }
     };
 
-    const handleApproveCandidate = () => {
+    const handleApproveCandidate = (user) => {
         if (shift && user) {
             confirmDialog('Kandidaat bevestigen',
                 `Weet u zeker dat u ${user.firstName} ${user.lastName} wilt goedkeuren voor deze workshop?`,
@@ -59,8 +52,8 @@ const ShiftRegistrations = ({ shift, isParticipating }: ShiftRegistrationsProps)
         }
     }
 
-    const handleRejectCandidate = () => {
-        if (shift && user) {
+    const handleRejectCandidate = (user) => {
+        if (shift) {
             confirmDialog('Kandidaat afkeuren',
                 `Weet u zeker dat u ${user.firstName} ${user.lastName} wilt afkeuren voor deze workshop?`,
                 () => {
@@ -69,12 +62,22 @@ const ShiftRegistrations = ({ shift, isParticipating }: ShiftRegistrationsProps)
         }
     }
 
-    const handleCancelCandidate = () => {
+    const handleCancelParticipant = (user) => {
         if (shift && user) {
             confirmDialog('Participatie annuleren',
                 `Weet u zeker dat u ${user.firstName} ${user.lastName} wilt weghalen bij deze workshop?`,
                 () => {
                     cancelParticipation({id: shift._id, user_id: user._id});
+                })
+        }
+    }
+
+    const handleDoneParticipant = (user) => {
+        if (shift && user) {
+            confirmDialog('Participatie afronden',
+                `Weet u zeker dat u de status van ${user.firstName} ${user.lastName} op voldaan wilt zetten?`,
+                () => {
+                    doneParticipation({id: shift._id, user_id: user._id});
                 })
         }
     }
@@ -104,28 +107,80 @@ const ShiftRegistrations = ({ shift, isParticipating }: ShiftRegistrationsProps)
                                 <IconButton
                                     aria-label='accept'
                                     color='success'
-                                    onClick={handleApproveCandidate}
+                                    onClick={() => handleApproveCandidate(user)}
                                 >
                                     <Check/>
                                 </IconButton>
                                 <IconButton
                                     aria-label='deny'
                                     color='error'
-                                    onClick={handleRejectCandidate}
+                                    onClick={() => handleRejectCandidate(user)}
                                 >
                                     <Clear/>
                                 </IconButton>
                             </TableCell>
                         </Row>
                     ))}
+                    {shift?.candidateUsers.length === 0 &&
+                        <Row>
+                            <TableCell>Er zijn geen kandidaten voor deze workshop!</TableCell>
+                        </Row>
+                    }
                 </Table>
                 :
                 <Table columns={["Naam", "E-Mail", "Acties"]} isLoading={false}>
                     {shift?.participantUsers && shift?.participantUsers.map((user) => (
                     <Row>
                         <TableCell>{user.firstName} {user.lastName}</TableCell>
+                        <TableCell>{user.emailAddress}</TableCell>
+                        <TableCell align='right'>
+                            <IconButton
+                                aria-label='accept'
+                                color='success'
+                                onClick={() => handleDoneParticipant(user)}
+                            >
+                                <Check/>
+                            </IconButton>
+                            <IconButton
+                                aria-label='deny'
+                                color='error'
+                                onClick={() => handleCancelParticipant(user)}
+                            >
+                                <Clear/>
+                            </IconButton>
+                        </TableCell>
                     </Row>
                         ))}
+                    {shift?.participants && shift?.participants.map((user) => (
+                        user.firstName &&
+                        <Row>
+                            <TableCell>{user.firstName} {user.lastName}</TableCell>
+                            <TableCell>{user.emailAddress}</TableCell>
+                            <TableCell align='right'>
+                                <IconButton
+                                    aria-label='accept'
+                                    color='success'
+                                    onClick={() => handleDoneParticipant(user)}
+                                >
+                                    <Check/>
+                                </IconButton>
+                                <IconButton
+                                    aria-label='deny'
+                                    color='error'
+                                    onClick={() => handleCancelParticipant(user)}
+                                >
+                                    <Clear/>
+                                </IconButton>
+                            </TableCell>
+                        </Row>
+                    ))
+
+                    }
+                    {shift?.participantUsers.length === 0 &&
+                        <Row>
+                            <TableCell>Er zijn geen participanten in deze workshop!</TableCell>
+                        </Row>
+                    }
                 </Table>
             }
             <Button

@@ -13,7 +13,6 @@ export interface WorkshopShiftModel {
     level: string,
     date: Date,
     availableUntil: Date
-    hourRate?: number
     dayRate?: number
     timestamps: Array<TimeStampModel>
 }
@@ -45,7 +44,6 @@ export interface RetrievedWorkshopShiftModel {
     level: string
     timestamps: Array<TimeStampModel>
     tariff: number
-    hourRate?: number;
     total_Amount: number
     participants: Array<any>
     participantUsers: UserModel[]

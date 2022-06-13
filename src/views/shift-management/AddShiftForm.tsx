@@ -12,7 +12,6 @@ import {
 } from '@mui/material';
 import { Add, Remove } from '@mui/icons-material';
 import { FormikProvider, useFormik } from 'formik';
-import Box from '@mui/material/Box';
 import { WorkshopShiftSchema } from '../../schemas/workshopShiftSchemas';
 import {RetrievedWorkshopShiftModel, WorkshopShiftModel} from '../../models/workshopShiftModels';
 import { useGetAllWorkshopsQuery } from '../../api/workshop/workshopApi';
@@ -41,7 +40,8 @@ export const AddShiftForm = ( { shift }: AddShiftFormProps) => {
 
     const [editShift, { isLoading: editIsLoading }] = useEditShiftMutation();
 
-    const handleSaveWorkshop = (values: WorkshopShiftModel | RetrievedWorkshopShiftModel): void => {
+    const handleSaveWorkshop = (values: WorkshopShiftModel): void => {
+        console.log(values)
         if (shift && shift._id) {
             editShift(values)
         } else {
@@ -50,26 +50,27 @@ export const AddShiftForm = ( { shift }: AddShiftFormProps) => {
         close();
     };
 
+    //
+
     const formik = useFormik({
-        initialValues: shift ?? {
-            _id: '',
-            clientId: '',
-            workshopId: '',
-            maximumParticipants: 10,
-            extraInfo: '',
+        initialValues: {
+            _id: shift?._id ?? '',
+            clientId: shift?.clientId ?? '',
+            workshopId: shift?.workshopId ?? '',
+            maximumParticipants: shift?.maximumParticipants ?? 0,
+            extraInfo: shift?.extraInfo ?? '',
             location: {
-                address: '',
-                city: '',
-                postalCode: '',
-                country: 'Nederland',
+                address: shift?.location.address ?? '',
+                city: shift?.location.city ?? '',
+                postalCode: shift?.location.postalCode ?? '',
+                country: shift?.location.country ?? 'Nederland',
             },
-            targetAudience: '',
-            level: '',
-            date: new Date(),
-            availableUntil: new Date(),
-            hourRate: 0,
-            dayRate: 0,
-            timestamps: [
+            targetAudience: shift?.targetAudience ?? '',
+            level: shift?.level ?? '',
+            date: shift?.date ?? new Date(),
+            availableUntil: shift?.availableUntil ?? new Date(),
+            dayRate: shift?.dayRate ?? 0,
+            timestamps: shift?.timestamps ?? [
                 {
                     startTime: '',
                     endTime: '',
@@ -330,32 +331,6 @@ export const AddShiftForm = ( { shift }: AddShiftFormProps) => {
                         ></TextField>
                         <Stack direction={'row'} spacing={1}>
                             <TextField
-                                id='hourRate'
-                                name='hourRate'
-                                label='Uurloon'
-                                value={formik.values.hourRate}
-                                onChange={formik.handleChange}
-                                type='number'
-                                InputProps={{
-                                    inputProps: {
-                                        min: 0,
-                                    },
-                                    startAdornment: (
-                                        <InputAdornment position='start'>
-                                            €
-                                        </InputAdornment>
-                                    ),
-                                }}
-                                error={
-                                    formik.touched.hourRate &&
-                                    Boolean(formik.errors.hourRate)
-                                }
-                                helperText={
-                                    formik.touched.hourRate &&
-                                    formik.errors.hourRate
-                                }
-                            ></TextField>
-                            <TextField
                                 id='dayRate'
                                 name='dayRate'
                                 label='Dagloon'
@@ -471,7 +446,7 @@ export const AddShiftForm = ( { shift }: AddShiftFormProps) => {
                             </Button>
                             {shift?._id ?
                                 <Button
-                                    disabled={createIsLoading}
+                                    disabled={editIsLoading}
                                     type='submit'
                                     variant='contained'
                                     sx={{ my: '16px' }}

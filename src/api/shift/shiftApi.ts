@@ -106,6 +106,13 @@ const extendedApi = api.injectEndpoints({
             }),
             invalidatesTags: [{type: 'Workshops', id: 'OBJECT'}],
         }),
+        doneParticipation: build.mutation<void, unEnrollRequestBody>({
+            query: ({id, user_id}) => ({
+                url: `workshop/shift/${id}/enroll/${user_id}/onDone`,
+                method: 'PUT',
+            }),
+            invalidatesTags: [{type: 'Workshops', id: 'OBJECT'}],
+        }),
 
     }),
     overrideExisting: false,
@@ -123,4 +130,5 @@ export const {
     useCancelParticipationMutation,
     useRejectEnrollmentMutation,
     useConfirmEnrollmentMutation,
+    useDoneParticipationMutation
 } = extendedApi;
