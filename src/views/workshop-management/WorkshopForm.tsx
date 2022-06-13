@@ -10,24 +10,39 @@ import { FieldArray, FormikProvider, useFormik } from 'formik';
 import { useFormDialogStore } from '../../components/dialog/FormDialog';
 import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { useUpdateWorkshopMutation } from '../../api/workshop/workshopApi';
 import { useCreateWorkshopMutation } from '../../api/workshop/workshopApi';
+import { WorkshopModel } from '../../models/workshopModels';
 
-const WorkshopForm = () => {
-    const [createWorkshop] = useCreateWorkshopMutation();
+interface WorkshopFormProps {
+    workshop?: WorkshopModel;
+}
+
+const WorkshopForm = ({ workshop }: WorkshopFormProps) => {
     const { close } = useFormDialogStore();
+    const [updateWorkshop] = useUpdateWorkshopMutation();
+    const [createWorkshop] = useCreateWorkshopMutation();
 
     const handleSubmit = (values) => {
-        createWorkshop(values);
+        if (workshop) {
+            updateWorkshop(values);
+        } else {
+            createWorkshop(values);
+        }
         close();
     };
 
     const formik = useFormik({
-        initialValues: {
-            name: '',
-            content: '',
-            materials: [],
-            isActive: true,
-        },
+        initialValues:
+            workshop != null
+                ? {
+                      ...workshop,
+                  }
+                : {
+                      name: '',
+                      content: '',
+                      materials: [],
+                  },
         validateOnChange: false,
         onSubmit: handleSubmit,
     });
