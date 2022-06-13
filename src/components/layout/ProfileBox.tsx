@@ -10,7 +10,6 @@ import {
     Menu,
     MenuItem,
     Tooltip,
-    Typography,
 } from '@mui/material';
 import { useState, MouseEvent, Fragment } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -116,9 +115,6 @@ const ProfileBox = ({ user }: ProfileBoxProps) => {
                                 {user?.lastName.charAt(0)}
                             </Avatar>
                         </IconButton>
-                        <Typography sx={{cursor:'pointer'}} variant='h6'noWrap component='div'>
-                            {user?.firstName} {user?.lastName}
-                        </Typography>
                     </ListItem>
                 </Tooltip>
             </Box>
