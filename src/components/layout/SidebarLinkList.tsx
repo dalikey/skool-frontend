@@ -68,6 +68,11 @@ const SidebarLinkList = ({ role }: SidebarLinkListProps) => {
             text: 'Klantenbeheer',
             icon: <StoreRoundedIcon />,
         },
+        {
+            path: '/templatebeheer',
+            text: 'Templatebeheer',
+            icon: <StoreRoundedIcon/>
+        },
     ];
 
     const { pathname } = useLocation();

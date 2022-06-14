@@ -10,6 +10,7 @@ import CustomerManagement from './views/customer-management/CustomerManagement';
 import WorkshopManagement from './views/workshop-management/WorkshopManagement';
 import ShiftManagement from './views/shift-management/ShiftManagement';
 import Shifts from './views/shifts/Shifts';
+import TemplateManagement from "./views/template-management/TemplateManagement";
 
 const App = () => {
     return (
@@ -34,6 +35,11 @@ const App = () => {
                         path='klantenbeheer'
                         element={<CustomerManagement />}
                     />
+                </Route>
+                <Route
+                    path='templatebeheer'
+                    element={<TemplateManagement />}
+                >
                 </Route>
             </Routes>
         </ThemeProvider>
