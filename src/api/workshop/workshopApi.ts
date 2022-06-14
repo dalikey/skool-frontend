@@ -27,20 +27,6 @@ const extendedApi = api.injectEndpoints({
             }),
             invalidatesTags: [{ type: 'Workshops', id: 'LIST' }],
         }),
-        activateWorkshop: build.mutation<void, string>({
-            query: (id) => ({
-                url: `workshop/${id}/activate`,
-                method: 'POST',
-            }),
-            invalidatesTags: [{ type: 'Workshops', id: 'LIST' }],
-        }),
-        deactivateWorkshop: build.mutation<void, string>({
-            query: (id) => ({
-                url: `workshop/${id}/deactivate`,
-                method: 'POST',
-            }),
-            invalidatesTags: [{ type: 'Workshops', id: 'LIST' }],
-        }),
         createWorkshop: build.mutation<void, WorkshopModel>({
             query: (body) => ({
                 url: `workshop/add`,
@@ -61,14 +47,14 @@ const extendedApi = api.injectEndpoints({
                 url: `workshop/shift/${id}/enroll`,
                 method: 'POST',
             }),
-            invalidatesTags: [{type: 'Workshops', id: 'OBJECT'}],
+            invalidatesTags: [{ type: 'Workshops', id: 'OBJECT' }],
         }),
         signOutWorkshop: build.mutation<void, string>({
             query: (id) => ({
                 url: `workshop/shift/${id}/enroll`,
                 method: 'POST',
             }),
-            invalidatesTags: [{type: 'Workshops', id: 'OBJECT'}],
+            invalidatesTags: [{ type: 'Workshops', id: 'OBJECT' }],
         }),
     }),
     overrideExisting: false,
@@ -77,10 +63,8 @@ const extendedApi = api.injectEndpoints({
 export const {
     useGetAllWorkshopsQuery,
     useUpdateWorkshopMutation,
-    useActivateWorkshopMutation,
-    useDeactivateWorkshopMutation,
     useCreateWorkshopMutation,
     useDeleteWorkshopMutation,
     useSignInWorkshopMutation,
-    useSignOutWorkshopMutation
+    useSignOutWorkshopMutation,
 } = extendedApi;
