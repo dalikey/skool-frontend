@@ -1,31 +1,52 @@
 import { Button, Stack, TextField, FormHelperText } from '@mui/material';
 import { useFormik } from 'formik';
-import { useCreateCustomerMutation } from '../../api/customer/customerApi';
+import {
+    useCreateCustomerMutation,
+    useUpdateCustomerMutation,
+} from '../../api/customer/customerApi';
 import { useFormDialogStore } from '../../components/dialog/FormDialog';
+import { CustomerModel } from '../../models/customerModels';
 import { CustomerSchema } from '../../schemas/customerSchemas';
 
-const CustomerForm = () => {
+interface CustomerFormProps {
+    customer?: CustomerModel;
+}
+
+const CustomerForm = ({ customer }: CustomerFormProps) => {
     const { close } = useFormDialogStore();
 
     const [createCustomer, { isError, isLoading }] =
         useCreateCustomerMutation();
 
+    const [updateCustomer] = useUpdateCustomerMutation();
+
     const handleCreateCustomer = (values): void => {
-        createCustomer(values);
+        if (customer) {
+            updateCustomer(values);
+        } else {
+            createCustomer(values);
+        }
         close();
     };
 
     const formik = useFormik({
-        initialValues: {
-            name: '',
-            phoneNumber: '',
-            emailAddress: '',
-            address: '',
-            city: '',
-            postalCode: '',
-            country: '',
-            logo: '',
-        },
+        initialValues:
+            customer != null
+                ? {
+                      ...customer,
+                      ...customer.location,
+                      ...customer.contact,
+                  }
+                : {
+                      name: '',
+                      phoneNumber: '',
+                      emailAddress: '',
+                      address: '',
+                      city: '',
+                      postalCode: '',
+                      country: '',
+                      logo: '',
+                  },
         validationSchema: CustomerSchema,
         validateOnChange: false,
         onSubmit: handleCreateCustomer,

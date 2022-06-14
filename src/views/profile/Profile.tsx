@@ -1,11 +1,9 @@
 import {
     Grid,
-    Divider,
-    Stack,
     Typography,
-    Button,
     IconButton,
     Avatar,
+    Box,
 } from '@mui/material';
 import {
     Edit,
@@ -54,16 +52,29 @@ const Profile = () => {
                     Adresgegevens
                 </Typography>
                 <Typography>
-                    {user?.location?.address}
+                    {/* {user?.location?.address} */}
+                    adres 12
                 </Typography>
                 <Typography>
-                    {user?.location?.city}
+                    {/* {user?.location?.city} */}
+                    stad
                 </Typography>
                 <Typography>
-                    {user?.location?.country}
+                    {/* {user?.location?.country} */}
+                    land
                 </Typography>
                 <Typography>
-                    {user?.location?.postalCode}
+                    {/* {user?.location?.postalCode} */}
+                    1234AB
+                </Typography>
+                <Typography variant='subtitle1' color='secondary'>
+                    Vervoersgegevens
+                </Typography>
+                <Typography>
+                    {`Rijbewijs: ${user?.transport?.hasDriversLicense}`}
+                </Typography>
+                <Typography>
+                    {`Auto: ${user?.transport?.hasVehicle}`}
                 </Typography>
             </Grid>
             <Grid item xs={12} md={8}>
@@ -82,14 +93,40 @@ const Profile = () => {
                 <Typography>
                     {user?.mobileNumber}
                 </Typography>
-                <Typography>
-                    {user?.countryOfOrigin}
+                <Box display='flex' sx={{ justifyContent: 'space-between'}}>
+                    <Typography>
+                        {`Land van herkomst: ${user?.countryOfOrigin}`}
+                    </Typography>
+                    <Typography>
+                        {`Nationaliteit: ${user?.nationality}`}
+                    </Typography>
+                    <Typography>
+                        {`Geboorteplaats: ${user?.placeOfBirth}`}
+                    </Typography>
+                </Box>
+                <Typography variant='subtitle1' color='secondary'>
+                    Persoonlijke gegevens
                 </Typography>
                 <Typography>
-                    {user?.nationality}
+                    {`KvK: ${user?.kvkNumber}`}
                 </Typography>
                 <Typography>
-                    {user?.placeOfBirth}
+                    {`IBAN: ${user?.paymentInfo?.IBAN}`}
+                </Typography>
+                <Typography>
+                    {`BIC: ${user?.paymentInfo?.BIC}`}
+                </Typography>
+                <Typography>
+                    {`Vat ID: ${user?.vatID}`}
+                </Typography>
+                <Typography>
+                    {`Contract: ${user?.contractType}`}
+                </Typography>
+                <Typography variant='subtitle1' color='secondary'>
+                    Voorkeuren
+                </Typography>
+                <Typography>
+                    {`Workshop voorkeuren: ${user?.workshopPreferences}`}
                 </Typography>
                 <IconButton
                     onClick={() => openProfileForm()}

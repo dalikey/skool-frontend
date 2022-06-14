@@ -19,6 +19,8 @@ interface ProfileFormPersonalProps {
 
 const ProfileFormPersonal = ({ formik }: ProfileFormPersonalProps) => {
     const [user] = useLocalStorage<CredentialsModel>('user');
+
+
     return (
         <>
             <Grid
@@ -136,12 +138,12 @@ const ProfileFormPersonal = ({ formik }: ProfileFormPersonalProps) => {
                     <Select
                         id='nationality'
                         name='nationality'
-                        value={(formik.values.nationality ?? '').toLowerCase()}
+                        value={(formik.values.nationality ?? '')}
                         onChange={formik.handleChange}
                         label='Nationaliteit'
                     >
-                        <MenuItem value={'nl'}>Nederlands</MenuItem>
-                        <MenuItem value={'be'}>Belgisch</MenuItem>
+                        <MenuItem value={'Nederlands'}>Nederlands</MenuItem>
+                        <MenuItem value={'Belgisch'}>Belgisch</MenuItem>
                     </Select>
                 </FormControl>
             </Grid>
