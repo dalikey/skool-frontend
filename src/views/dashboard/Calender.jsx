@@ -7,13 +7,27 @@ import {
     Appointments,
     TodayButton,
     DayView,
+    AppointmentTooltip,
 } from '@devexpress/dx-react-scheduler-material-ui';
 import { ViewState } from '@devexpress/dx-react-scheduler';
-import Appointment from './Appointment';
 import { useMediaQuery } from '@mui/material';
+import Appointment from './Appointment';
+import AppointmentContent from './AppointmentContent';
+import { useState } from 'react';
+import AppointmentHeader from './AppointmentHeader';
 
 const Calender = ({ timestamps }) => {
+    const [visible, setVisible] = useState(false);
     const isSmallScreen = useMediaQuery('(max-width:1300px)');
+
+    const getHeader = (props) => {
+        return (
+            <AppointmentHeader
+                {...props}
+                toggleVisibilty={() => setVisible((prev) => !prev)}
+            />
+        );
+    };
 
     return (
         <Paper
@@ -36,6 +50,13 @@ const Calender = ({ timestamps }) => {
                 <DateNavigator />
                 <TodayButton messages={{ today: 'Vandaag' }} />
                 <Appointments appointmentComponent={Appointment} />
+                <AppointmentTooltip
+                    showCloseButton
+                    visible={visible}
+                    onVisibilityChange={() => setVisible((prev) => !prev)}
+                    headerComponent={getHeader}
+                    contentComponent={AppointmentContent}
+                />
             </Scheduler>
         </Paper>
     );

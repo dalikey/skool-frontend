@@ -8,6 +8,7 @@ interface FormattedTimeStamp {
     startDate: string;
     endDate: string;
     title: string;
+    workshop: WorkshopShiftModel;
 }
 
 const getFormattedTimestamps = (workshops): FormattedTimeStamp[] => {
@@ -19,6 +20,7 @@ const getFormattedTimestamps = (workshops): FormattedTimeStamp[] => {
                 startDate: `${date}T${timestamp.startTime}`,
                 endDate: `${date}T${timestamp.endTime}`,
                 title: timestamp.title,
+                workshop,
             });
         });
     });

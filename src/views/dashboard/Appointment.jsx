@@ -1,6 +1,5 @@
-import {
-    Appointments,
-  } from '@devexpress/dx-react-scheduler-material-ui';
+import { Appointments } from '@devexpress/dx-react-scheduler-material-ui';
+import { Grid } from '@mui/material';
 
 const Appointment = ({ children, style, ...restProps }) => (
     <Appointments.Appointment
@@ -11,7 +10,11 @@ const Appointment = ({ children, style, ...restProps }) => (
             borderRadius: '8px',
         }}
     >
-        {children}
+        <Grid container>
+            <Grid item xs={12}>
+                {children}
+            </Grid>
+        </Grid>
     </Appointments.Appointment>
 );
 
