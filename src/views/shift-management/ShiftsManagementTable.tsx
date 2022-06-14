@@ -33,7 +33,7 @@ const ShiftsManagementTable = ({ isLoading, shifts }: ShiftManagementTableProps)
 
     return (
         <Table
-            columns={['Naam', 'Aantal medewerkers', 'Loon', 'Type', 'Plaats', 'Status', 'Datum', '']}
+            columns={['Naam', 'Aantal medewerkers', 'Type', 'Plaats', 'Status', 'Datum', '']}
             isLoading={isLoading}
         >
             <ConfirmDialog />
