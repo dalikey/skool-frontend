@@ -27,7 +27,7 @@ const extendedApi = api.injectEndpoints({
                 method: 'POST',
                 body,
             }),
-            invalidatesTags: [{ type: 'Shift', id: 'OBJECT' }],
+            invalidatesTags: [{ type: 'Shift', id: 'LIST' }],
         }),
         editShift: build.mutation<createShiftResponse, WorkshopShiftModel | RetrievedWorkshopShiftModel>({
             query: (body) => ({
@@ -35,14 +35,14 @@ const extendedApi = api.injectEndpoints({
                 method: 'PUT',
                 body,
             }),
-            invalidatesTags: [{ type: 'Shift', id: 'OBJECT' }],
+            invalidatesTags: [{ type: 'Shift', id: 'LIST' }],
         }),
         deleteShift: build.mutation<void, string>({
             query: (shift_id) => ({
                 url: `workshop/shift/${shift_id}/delete`,
                 method: 'DELETE',
             }),
-            invalidatesTags: [{ type: 'Shift', id: 'OBJECT' }],
+            invalidatesTags: [{ type: 'Shift', id: 'LIST' }],
         }),
         getAllShifts: build.query<
             createShiftResponse,
