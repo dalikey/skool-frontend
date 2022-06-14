@@ -46,7 +46,7 @@ const WorkshopTable = ({ isLoading, workshops }: WorkshopTableProps) => {
                 {workshops &&
                     workshops.map((workshop) => (
                         <Row key={workshop._id}>
-                            <TableCell width='10%'>{workshop.name}</TableCell>
+                            <TableCell width='15%'>{workshop.name}</TableCell>
                             <TableCell width='60%'>
                                 {workshop.content}
                             </TableCell>
