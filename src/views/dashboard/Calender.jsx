@@ -10,20 +10,8 @@ import {
 import { ViewState } from '@devexpress/dx-react-scheduler';
 import Appointment from './Appointment';
 
-const schedulerData = [
-    {
-        startDate: '2022-06-13T09:45',
-        endDate: '2022-06-13T11:00',
-        title: 'Meeting',
-    },
-    {
-        startDate: '2022-06-14T13:45',
-        endDate: '2022-06-14T16:00',
-        title: 'Meeting',
-    },
-];
+const Calender = ({ timestamps }) => {
 
-const Calender = () => {
     return (
         <Paper
             sx={{
@@ -34,12 +22,12 @@ const Calender = () => {
                 paddingX: 1,
             }}
         >
-            <Scheduler data={schedulerData} locale='nl-NL' firstDayOfWeek={1}>
+            <Scheduler data={timestamps} locale='nl-NL' firstDayOfWeek={1}>
                 <ViewState defaultCurrentDate={new Date()} />
                 <WeekView startDayHour={6} endDayHour={21} cellDuration={60} />
                 <Toolbar />
                 <DateNavigator />
-                <TodayButton />
+                <TodayButton messages={{today: 'Vandaag'}}/>
                 <Appointments appointmentComponent={Appointment} />
             </Scheduler>
         </Paper>

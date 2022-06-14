@@ -24,7 +24,7 @@ interface LocationModel {
     city: string
 }
 
-interface TimeStampModel {
+export interface TimeStampModel {
     startTime: string;
     title: string;
     endTime: string;
