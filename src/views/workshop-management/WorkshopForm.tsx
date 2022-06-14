@@ -4,7 +4,6 @@ import {
     FormHelperText,
     Grid,
     IconButton,
-    TextareaAutosize,
     TextField,
     Typography,
 } from '@mui/material';

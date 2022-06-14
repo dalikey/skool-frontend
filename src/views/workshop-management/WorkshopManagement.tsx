@@ -35,8 +35,7 @@ const WorkshopManagement = () => {
                         onChange={handleChange}
                         aria-label='basic tabs example'
                     >
-                        <Tab label='ACTIEVE WORKSHOPS' />
-                        <Tab label='INACTIEVE WORKSHOPS' />
+                        <Tab label='WORKSHOPS' />
                         <IconButton
                             onClick={openWorkshopForm}
                             color='primary'
