@@ -4,6 +4,7 @@ import {
     FormHelperText,
     Grid,
     IconButton,
+    TextareaAutosize,
     TextField,
     Typography,
 } from '@mui/material';
@@ -53,7 +54,7 @@ const WorkshopForm = ({ workshop }: WorkshopFormProps) => {
     });
 
     return (
-        <form onSubmit={formik.handleSubmit} style={{ width: '300px' }}>
+        <form onSubmit={formik.handleSubmit} style={{ width: '424px' }}>
             <Grid container rowSpacing={2}>
                 <Grid item xs={12}>
                     <TextField
@@ -74,7 +75,11 @@ const WorkshopForm = ({ workshop }: WorkshopFormProps) => {
                     <TextField
                         id='content'
                         name='content'
-                        label='Content'
+                        label='Beschrijving'
+                        placeholder='Beschrijving'
+                        multiline
+                        maxRows={5}
+                        minRows={5}
                         value={formik.values.content}
                         onChange={formik.handleChange}
                         error={
@@ -84,7 +89,7 @@ const WorkshopForm = ({ workshop }: WorkshopFormProps) => {
                         helperText={
                             formik.touched.content && formik.errors.content
                         }
-                        variant='standard'
+                        variant='outlined'
                         fullWidth
                     />
                 </Grid>
