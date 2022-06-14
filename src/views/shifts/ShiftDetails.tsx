@@ -2,11 +2,13 @@ import { Button, Grid, Typography } from '@mui/material';
 import {
     RetrievedWorkshopShiftModel,
 } from '../../models/workshopShiftModels';
-import { useSignInWorkshopMutation } from '../../api/workshop/workshopApi';
+import {useSignInWorkshopMutation, useSignOutWorkshopMutation} from '../../api/shift/shiftApi';
 
 import ConfirmDialog, {
     confirmDialog,
 } from '../../components/dialog/ConfirmDialog';
+import {CredentialsModel} from "../../models/authModels";
+import {useLocalStorage} from "../../app/useLocalStorage";
 
 interface ShiftDetailsProps {
     shift?: RetrievedWorkshopShiftModel;
@@ -19,6 +21,8 @@ const ShiftDetails = ({ shift, isParticipating }: ShiftDetailsProps) => {
     const [signInWorkshop] =
         useSignInWorkshopMutation();
 
+    const [signOutWorkshop] = useSignOutWorkshopMutation();
+
     const handleClickActivate = (workshopShift: RetrievedWorkshopShiftModel | undefined): void => {
         if (workshopShift !== undefined) {
         confirmDialog(
@@ -28,6 +32,19 @@ const ShiftDetails = ({ shift, isParticipating }: ShiftDetailsProps) => {
         );
 
     }
+    };
+
+    const [user] = useLocalStorage<CredentialsModel>('user')
+
+    const handleClickDeActivate = (workshopShift: RetrievedWorkshopShiftModel | undefined): void => {
+        if (workshopShift !== undefined && user !== undefined) {
+            confirmDialog(
+                'Uitschrijven bevestigen',
+                `Weet u zeker dat u zich wilt uitschrijven voor Workshopdocent ${workshopShift.workshop.name}?`,
+                () => {signOutWorkshop({id: workshopShift._id, user_id: user._id}); setTimeout(() => window.location.reload(),50) ;}
+            );
+
+        }
     };
 
     return (
@@ -55,9 +72,12 @@ const ShiftDetails = ({ shift, isParticipating }: ShiftDetailsProps) => {
                 variant={'h5'}>
                     Materiaal
                 </Typography>
-                <Typography>
-                    {shift?.workshop.materials ?? 'Geen extra materiaal benodigd!'}
-                </Typography>
+                <ul>
+                    {shift?.workshop.materials && shift?.workshop.materials.map((material) => (
+                        <li>{material}</li>
+                    ))}
+                    {shift?.workshop.materials.length === 0 && <li>Geen extra materiaal benodigd!</li>}
+                </ul>
             </Grid>
             <Grid item xs={12} md={6} p={1}>
                 <iframe title={'Location in Maps'} src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyCh26TeMpBSqb0qfOZwxcr_MMKDvGdUxF4&q=${shift?.location.address}, ${shift?.location.city}`}></iframe>
@@ -83,7 +103,7 @@ const ShiftDetails = ({ shift, isParticipating }: ShiftDetailsProps) => {
                 </Grid>
             }
 
-            {/*{isParticipating &&
+            {isParticipating &&
                 <Grid item xs={12} md={6} p={1}>
 
                     <ConfirmDialog/>
@@ -94,7 +114,7 @@ const ShiftDetails = ({ shift, isParticipating }: ShiftDetailsProps) => {
                         Uitschrijven
                     </Button>
                 </Grid>
-            }*/}
+            }
             <Grid item xs={12} md={6} p={1}>
                 <Typography variant='h5'>
                     Loon: € {shift?.total_Amount}
