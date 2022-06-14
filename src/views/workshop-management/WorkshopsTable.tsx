@@ -1,16 +1,14 @@
 import { IconButton, TableCell } from '@mui/material';
 import Row from '../../components/table/Row';
 import Table from '../../components/table/Table';
-import { Delete, Edit, PersonAddAlt } from '@mui/icons-material';
+import { Delete, Edit } from '@mui/icons-material';
 import { WorkshopModel } from '../../models/workshopModels';
-import NonExistingUserForm from '../shift-management/NonExistingUserForm';
 import FormDialog, { formDialog } from '../../components/dialog/FormDialog';
 import EditWorkshopForm from './WorkshopForm';
 import ConfirmDialog, {
     confirmDialog,
 } from '../../components/dialog/ConfirmDialog';
 import { useDeleteWorkshopMutation } from '../../api/workshop/workshopApi';
-import {RetrievedWorkshopShiftModel} from "../../models/workshopShiftModels";
 
 interface WorkshopTableProps {
     isLoading: boolean;
@@ -21,7 +19,10 @@ const WorkshopTable = ({ isLoading, workshops }: WorkshopTableProps) => {
     const [deleteWorkshop] = useDeleteWorkshopMutation();
 
     const openEditWorkshopForm = (workshop: WorkshopModel): void => {
-        formDialog('Workshop bewerken', <EditWorkshopForm workshop={workshop}/>);
+        formDialog(
+            'Workshop bewerken',
+            <EditWorkshopForm workshop={workshop} />
+        );
     };
 
     const handleClickDelete = (workshop: WorkshopModel): void => {
@@ -43,16 +44,25 @@ const WorkshopTable = ({ isLoading, workshops }: WorkshopTableProps) => {
                 {workshops &&
                     workshops.map((workshop) => (
                         <Row key={workshop._id}>
-                            <TableCell>{workshop.name}</TableCell>
-                            <TableCell>{workshop.content}</TableCell>
-                            <TableCell>{workshop.materials}</TableCell>
+                            <TableCell width='15%'>{workshop.name}</TableCell>
+                            <TableCell width='60%'>
+                                {workshop.content}
+                            </TableCell>
+                            <TableCell width='15%'>
+                                {workshop.materials &&
+                                workshop.materials.length > 0
+                                    ? workshop.materials.join(',\r\n')
+                                    : ''}
+                            </TableCell>
                             <TableCell align='right'>
                                 {workshop.isActive && (
                                     <>
                                         <IconButton
                                             aria-label='edit'
                                             color='secondary'
-                                            onClick={() => openEditWorkshopForm(workshop)}
+                                            onClick={() =>
+                                                openEditWorkshopForm(workshop)
+                                            }
                                         >
                                             <Edit />
                                         </IconButton>
