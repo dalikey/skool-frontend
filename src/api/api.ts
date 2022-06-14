@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 const BASE_URL =
     process.env.NODE_ENV === 'production'
         ? process.env.REACT_APP_BASE_URL
-        : 'http://localhost:3004/api';
+        : 'https://skool-development.herokuapp.com/api';
 
 const baseQuery = () => {
     const baseQuery = fetchBaseQuery({
