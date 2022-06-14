@@ -28,6 +28,7 @@ const NonExistingUserForm = ({ shift }: NonExistingUserFormProps) => {
             lastName: '',
             emailAddress: '',
             phoneNumber: '',
+            hourRate: 0
         },
         onSubmit: handleNonExistingUser,
     });
@@ -101,6 +102,22 @@ const NonExistingUserForm = ({ shift }: NonExistingUserFormProps) => {
                     }
                     helperText={
                         formik.touched.phoneNumber && formik.errors.phoneNumber
+                    }
+                    variant='standard'
+                />
+                <TextField
+                    id='hourRate'
+                    name='hourRate'
+                    label='Uurtarief'
+                    value={formik.values.hourRate}
+                    onChange={formik.handleChange}
+                    error={
+                        formik.touched.hourRate &&
+                        Boolean(formik.errors.hourRate)
+                    }
+                    helperText={
+                        formik.touched.hourRate &&
+                        formik.errors.hourRate
                     }
                     variant='standard'
                 />

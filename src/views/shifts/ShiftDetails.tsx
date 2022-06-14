@@ -72,9 +72,12 @@ const ShiftDetails = ({ shift, isParticipating }: ShiftDetailsProps) => {
                 variant={'h5'}>
                     Materiaal
                 </Typography>
-                <Typography>
-                    {shift?.workshop.materials ?? 'Geen extra materiaal benodigd!'}
-                </Typography>
+                <ul>
+                    {shift?.workshop.materials && shift?.workshop.materials.map((material) => (
+                        <li>{material}</li>
+                    ))}
+                    {shift?.workshop.materials.length === 0 && <li>Geen extra materiaal benodigd!</li>}
+                </ul>
             </Grid>
             <Grid item xs={12} md={6} p={1}>
                 <iframe title={'Location in Maps'} src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyCh26TeMpBSqb0qfOZwxcr_MMKDvGdUxF4&q=${shift?.location.address}, ${shift?.location.city}`}></iframe>
