@@ -1,10 +1,4 @@
-import {
-    FormControl,
-    Grid,
-    InputLabel,
-    MenuItem,
-    Select,
-} from '@mui/material';
+import { FormControl, Grid, InputLabel, MenuItem, Select, TextField } from '@mui/material';
 import { FormikContextType } from 'formik';
 
 interface ProfileFormAdminProps {
@@ -14,11 +8,9 @@ interface ProfileFormAdminProps {
 const ProfileFormAdmin = ({ formik }: ProfileFormAdminProps) => {
     return (
         <Grid container spacing={2} mt={-4}>
-            <Grid item xs={12}>
+            <Grid item md={6}>
                 <FormControl variant='standard' fullWidth>
-                    <InputLabel id='role-input'>
-                        Rol
-                    </InputLabel>
+                    <InputLabel id='role-input'>Rol</InputLabel>
                     <Select
                         id='role'
                         name='role'
@@ -31,6 +23,18 @@ const ProfileFormAdmin = ({ formik }: ProfileFormAdminProps) => {
                         <MenuItem value={'owner'}>Eigenaar</MenuItem>
                     </Select>
                 </FormControl>
+            </Grid>
+            <Grid item md={6}>
+                <TextField
+                    id='hourRate'
+                    name='hourRate'
+                    label='Uurloon'
+                    type='number'
+                    value={formik.values.hourRate ?? 0}
+                    onChange={formik.handleChange}
+                    variant='standard'
+                    fullWidth
+                />
             </Grid>
         </Grid>
     );

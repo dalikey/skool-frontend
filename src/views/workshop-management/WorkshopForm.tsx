@@ -1,35 +1,55 @@
 import {
     Box,
     Button,
+    FormHelperText,
     Grid,
     IconButton,
     TextField,
     Typography,
 } from '@mui/material';
+import { Add, Delete } from '@mui/icons-material';
 import { FieldArray, FormikProvider, useFormik } from 'formik';
 import { useFormDialogStore } from '../../components/dialog/FormDialog';
-import AddIcon from '@mui/icons-material/Add';
-import DeleteIcon from '@mui/icons-material/Delete';
-import { useCreateWorkshopMutation } from '../../api/workshop/workshopApi';
+import {
+    useUpdateWorkshopMutation,
+    useCreateWorkshopMutation,
+} from '../../api/workshop/workshopApi';
+import { WorkshopModel } from '../../models/workshopModels';
+import { WorkshopSchema } from '../../schemas/workshopSchemas';
 
-const WorkshopForm = () => {
-    const [createWorkshop] = useCreateWorkshopMutation();
+interface WorkshopFormProps {
+    workshop?: WorkshopModel;
+}
+
+const WorkshopForm = ({ workshop }: WorkshopFormProps) => {
     const { close } = useFormDialogStore();
+    const [createWorkshop, { isError, isLoading }] =
+        useCreateWorkshopMutation();
+    const [updateWorkshop] = useUpdateWorkshopMutation();
 
-    const handleSubmit = (values) => {
-        createWorkshop(values);
+    const handleCreateWorkshop = (values): void => {
+        if (workshop) {
+            updateWorkshop(values);
+        } else {
+            createWorkshop(values);
+        }
         close();
     };
 
     const formik = useFormik({
-        initialValues: {
-            name: '',
-            content: '',
-            materials: [],
-            isActive: true,
-        },
+        initialValues:
+            workshop != null
+                ? {
+                      ...workshop,
+                  }
+                : {
+                      name: '',
+                      content: '',
+                      materials: [],
+                  },
+        validationSchema: WorkshopSchema,
         validateOnChange: false,
-        onSubmit: handleSubmit,
+        onSubmit: handleCreateWorkshop,
     });
 
     return (
@@ -37,20 +57,33 @@ const WorkshopForm = () => {
             <Grid container rowSpacing={2}>
                 <Grid item xs={12}>
                     <TextField
+                        id='name'
                         name='name'
                         label='Naam'
                         value={formik.values.name}
                         onChange={formik.handleChange}
+                        error={
+                            formik.touched.name && Boolean(formik.errors.name)
+                        }
+                        helperText={formik.touched.name && formik.errors.name}
                         variant='standard'
                         fullWidth
                     />
                 </Grid>
                 <Grid item xs={12}>
                     <TextField
+                        id='content'
                         name='content'
                         label='Content'
                         value={formik.values.content}
                         onChange={formik.handleChange}
+                        error={
+                            formik.touched.content &&
+                            Boolean(formik.errors.content)
+                        }
+                        helperText={
+                            formik.touched.content && formik.errors.content
+                        }
                         variant='standard'
                         fullWidth
                     />
@@ -66,7 +99,7 @@ const WorkshopForm = () => {
                                 >
                                     <Typography>Materialen</Typography>
                                     <IconButton onClick={() => push('')}>
-                                        <AddIcon color='primary' />
+                                        <Add color='primary' />
                                     </IconButton>
                                 </Box>
                                 {formik.values.materials &&
@@ -80,6 +113,7 @@ const WorkshopForm = () => {
                                                 key={index}
                                             >
                                                 <TextField
+                                                    id={`materials.${index}`}
                                                     name={`materials.${index}`}
                                                     value={material}
                                                     onChange={
@@ -93,7 +127,7 @@ const WorkshopForm = () => {
                                                         remove(index)
                                                     }
                                                 >
-                                                    <DeleteIcon fontSize='small' />
+                                                    <Delete fontSize='small' />
                                                 </IconButton>
                                             </Box>
                                         )
@@ -102,9 +136,20 @@ const WorkshopForm = () => {
                         )}
                     />
                 </FormikProvider>
+
+                {isError && (
+                    <FormHelperText error={true} sx={{ textAlign: 'center' }}>
+                        Workshop kan niet worden aangemaakt. Probeer het later
+                        nog een keer.
+                    </FormHelperText>
+                )}
                 <Grid item xs={12} display='flex' justifyContent='flex-end'>
                     <Button onClick={close}>Annuleren</Button>
-                    <Button variant='contained' type='submit'>
+                    <Button
+                        disabled={isLoading}
+                        type='submit'
+                        variant='contained'
+                    >
                         Bevestig
                     </Button>
                 </Grid>

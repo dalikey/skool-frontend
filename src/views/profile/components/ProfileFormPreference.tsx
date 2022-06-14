@@ -6,6 +6,7 @@ import {
     Typography,
 } from '@mui/material';
 import { FieldArray, FormikContextType, FormikProvider } from 'formik';
+import { useEffect } from 'react';
 import { useGetAllWorkshopsQuery } from '../../../api/workshop/workshopApi';
 
 interface ProfileFormProps {
@@ -45,7 +46,7 @@ const ProfileFormPreference = ({ formik }: ProfileFormProps) => {
                                                 item
                                                 xs={12}
                                                 md={6}
-                                                key={workshop._id}
+                                                key={index}
                                             >
                                                 <FormGroup>
                                                     <FormControlLabel
@@ -54,16 +55,20 @@ const ProfileFormPreference = ({ formik }: ProfileFormProps) => {
                                                                 checked={formik.values.workshopPreferences.includes(
                                                                     workshop._id
                                                                 )}
-                                                                onChange={(e) =>
+                                                                onChange={(
+                                                                    e
+                                                                ) => {
                                                                     e.target
                                                                         .checked
                                                                         ? push(
                                                                               workshop._id
                                                                           )
                                                                         : remove(
-                                                                              index
-                                                                          )
-                                                                }
+                                                                              formik.values.workshopPreferences.indexOf(
+                                                                                  workshop._id
+                                                                              )
+                                                                          );
+                                                                }}
                                                             />
                                                         }
                                                         label={workshop.name}
