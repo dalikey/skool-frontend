@@ -9,21 +9,55 @@ import {
     InputAdornment,
     IconButton,
     FormHelperText,
+    AlertProps,
+    Alert as MuiAlert,
+    Snackbar,
 } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useFormik } from 'formik';
-import { useState, MouseEvent, useEffect } from 'react';
+import { useState, MouseEvent, forwardRef, SyntheticEvent } from 'react';
 import { SignUpSchema } from '../../schemas/authSchemas';
 import { RegistrationModel } from '../../models/authModels';
 import { useRegisterMutation } from '../../api/auth/authApi';
-import { useNavigate } from 'react-router-dom';
 
 interface ShowPasswordValues {
     password: boolean;
     passwordConfirm: boolean;
 }
 
+const Alert = forwardRef<HTMLDivElement, AlertProps>(function Alert(
+    props,
+    ref
+) {
+    return <MuiAlert elevation={6} ref={ref} variant='filled' {...props} />;
+});
+
 const SignUpForm = () => {
+    const [register, { data, isSuccess, isError, isLoading }] =
+        useRegisterMutation();
+
+    const handleSignUp = (values: RegistrationModel): void => {
+        register(values);
+    };
+
+    const [open, setOpen] = useState(false);
+
+    console.log('Down');
+    console.log(isSuccess);
+    console.log(isError);
+    console.log(data);
+    const handleClick = () => {
+        if (data === null) setOpen(true);
+    };
+
+    const handleClose = (event?: SyntheticEvent | Event, reason?: string) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setOpen(false);
+    };
+
     const [showPasswordValues, setShowPasswordValues] =
         useState<ShowPasswordValues>({
             password: false,
@@ -41,12 +75,6 @@ const SignUpForm = () => {
         }));
     };
 
-    const [register, { isSuccess, isError, isLoading }] = useRegisterMutation();
-
-    const handleSignUp = (values: RegistrationModel): void => {
-        register(values);
-    };
-
     const formik = useFormik({
         initialValues: {
             firstName: '',
@@ -59,14 +87,6 @@ const SignUpForm = () => {
         validateOnChange: false,
         onSubmit: handleSignUp,
     });
-
-    const navigate = useNavigate();
-
-    useEffect(() => {
-        if (isSuccess) {
-            navigate('/sign-in');
-        }
-    }, [isSuccess, navigate]);
 
     return (
         <form onSubmit={formik.handleSubmit}>
@@ -197,12 +217,27 @@ const SignUpForm = () => {
                 )}
                 <Button
                     disabled={isLoading}
+                    onClick={handleClick}
                     type='submit'
                     variant='contained'
                     sx={{ my: '16px' }}
                 >
                     Registreren
                 </Button>
+                <Snackbar
+                    open={open}
+                    autoHideDuration={6000}
+                    onClose={handleClose}
+                >
+                    <Alert
+                        onClose={handleClose}
+                        severity='success'
+                        sx={{ width: '100%' }}
+                    >
+                        Registratie voltooid, wacht op de eigenaar om u te
+                        accepteren
+                    </Alert>
+                </Snackbar>
                 <Link href='/sign-in'>Heb je al een account?</Link>
             </Stack>
         </form>
