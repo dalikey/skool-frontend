@@ -25,8 +25,9 @@ interface LocationModel {
 }
 
 interface TimeStampModel {
-    startTime: string
-    endTime: string
+    startTime: string;
+    title: string;
+    endTime: string;
 }
 
 export interface RetrievedWorkshopShiftModel {
