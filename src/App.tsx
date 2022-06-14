@@ -27,6 +27,11 @@ const App = () => {
                 <Route path='profiel' element={<Profile />} />
                 <Route path='shiftbeheer' element={<ShiftManagement />} />
                     <Route
+                        path='templatebeheer'
+                        element={<TemplateManagement />}
+                    >
+                    </Route>
+                    <Route
                         path='klantenbeheer'
                         element={<CustomerManagement />}
                     />
@@ -36,11 +41,7 @@ const App = () => {
                         element={<CustomerManagement />}
                     />
                 </Route>
-                <Route
-                    path='templatebeheer'
-                    element={<TemplateManagement />}
-                >
-                </Route>
+
             </Routes>
         </ThemeProvider>
     );

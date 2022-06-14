@@ -1,6 +1,5 @@
 import { api } from '../api';
 import {TemplateModel} from "../../models/templateModels";
-import {WorkshopModel} from "../../models/workshopModels";
 
 interface getAllTemplatesResponse {
     error?: string;
@@ -26,7 +25,7 @@ const extendedApi = api.injectEndpoints({
                 method: 'POST',
                 body,
             }),
-            invalidatesTags: [{ type: 'Templates', id: 'OBJECT' }],
+            invalidatesTags: [{ type: 'Templates', id: 'LIST' }],
         }),
         updateTemplate: build.mutation<TemplateModel, TemplateModel>({
             query: (body) => ({
@@ -34,14 +33,14 @@ const extendedApi = api.injectEndpoints({
                 method: 'PUT',
                 body,
             }),
-            invalidatesTags: [{ type: 'Templates', id: 'OBJECT' }],
+            invalidatesTags: [{ type: 'Templates', id: 'LIST' }],
         }),
         deleteTemplate: build.mutation<TemplateModel, TemplateModel>({
             query: (template) => ({
                 url: `templateMessage/${template._id}`,
                 method: 'DELETE',
             }),
-            invalidatesTags: [{ type: 'Templates', id: 'OBJECT' }],
+            invalidatesTags: [{ type: 'Templates', id: 'LIST' }],
         }),
     }),
     overrideExisting: false,

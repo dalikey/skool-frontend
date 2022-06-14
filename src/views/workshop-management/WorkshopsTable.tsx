@@ -1,16 +1,14 @@
 import { IconButton, TableCell } from '@mui/material';
 import Row from '../../components/table/Row';
 import Table from '../../components/table/Table';
-import { Delete, Edit, PersonAddAlt } from '@mui/icons-material';
+import { Delete, Edit } from '@mui/icons-material';
 import { WorkshopModel } from '../../models/workshopModels';
-import NonExistingUserForm from '../shift-management/NonExistingUserForm';
 import FormDialog, { formDialog } from '../../components/dialog/FormDialog';
 import EditWorkshopForm from './WorkshopForm';
 import ConfirmDialog, {
     confirmDialog,
 } from '../../components/dialog/ConfirmDialog';
 import { useDeleteWorkshopMutation } from '../../api/workshop/workshopApi';
-import {RetrievedWorkshopShiftModel} from "../../models/workshopShiftModels";
 
 interface WorkshopTableProps {
     isLoading: boolean;

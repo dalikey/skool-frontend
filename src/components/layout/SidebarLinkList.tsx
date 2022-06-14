@@ -16,6 +16,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import WorkIcon from '@mui/icons-material/Work';
 import StoreRoundedIcon from '@mui/icons-material/StoreRounded';
 import EventNoteIcon from '@mui/icons-material/EventNote';
+import ArticleIcon from '@mui/icons-material/Article';
 import Logo from '../../assets/logo.png';
 
 interface LinkItem {
@@ -71,7 +72,7 @@ const SidebarLinkList = ({ role }: SidebarLinkListProps) => {
         {
             path: '/templatebeheer',
             text: 'Templatebeheer',
-            icon: <StoreRoundedIcon/>
+            icon: <ArticleIcon/>
         },
     ];
 

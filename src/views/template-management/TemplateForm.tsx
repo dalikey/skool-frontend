@@ -1,7 +1,8 @@
 import {
+    AccordionSummary,
     Button, FormControl,
     FormHelperText,
-    Grid,  InputLabel, MenuItem, Select,
+    Grid, InputLabel, MenuItem, Select,
     TextField,
 } from '@mui/material';
 import { useFormik} from 'formik';
@@ -12,6 +13,8 @@ import {useCreateTemplateMutation, useUpdateTemplateMutation} from "../../api/te
 
 import ReactQuill from "react-quill";
 import 'react-quill/dist/quill.snow.css';
+import Accordion from "../../components/accordion/Accordion";
+import {QuestionMark, QuestionMarkRounded} from "@mui/icons-material";
 
 interface TemplateFormProps {
     template?: TemplateModel;
@@ -27,7 +30,6 @@ const TemplateForm = ({ template, triggers }: TemplateFormProps) => {
     const [updateWorkshop] = useUpdateTemplateMutation();
 
     const handleCreateTemplate = (values): void => {
-        console.log('bingus')
         if (template) {
             updateWorkshop(values);
         } else {
@@ -53,7 +55,6 @@ const TemplateForm = ({ template, triggers }: TemplateFormProps) => {
     console.log(formik.values.content)
 
     const onChange = (thing) => {
-        console.log('cock and ball ' + thing)
         formik.setFieldValue('content', thing);
     }
 
@@ -99,7 +100,22 @@ const TemplateForm = ({ template, triggers }: TemplateFormProps) => {
                     </FormControl>
                 </Grid>
                 <Grid item xs={12}>
-                    <ReactQuill theme={'snow'} onChange={onChange} value={formik.values.content}></ReactQuill>
+                    <ReactQuill placeholder={'Inhoud'} theme={'snow'} onChange={onChange} value={formik.values.content}></ReactQuill>
+                </Grid>
+                <Grid item xs={12}>
+                    <Accordion title={'Variabelen'} icon={<QuestionMarkRounded/>}>
+                        <ul>
+                            <li>{'{name}: Voor & Achternaam'}</li>
+                            <li>{'{url}: Link naar relevante pagina (alleen van toepassing bij gebruikersactivatie & wachtwoord vergeten)'}</li>
+                            <li>{'{functie}: Naam van workshop'}</li>
+                            <li>{'{klant}: Naam van klant'}</li>
+                            <li>{'{date}: Datum van workshop'}</li>
+                            <li>{'{arrivalTime}: Tijd van aanvang'}</li>
+                            <li>{'{startTime}: Starttijd van eerste ronde'}</li>
+                            <li>{'{endTime}: Eindtijd van laatste ronde'}</li>
+                            <li>{'{workshop}: Naam van te geven workshop'}</li>
+                        </ul>
+                            </Accordion>
                 </Grid>
 
                 {isError && (
