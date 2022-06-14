@@ -49,9 +49,11 @@ const WorkshopTable = ({ isLoading, workshops }: WorkshopTableProps) => {
                 {workshops &&
                     workshops.map((workshop) => (
                         <Row key={workshop._id}>
-                            <TableCell>{workshop.name}</TableCell>
-                            <TableCell>{workshop.content}</TableCell>
-                            <TableCell>
+                            <TableCell width='10%'>{workshop.name}</TableCell>
+                            <TableCell width='60%'>
+                                {workshop.content}
+                            </TableCell>
+                            <TableCell width='15%'>
                                 {workshop.materials &&
                                 workshop.materials.length > 0
                                     ? workshop.materials.join(',\r\n')
