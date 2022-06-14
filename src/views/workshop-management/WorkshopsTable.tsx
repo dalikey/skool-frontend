@@ -24,7 +24,10 @@ const WorkshopTable = ({ isLoading, workshops }: WorkshopTableProps) => {
     };
 
     const openEditWorkshopForm = (workshop: WorkshopModel): void => {
-        formDialog('Workshop bewerken', <EditWorkshopForm workshop={workshop}/>);
+        formDialog(
+            'Workshop bewerken',
+            <EditWorkshopForm workshop={workshop} />
+        );
     };
 
     const handleClickDelete = (workshop: WorkshopModel): void => {
@@ -48,7 +51,12 @@ const WorkshopTable = ({ isLoading, workshops }: WorkshopTableProps) => {
                         <Row key={workshop._id}>
                             <TableCell>{workshop.name}</TableCell>
                             <TableCell>{workshop.content}</TableCell>
-                            <TableCell>{workshop.materials}</TableCell>
+                            <TableCell>
+                                {workshop.materials &&
+                                workshop.materials.length > 0
+                                    ? workshop.materials.join(',\r\n')
+                                    : ''}
+                            </TableCell>
                             <TableCell align='right'>
                                 {workshop.isActive && (
                                     <>
@@ -62,7 +70,9 @@ const WorkshopTable = ({ isLoading, workshops }: WorkshopTableProps) => {
                                         <IconButton
                                             aria-label='edit'
                                             color='secondary'
-                                            onClick={() => openEditWorkshopForm(workshop)}
+                                            onClick={() =>
+                                                openEditWorkshopForm(workshop)
+                                            }
                                         >
                                             <Edit />
                                         </IconButton>
