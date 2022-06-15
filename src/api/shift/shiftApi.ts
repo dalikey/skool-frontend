@@ -18,6 +18,12 @@ interface unEnrollRequestBody {
     user_id: string;
 }
 
+interface getAllShiftsResponse {
+    error?: string;
+    message?: string;
+    result?: RetrievedWorkshopShiftModel[]
+}
+
 
 const extendedApi = api.injectEndpoints({
     endpoints: (build) => ({
@@ -45,7 +51,7 @@ const extendedApi = api.injectEndpoints({
             invalidatesTags: [{ type: 'Shift', id: 'LIST' }],
         }),
         getAllShifts: build.query<
-            createShiftResponse,
+            getAllShiftsResponse,
             Record<string, boolean | null>
             >({
             query: (isActive) => ({

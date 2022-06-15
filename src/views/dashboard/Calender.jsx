@@ -16,9 +16,8 @@ import AppointmentContent from './AppointmentContent';
 import { useState } from 'react';
 import AppointmentHeader from './AppointmentHeader';
 
-const Calender = ({ timestamps }) => {
+const Calender = ({ timestamps, isSmall }) => {
     const [visible, setVisible] = useState(false);
-    const isSmallScreen = useMediaQuery('(max-width:1260px)');
 
     const getHeader = (props) => {
         return (
@@ -42,7 +41,7 @@ const Calender = ({ timestamps }) => {
             <Scheduler data={timestamps} locale='nl-NL' firstDayOfWeek={1}>
                 <ViewState
                     defaultCurrentDate={new Date()}
-                    currentViewName={isSmallScreen ? 'Day' : 'Week'}
+                    currentViewName={isSmall ? 'Day' : 'Week'}
                 />
                 <WeekView startDayHour={5} endDayHour={21} cellDuration={60} />
                 <DayView startDayHour={5} endDayHour={21} cellDuration={60} />

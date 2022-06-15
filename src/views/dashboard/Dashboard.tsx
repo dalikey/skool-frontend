@@ -1,7 +1,6 @@
 import { useGetAllShiftsQuery } from '../../api/shift/shiftApi';
-import { Grid } from '@mui/material';
+import { Grid, useMediaQuery, useTheme } from '@mui/material';
 import Calender from './Calender';
-import { useEffect } from 'react';
 import {
     WorkshopShiftModel,
     TimeStampModel,
@@ -32,21 +31,25 @@ const getFormattedTimestamps = (workshops): FormattedTimeStamp[] => {
 };
 
 const Dashboard = () => {
+    const theme = useTheme();
+    const isSmallScreen = useMediaQuery(theme.breakpoints.down('xl'));
+
     const { data, isSuccess } = useGetAllShiftsQuery({
         isActive: false,
     });
 
     return (
-        <Grid container columnSpacing={2}>
-            <Grid item xs={12} md={10}>
+        <Grid container columnSpacing={2} rowSpacing={2} direction={(isSmallScreen) ? 'column-reverse' : 'row'}>
+            <Grid item xs={12} xl={10}>
                 {data && isSuccess && (
                     <Calender
+                        isSmall={isSmallScreen}
                         timestamps={getFormattedTimestamps(data?.result ?? [])}
                     />
                 )}
             </Grid>
-            <Grid item xs={12} md={2}>
-                <DashboardSidebar />
+            <Grid item xs={12} xl={2}>
+                <DashboardSidebar isSmall={isSmallScreen}/>
             </Grid>
         </Grid>
     );
