@@ -30,6 +30,10 @@ const ProfileForm = ({ user }: ProfileFormProps) => {
         close();
     };
 
+    if (user.workshopPreferences && user.workshopPreferences.length > 0) {
+        user.workshopPreferences = user.workshopPreferences.map((workshop) => workshop._id);
+    }
+
     const formik = useFormik({
         initialValues: {
             ...defaultUserProfile,
