@@ -4,6 +4,7 @@ import {
     IconButton,
     Avatar,
     Box,
+    Button,
 } from '@mui/material';
 import {
     Edit,
@@ -13,6 +14,7 @@ import { useGetPersonalProfileQuery } from '../../api/user/userApi';
 import FormDialog, { formDialog } from '../../components/dialog/FormDialog';
 import ProfileForm from './ProfileForm';
 import ProfilePicture from '../../assets/no_profile_picture.jpg';
+import { useGetAllWorkshopsQuery } from '../../api/workshop/workshopApi';
 
 const Profile = () => {
     const { data } = useGetPersonalProfileQuery();
@@ -34,10 +36,12 @@ const Profile = () => {
         }
     };
 
+    const { data:workshopData } = useGetAllWorkshopsQuery({ isActive: true });
+
     console.log(user);
 
     return (
-        <Grid container spacing={2}>
+        <Grid container spacing={2} border={1} borderColor='#f0f0f0' style={{color: 'black', backgroundColor: '#ffffff', paddingBottom: '15px', paddingRight: '50px'}}>
             <FormDialog />
             <Grid item xs={12} md={4}>
                 <Avatar
@@ -78,7 +82,7 @@ const Profile = () => {
                 </Typography>
             </Grid>
             <Grid item xs={12} md={8}>
-                <Typography fontSize='20px' fontWeight='bold'>
+                <Typography fontSize='25px' fontWeight='bold' paddingBottom={'15px'} paddingTop={'15px'}>
                     {user?.firstName} {user?.lastName}
                 </Typography>
                 <Typography>
@@ -88,7 +92,7 @@ const Profile = () => {
                     {user?.emailAddress}
                 </Typography>
                 <Typography>
-                    {`${user?.dateOfBirth?.toString()}`}
+                    {(user?.dateOfBirth != null ? new Date(user?.dateOfBirth).toLocaleDateString('nl-NL') : 'Onbekend')}
                 </Typography>
                 <Typography>
                     {user?.mobileNumber}
@@ -123,17 +127,39 @@ const Profile = () => {
                     {`Contract: ${user?.contractType}`}
                 </Typography>
                 <Typography variant='subtitle1' color='secondary'>
-                    Voorkeuren
+                    Workshopvoorkeuren
                 </Typography>
-                <Typography>
-                    {`Workshop voorkeuren: ${user?.workshopPreferences}`}
+
+                {workshopData?.result && workshopData.result.length > 0 && workshopData.result.filter((workshop) => (
+                    user?.workshopPreferences?.includes(workshop._id)
+                )).map(workshop => (
+                    <div>{workshop.name}</div>
+                ))}
+
+                <Typography variant='subtitle1' color='secondary'>
+                    Niveauvoorkeuren
                 </Typography>
-                <IconButton
+
+                {user?.levelPreferences != null && user?.levelPreferences?.length > 0 && user?.levelPreferences.map((level) => (
+                    <Typography>
+                        {level}
+                    </Typography>
+                ))}
+
+                <Button
                     onClick={() => openProfileForm()}
                     aria-label='edit'
                     color='primary'>
                         <Edit />
-                </IconButton>
+                        Profiel bewerken
+                </Button>
+                <Button
+                    // onClick={() => openProfileForm()}
+                    aria-label='addFile'
+                    color='primary'>
+                        <AttachFileIcon />
+                        Voeg een bestand toe
+                </Button>
             </Grid>
         </Grid>
     );
