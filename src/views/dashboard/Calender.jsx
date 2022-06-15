@@ -18,7 +18,7 @@ import AppointmentHeader from './AppointmentHeader';
 
 const Calender = ({ timestamps }) => {
     const [visible, setVisible] = useState(false);
-    const isSmallScreen = useMediaQuery('(max-width:1300px)');
+    const isSmallScreen = useMediaQuery('(max-width:1260px)');
 
     const getHeader = (props) => {
         return (
@@ -34,7 +34,7 @@ const Calender = ({ timestamps }) => {
             sx={{
                 width: '100%',
                 backgroundColor: '#fff',
-                height: '85vh',
+                height: '90vh',
                 paddingTop: 2,
                 paddingX: 1,
             }}
@@ -44,8 +44,8 @@ const Calender = ({ timestamps }) => {
                     defaultCurrentDate={new Date()}
                     currentViewName={isSmallScreen ? 'Day' : 'Week'}
                 />
-                <WeekView startDayHour={6} endDayHour={21} cellDuration={60} />
-                <DayView startDayHour={6} endDayHour={21} cellDuration={60} />
+                <WeekView startDayHour={5} endDayHour={21} cellDuration={60} />
+                <DayView startDayHour={5} endDayHour={21} cellDuration={60} />
                 <Toolbar />
                 <DateNavigator />
                 <TodayButton messages={{ today: 'Vandaag' }} />

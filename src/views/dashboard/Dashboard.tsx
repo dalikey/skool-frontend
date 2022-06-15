@@ -2,7 +2,11 @@ import { useGetAllShiftsQuery } from '../../api/shift/shiftApi';
 import { Grid } from '@mui/material';
 import Calender from './Calender';
 import { useEffect } from 'react';
-import { WorkshopShiftModel, TimeStampModel } from '../../models/workshopShiftModels';
+import {
+    WorkshopShiftModel,
+    TimeStampModel,
+} from '../../models/workshopShiftModels';
+import DashboardSidebar from './DashboardSidebar';
 
 interface FormattedTimeStamp {
     startDate: string;
@@ -33,9 +37,16 @@ const Dashboard = () => {
     });
 
     return (
-        <Grid container>
-            <Grid item md={9.5}>
-                {data && isSuccess && <Calender timestamps={getFormattedTimestamps(data?.result ?? [])} />}
+        <Grid container columnSpacing={2}>
+            <Grid item xs={12} md={10}>
+                {data && isSuccess && (
+                    <Calender
+                        timestamps={getFormattedTimestamps(data?.result ?? [])}
+                    />
+                )}
+            </Grid>
+            <Grid item xs={12} md={2}>
+                <DashboardSidebar />
             </Grid>
         </Grid>
     );
