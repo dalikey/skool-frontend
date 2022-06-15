@@ -1,15 +1,11 @@
 import { Paper, Grid, Typography, Avatar } from '@mui/material';
-import { useGetAllShiftsQuery } from '../../api/shift/shiftApi';
+import { Fragment } from 'react';
 import { useGetPersonalProfileQuery } from '../../api/user/userApi';
 import ProfilePicture from '../../assets/no_profile_picture.jpg';
 
-const DashboardSidebar = ({ isSmall }) => {
+const DashboardSidebar = ({ upComingWorkshops, isSmall }) => {
     const { data: userData } = useGetPersonalProfileQuery();
     const user = userData?.result;
-
-    const { data } = useGetAllShiftsQuery({
-        isActive: false,
-    });
 
     return (
         <Paper
@@ -22,30 +18,31 @@ const DashboardSidebar = ({ isSmall }) => {
             }}
         >
             <Grid container rowSpacing={3}>
-                <Grid
-                    item
-                    xs={4}
-                    xl={12}
-                    display='flex'
-                    alignItems='center'
-                    flexDirection='column'
-                >
-                    <Avatar
-                        alt='Profile picture'
-                        src={ProfilePicture}
-                        sx={{
-                            width: 125,
-                            height: 125,
-                        }}
-                    />
-                    <Typography variant='h5' fontWeight='bold' pt={1}>{`${
-                        user?.firstName ?? ''
-                    } ${user?.lastName ?? ''}`}</Typography>
-                </Grid>
+                {!isSmall && (
+                    <Grid
+                        item
+                        xs={12}
+                        display='flex'
+                        alignItems='center'
+                        flexDirection='column'
+                    >
+                        <Avatar
+                            alt='Profile picture'
+                            src={ProfilePicture}
+                            sx={{
+                                width: 125,
+                                height: 125,
+                            }}
+                        />
+                        <Typography variant='h5' fontWeight='bold' pt={1}>{`${
+                            user?.firstName ?? ''
+                        } ${user?.lastName ?? ''}`}</Typography>
+                    </Grid>
+                )}
                 <Grid
                     container
                     item
-                    xs={8}
+                    xs={6}
                     xl={12}
                     pl={3}
                     rowSpacing={1}
@@ -84,42 +81,27 @@ const DashboardSidebar = ({ isSmall }) => {
                 <Grid
                     container
                     item
-                    xs={8}
+                    xs={6}
                     xl={12}
                     pl={3}
                     rowSpacing={1}
                     columnSpacing={2}
                 >
                     <Grid item xs={12}>
-                        <Typography variant='h6' pb={1}>
-                            Aankomend
-                        </Typography>
+                        <Typography variant='h6'>Aankomend</Typography>
                     </Grid>
-                    <Grid
-                        container
-                        rowSpacing={1}
-                        xs={8}
-                        xl={12}
-                        pl={2}
-                        columnSpacing={2}
-                    >
-                        {data &&
-                            data.result &&
-                            data.result.map((workshop) => (
-                                <>
-                                    <Grid item xs={12}>
-                                        <Typography variant='subtitle1'>
-                                            Workshopdocent Vloggen
-                                        </Typography>
-                                        <Typography variant='subtitle2'>
-                                            {new Date(
-                                                workshop.date
-                                            ).toLocaleDateString('nl-NL')}
-                                        </Typography>
-                                    </Grid>
-                                </>
-                            ))}
-                    </Grid>
+                    {upComingWorkshops.map((workshop) => (
+                        <Grid item xs={12} key={workshop._id}>
+                            <Typography variant='subtitle1'>
+                                Workshopdocent Vloggen
+                            </Typography>
+                            <Typography variant='subtitle2'>
+                                {(workshop?.date ? new Date(workshop.date).toLocaleDateString(
+                                    'nl-NL'
+                                ) : 'Onbekend')}
+                            </Typography>
+                        </Grid>
+                    ))}
                 </Grid>
             </Grid>
         </Paper>

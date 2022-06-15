@@ -1,7 +1,7 @@
 import { Divider, Grid, Typography } from '@mui/material';
 
 const AppointmentContent = ({ appointmentData }) => {
-    const workshop = appointmentData.workshop;
+    const { workshop } = appointmentData;
 
     return (
         <Grid container paddingX={2} rowSpacing={1}>
@@ -11,10 +11,14 @@ const AppointmentContent = ({ appointmentData }) => {
                     color='rgba(0, 0, 0, 0.54)'
                     mt={-1}
                 >
-                    {`${new Date(workshop.date).toLocaleDateString(
-                        'nl-NL'
-                    )} - Aantal: ${workshop.candidates.length} / ${
-                        workshop.maximumParticipants
+                    {`${
+                        workshop?.data
+                            ? new Date(workshop.date).toLocaleDateString(
+                                  'nl-NL'
+                              )
+                            : 'Onbekend'
+                    } - Aantal: ${(workshop?.candidates ?? []).length} / ${
+                        workshop?.maximumParticipants ?? 1
                     }`}
                 </Typography>
             </Grid>
@@ -24,9 +28,9 @@ const AppointmentContent = ({ appointmentData }) => {
                 </Typography>
                 <Divider />
                 <Typography py={1}>
-                    {workshop.client.name} <br />
-                    {workshop.client.contact.emailAddress} <br />
-                    {`Tel: ${workshop.client.contact.phoneNumber}`}
+                    {workshop?.client?.name ?? ''} <br />
+                    {workshop?.client?.contact?.emailAddress ?? ''} <br />
+                    {`Tel: ${workshop?.client?.contact?.phoneNumber ?? ''}`}
                 </Typography>
             </Grid>
             <Grid item xs={12}>
@@ -35,19 +39,23 @@ const AppointmentContent = ({ appointmentData }) => {
                 </Typography>
                 <Divider />
                 <Typography py={1}>
-                    {`${workshop.location.address} - ${workshop.location.city}`}{' '}
+                    {`${workshop?.location?.address ?? ''} - ${
+                        workshop?.location?.city ?? ''
+                    }`}{' '}
                     <br />
-                    {`${workshop.location.postalCode} - ${workshop.location.country}`}{' '}
+                    {`${workshop?.location?.postalCode ?? ''} - ${
+                        workshop?.location?.country ?? ''
+                    }`}{' '}
                     <br />
                 </Typography>
             </Grid>
-            {workshop.extraInfo !== '' && (
+            {workshop?.extraInfo !== '' && (
                 <Grid item xs={12}>
                     <Typography variant='h6' sx={{ fontSize: '1.125rem' }}>
                         Extra
                     </Typography>
                     <Divider />
-                    <Typography py={1}>{workshop.extraInfo}</Typography>
+                    <Typography py={1}>{workshop?.extraInfo ?? ''}</Typography>
                 </Grid>
             )}
         </Grid>
