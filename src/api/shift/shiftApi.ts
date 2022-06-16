@@ -68,11 +68,13 @@ const extendedApi = api.injectEndpoints({
             }),
             providesTags: [{ type: 'Shift', id: 'LIST' }],
         }),
-        getAllPersonalShifts: build.query<getAllShiftsResponse, void>({
+        getAllPersonalShifts: build.query<
+            getAllShiftsResponse,
+            void
+        >({
             query: () => ({
                 url: 'workshop/shift/@me',
             }),
-            providesTags: [{ type: 'Shift', id: 'LIST' }],
         }),
         getAllShiftsAdmin: build.query<
             createShiftResponse,
@@ -86,8 +88,8 @@ const extendedApi = api.injectEndpoints({
         }),
         addNonExisting: build.mutation<void, enrollRequestBody>({
             query: ({ id, body }) => ({
-                url: `workshop/shift/${id}/enroll/unknownUser`,
-                method: 'POST',
+                url: `workshop/shift/${id}/enroll/invitation`,
+                method: 'PUT',
                 body,
             }),
         }),
@@ -96,42 +98,42 @@ const extendedApi = api.injectEndpoints({
                 url: `workshop/shift/${id}/enroll`,
                 method: 'POST',
             }),
-            invalidatesTags: [{ type: 'Workshops', id: 'OBJECT' }],
+            invalidatesTags: [{ type: 'Workshops', id: 'LIST' }],
         }),
         signOutWorkshop: build.mutation<void, unEnrollRequestBody>({
             query: ({ id, user_id }) => ({
                 url: `workshop/shift/${id}/enroll/${user_id}/enroll/delete`,
                 method: 'PUT',
             }),
-            invalidatesTags: [{ type: 'Workshops', id: 'OBJECT' }],
+            invalidatesTags: [{ type: 'Workshops', id: 'LIST' }],
         }),
         confirmEnrollment: build.mutation<void, unEnrollRequestBody>({
             query: ({ id, user_id }) => ({
                 url: `workshop/shift/${id}/enroll/${user_id}/confirm`,
                 method: 'PUT',
             }),
-            invalidatesTags: [{ type: 'Workshops', id: 'OBJECT' }],
+            invalidatesTags: [{ type: 'Workshops', id: 'LIST' }],
         }),
         rejectEnrollment: build.mutation<void, unEnrollRequestBody>({
             query: ({ id, user_id }) => ({
                 url: `workshop/shift/${id}/enroll/${user_id}/rejected`,
                 method: 'PUT',
             }),
-            invalidatesTags: [{ type: 'Workshops', id: 'OBJECT' }],
+            invalidatesTags: [{ type: 'Workshops', id: 'LIST' }],
         }),
         cancelParticipation: build.mutation<void, unEnrollRequestBody>({
             query: ({ id, user_id }) => ({
                 url: `workshop/shift/${id}/enroll/${user_id}/canceled`,
                 method: 'PUT',
             }),
-            invalidatesTags: [{ type: 'Workshops', id: 'OBJECT' }],
+            invalidatesTags: [{ type: 'Workshops', id: 'LIST' }],
         }),
         doneParticipation: build.mutation<void, unEnrollRequestBody>({
             query: ({ id, user_id }) => ({
                 url: `workshop/shift/${id}/enroll/${user_id}/onDone`,
                 method: 'PUT',
             }),
-            invalidatesTags: [{ type: 'Workshops', id: 'OBJECT' }],
+            invalidatesTags: [{ type: 'Workshops', id: 'LIST' }],
         }),
     }),
     overrideExisting: false,

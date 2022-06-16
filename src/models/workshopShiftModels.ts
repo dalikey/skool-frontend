@@ -32,6 +32,7 @@ export interface TimeStampModel {
 
 export interface RetrievedWorkshopShiftModel {
     dayRate?: number;
+    hourRate?: number
     _id: string
     clientId?: string,
     workshopId?: string,

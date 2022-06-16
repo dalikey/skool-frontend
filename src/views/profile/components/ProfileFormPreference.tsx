@@ -104,7 +104,9 @@ const ProfileFormPreference = ({ formik }: ProfileFormProps) => {
                                                                           level
                                                                       )
                                                                     : remove(
-                                                                          index
+                                                                          formik.values.levelPreferences.indexOf(
+                                                                              level
+                                                                          )
                                                                       )
                                                             }
                                                         />

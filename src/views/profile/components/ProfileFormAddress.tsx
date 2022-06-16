@@ -57,8 +57,8 @@ const ProfileFormAddress = ({ formik }: AddressFormPersonalProps) => {
                         onChange={formik.handleChange}
                         label='Land'
                     >
-                        <MenuItem value={'nl'}>Nederland</MenuItem>
-                        <MenuItem value={'be'}>België</MenuItem>
+                        <MenuItem value={'Nederland'}>Nederland</MenuItem>
+                        <MenuItem value={'België'}>België</MenuItem>
                     </Select>
                 </FormControl>
             </Grid>

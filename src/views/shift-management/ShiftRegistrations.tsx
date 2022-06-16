@@ -35,7 +35,7 @@ const ShiftRegistrations = ({ shift }: ShiftRegistrationsProps) => {
     const handleClickActivate = (workshopShift: RetrievedWorkshopShiftModel | undefined): void => {
         if (workshopShift !== undefined) {
         formDialog(
-            'Gebruiker toevoegen',
+            'Gebruiker uitnodigen',
             <NonExistingUserForm shift={shift}></NonExistingUserForm>
         );
 
