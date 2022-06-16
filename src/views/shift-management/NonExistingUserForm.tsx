@@ -45,7 +45,7 @@ const NonExistingUserForm = ({ shift }: NonExistingUserFormProps) => {
             phoneNumber: '',
             hourRate: 0
         },
-        validationSchema: NonExistingUserSchema
+        validationSchema: NonExistingUserSchema,
         onSubmit: handleNonExistingUser,
     });
 
