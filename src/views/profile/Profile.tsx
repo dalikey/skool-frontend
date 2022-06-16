@@ -11,31 +11,16 @@ import { useGetPersonalProfileQuery } from "../../api/user/userApi";
 import FormDialog, { formDialog } from "../../components/dialog/FormDialog";
 import ProfileForm from "./ProfileForm";
 import ProfilePicture from "../../assets/no_profile_picture.jpg";
-import { useGetAllWorkshopsQuery } from "../../api/workshop/workshopApi";
 
 const Profile = () => {
     const { data } = useGetPersonalProfileQuery();
     const user = data?.result;
-
-    let workshopString, workshopPref, levelString, levelPref;
-    if (user?.workshopPreferences) {
-        workshopString = user?.workshopPreferences;
-        workshopPref = workshopString.join("\r\n");
-    }
-    if (user?.levelPreferences) {
-        levelString = user?.levelPreferences;
-        levelPref = levelString.join("\r\n");
-    }
 
     const openProfileForm = () => {
         if (data?.result) {
             formDialog("Profiel bewerken", <ProfileForm user={data.result} />);
         }
     };
-
-    const { data: workshopData } = useGetAllWorkshopsQuery({ isActive: true });
-
-    console.log(user);
 
     return (
         <Grid

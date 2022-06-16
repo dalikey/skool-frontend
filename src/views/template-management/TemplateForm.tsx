@@ -1,5 +1,4 @@
 import {
-    AccordionSummary,
     Button, FormControl,
     FormHelperText,
     Grid, InputLabel, MenuItem, Select,
@@ -10,11 +9,10 @@ import { useFormDialogStore } from '../../components/dialog/FormDialog';
 import {TemplateModel} from "../../models/templateModels";
 import {TemplateSchema} from "../../schemas/templateSchemas";
 import {useCreateTemplateMutation, useUpdateTemplateMutation} from "../../api/template/templateApi";
-
 import ReactQuill from "react-quill";
 import 'react-quill/dist/quill.snow.css';
 import Accordion from "../../components/accordion/Accordion";
-import {QuestionMark, QuestionMarkRounded} from "@mui/icons-material";
+import {QuestionMarkRounded} from "@mui/icons-material";
 
 interface TemplateFormProps {
     template?: TemplateModel;
@@ -51,8 +49,6 @@ const TemplateForm = ({ template, triggers }: TemplateFormProps) => {
         validateOnChange: false,
         onSubmit: handleCreateTemplate,
     });
-
-    console.log(formik.values.content)
 
     const onChange = (thing) => {
         formik.setFieldValue('content', thing);
