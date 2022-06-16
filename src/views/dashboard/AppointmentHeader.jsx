@@ -2,6 +2,7 @@ import { Typography, Box, IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 
 const AppointmentHeader = ({ appointmentData, toggleVisibilty }) => {
+    const { workshop } = appointmentData.workshop;
     return (
         <Box
             display='flex'
@@ -10,7 +11,7 @@ const AppointmentHeader = ({ appointmentData, toggleVisibilty }) => {
             px={2}
             pt={2}
         >
-            <Typography variant='h6'>Workshopdocent Graffiti - {appointmentData?.workshop?.level ?? ''}</Typography>
+            <Typography variant='h6'>{`${workshop?.name ?? ''} - ${appointmentData.workshop?.level ?? ''}`}</Typography>
             <IconButton onClick={toggleVisibilty}>
                 <CloseIcon />
             </IconButton>

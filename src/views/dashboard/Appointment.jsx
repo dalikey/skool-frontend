@@ -9,7 +9,7 @@ const Appointment = ({ children, style, ...restProps }) => {
             {...restProps}
             style={{
                 ...style,
-                backgroundColor: data.isPlanned ? '#f49700' : '#b8dfff',
+                backgroundColor: data.isPlanned ? '#f49700' : '#fbdfb2',
                 borderRadius: '8px',
             }}
         >

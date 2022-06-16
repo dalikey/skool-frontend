@@ -1,4 +1,4 @@
-import { Paper } from '@mui/material';
+import { Paper, useMediaQuery } from '@mui/material';
 import {
     Scheduler,
     WeekView,
@@ -10,14 +10,14 @@ import {
     AppointmentTooltip,
 } from '@devexpress/dx-react-scheduler-material-ui';
 import { ViewState } from '@devexpress/dx-react-scheduler';
-import { useMediaQuery } from '@mui/material';
 import Appointment from './Appointment';
 import AppointmentContent from './AppointmentContent';
 import { useState } from 'react';
 import AppointmentHeader from './AppointmentHeader';
 
-const Calender = ({ timestamps, isSmall }) => {
+const Calender = ({ timestamps  }) => {
     const [visible, setVisible] = useState(false);
+    const isSmall = useMediaQuery('(max-width: 1500px)');
 
     const getHeader = (props) => {
         return (
@@ -33,7 +33,6 @@ const Calender = ({ timestamps, isSmall }) => {
             sx={{
                 width: '100%',
                 backgroundColor: '#fff',
-                height: '90vh',
                 paddingTop: 2,
                 paddingX: 1,
             }}

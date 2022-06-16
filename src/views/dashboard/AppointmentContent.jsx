@@ -1,7 +1,7 @@
 import { Divider, Grid, Typography } from '@mui/material';
 
 const AppointmentContent = ({ appointmentData }) => {
-    const { workshop } = appointmentData;
+    const { workshop: shift } = appointmentData;
 
     return (
         <Grid container paddingX={2} rowSpacing={1}>
@@ -12,13 +12,13 @@ const AppointmentContent = ({ appointmentData }) => {
                     mt={-1}
                 >
                     {`${
-                        workshop?.data
-                            ? new Date(workshop.date).toLocaleDateString(
+                        shift?.date
+                            ? new Date(shift.date).toLocaleDateString(
                                   'nl-NL'
                               )
                             : 'Onbekend'
-                    } - Aantal: ${(workshop?.candidates ?? []).length} / ${
-                        workshop?.maximumParticipants ?? 1
+                    } - Aantal: ${(shift?.participants ?? []).length} / ${
+                        shift?.maximumParticipants ?? 1
                     }`}
                 </Typography>
             </Grid>
@@ -28,9 +28,9 @@ const AppointmentContent = ({ appointmentData }) => {
                 </Typography>
                 <Divider />
                 <Typography py={1}>
-                    {workshop?.client?.name ?? ''} <br />
-                    {workshop?.client?.contact?.emailAddress ?? ''} <br />
-                    {`Tel: ${workshop?.client?.contact?.phoneNumber ?? ''}`}
+                    {shift?.client?.name ?? ''} <br />
+                    {shift?.client?.contact?.emailAddress ?? ''} <br />
+                    {`Tel: ${shift?.client?.contact?.phoneNumber ?? ''}`}
                 </Typography>
             </Grid>
             <Grid item xs={12}>
@@ -39,23 +39,53 @@ const AppointmentContent = ({ appointmentData }) => {
                 </Typography>
                 <Divider />
                 <Typography py={1}>
-                    {`${workshop?.location?.address ?? ''} - ${
-                        workshop?.location?.city ?? ''
+                    {`${shift?.location?.address ?? ''} - ${
+                        shift?.location?.city ?? ''
                     }`}{' '}
                     <br />
-                    {`${workshop?.location?.postalCode ?? ''} - ${
-                        workshop?.location?.country ?? ''
+                    {`${shift?.location?.postalCode ?? ''} - ${
+                        shift?.location?.country ?? ''
                     }`}{' '}
                     <br />
                 </Typography>
             </Grid>
-            {workshop?.extraInfo !== '' && (
+            <Grid item xs={12}>
+                <Typography>Materialen</Typography>
+                <Divider />
+                {shift?.workshop?.materials.length > 0 ? (
+                    shift?.workshop?.materials.map((material, i) => (
+                        <Typography variant='body2' key={i}>
+                            {material}
+                        </Typography>
+                    ))
+                ) : (
+                    <Typography variant='body2'>
+                        Geen extra materialen vereist.
+                    </Typography>
+                )}
+            </Grid>
+            <Grid item xs={12}>
+                <Typography>Medewerkers</Typography>
+                <Divider />
+                {shift?.participantUsers.length > 0 ? (
+                    shift?.participantUsers.map((user, i) => (
+                        <Typography variant='body2' key={i}>
+                            {`${user.firstName} ${user.lastName}`}
+                        </Typography>
+                    ))
+                ) : (
+                    <Typography variant='body2'>
+                        Er zijn geen medewerkers
+                    </Typography>
+                )}
+            </Grid>
+            {shift?.extraInfo !== '' && (
                 <Grid item xs={12}>
                     <Typography variant='h6' sx={{ fontSize: '1.125rem' }}>
                         Extra
                     </Typography>
                     <Divider />
-                    <Typography py={1}>{workshop?.extraInfo ?? ''}</Typography>
+                    <Typography py={1}>{shift?.extraInfo ?? ''}</Typography>
                 </Grid>
             )}
         </Grid>
