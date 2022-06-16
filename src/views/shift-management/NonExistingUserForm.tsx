@@ -38,7 +38,7 @@ const NonExistingUserForm = ({ shift }: NonExistingUserFormProps) => {
 
     const formik = useFormik({
         initialValues: {
-            userId: 'Unknown',
+            userId: '',
             firstName: '',
             lastName: '',
             emailAddress: '',
