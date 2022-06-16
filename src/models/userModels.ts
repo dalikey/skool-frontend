@@ -1,4 +1,5 @@
-import { WorkshopModel } from './workshopModels';
+import { WorkshopModel } from "./workshopModels";
+
 export interface RegistrationModel {
     _id: string;
     firstName: string;
