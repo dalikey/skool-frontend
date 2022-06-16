@@ -1,4 +1,14 @@
-import {Button, Stack, TextField, FormHelperText, Select, MenuItem} from '@mui/material';
+import {
+    Button,
+    Stack,
+    TextField,
+    FormHelperText,
+    Select,
+    MenuItem,
+    InputAdornment,
+    InputLabel,
+    FormControl, Divider
+} from '@mui/material';
 import { useFormik } from 'formik';
 import { useEffect } from 'react';
 import { NonExistingModel } from '../../models/authModels';
@@ -7,6 +17,7 @@ import { useNavigate } from 'react-router-dom';
 import { useFormDialogStore } from '../../components/dialog/FormDialog';
 import {RetrievedWorkshopShiftModel} from "../../models/workshopShiftModels";
 import {useGetAllUsersQuery} from "../../api/user/userApi";
+import {NonExistingUserSchema} from "../../schemas/nonExistingUserSchemas";
 
 interface NonExistingUserFormProps {
     shift: RetrievedWorkshopShiftModel
@@ -27,13 +38,14 @@ const NonExistingUserForm = ({ shift }: NonExistingUserFormProps) => {
 
     const formik = useFormik({
         initialValues: {
-            userId: '',
+            userId: 'Unknown',
             firstName: '',
             lastName: '',
             emailAddress: '',
             phoneNumber: '',
             hourRate: 0
         },
+        validationSchema: NonExistingUserSchema
         onSubmit: handleNonExistingUser,
     });
 
@@ -49,17 +61,20 @@ const NonExistingUserForm = ({ shift }: NonExistingUserFormProps) => {
         <form onSubmit={formik.handleSubmit}>
 
             <Stack spacing={1}>
-                <Select
-                    name={'userId'}
-                    id={'userId'}
-                    label={'Gebruiker'}
-                    onChange={formik.handleChange}
-                    >
-                    {users && users?.result?.map((user) => (
-                        <MenuItem value={user._id}>{user.firstName[0]} {user.lastName} - {user.emailAddress}</MenuItem>
-                    ))}
-                </Select>
-
+                <FormControl>
+                    <InputLabel>Gebruiker</InputLabel>
+                    <Select
+                        name={'userId'}
+                        id={'userId'}
+                        label={'Gebruiker'}
+                        onChange={formik.handleChange}
+                        >
+                        {users && users?.result?.map((user) => (
+                            <MenuItem value={user._id}>{user.firstName[0]} {user.lastName} - {user.emailAddress}</MenuItem>
+                        ))}
+                    </Select>
+                </FormControl>
+                <Divider />
                 <TextField
                     id='firstName'
                     name='firstName'
@@ -125,6 +140,17 @@ const NonExistingUserForm = ({ shift }: NonExistingUserFormProps) => {
                     id='hourRate'
                     name='hourRate'
                     label='Uurtarief'
+                    type={'number'}
+                    InputProps={{
+                        inputProps: {
+                            min: 0,
+                        },
+                        startAdornment: (
+                            <InputAdornment position='start'>
+                                €
+                            </InputAdornment>
+                        ),
+                    }}
                     value={formik.values.hourRate}
                     onChange={formik.handleChange}
                     error={
@@ -139,7 +165,7 @@ const NonExistingUserForm = ({ shift }: NonExistingUserFormProps) => {
                 />
                 {isError && (
                     <FormHelperText error={true} sx={{ textAlign: 'center' }}>
-                        Registratie kan niet succesvol worden voltooid. Probeer
+                        Uitnodiging kan niet succesvol worden voltooid. Probeer
                         het later nog een keer.
                     </FormHelperText>
                 )}
@@ -151,7 +177,7 @@ const NonExistingUserForm = ({ shift }: NonExistingUserFormProps) => {
                         variant='contained'
                         sx={{ my: '16px' }}
                     >
-                        Registreren
+                        Uitnodigen
                     </Button>
                 </Stack>
             </Stack>
