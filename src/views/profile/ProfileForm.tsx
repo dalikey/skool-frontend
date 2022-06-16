@@ -15,6 +15,7 @@ import ProfileFormTransport from './components/ProfileFormTransport';
 import { UserUpdateSchema } from '../../schemas/userSchemas';
 import { useUpdateUserProfileMutation } from '../../api/user/userApi';
 import { defaultUserProfile } from '../../models/userModels';
+import { useEffect } from 'react';
 
 interface ProfileFormProps {
     user: UserProfileModel;
@@ -22,7 +23,6 @@ interface ProfileFormProps {
 
 const ProfileForm = ({ user }: ProfileFormProps) => {
     const { close } = useFormDialogStore();
-
     const [updateUser] = useUpdateUserProfileMutation();
 
     const handleSubmit = (values): void => {
@@ -44,6 +44,13 @@ const ProfileForm = ({ user }: ProfileFormProps) => {
         validationSchema: UserUpdateSchema,
         onSubmit: handleSubmit,
     });
+
+    useEffect(() => {
+        formik.setFieldValue(
+            'workshopPreferences',
+            (formik.values?.workshopPreferences ?? []).map((workshop) => workshop._id)
+        );
+    }, [])
 
     return (
         <form onSubmit={formik.handleSubmit} style={{ maxWidth: '1000px' }}>

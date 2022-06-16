@@ -16,6 +16,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import WorkIcon from '@mui/icons-material/Work';
 import StoreRoundedIcon from '@mui/icons-material/StoreRounded';
 import EventNoteIcon from '@mui/icons-material/EventNote';
+import ArticleIcon from '@mui/icons-material/Article';
 import Logo from '../../assets/logo.png';
 
 interface LinkItem {
@@ -31,12 +32,12 @@ interface SidebarLinkListProps {
 const SidebarLinkList = ({ role }: SidebarLinkListProps) => {
     const links: LinkItem[] = [
         {
-            path: '/dashboard',
+            path: '/',
             text: 'Dashboard',
             icon: <DashboardIcon />,
         },
         {
-            path: '/shifts',
+            path: '/diensten',
             text: 'Diensten',
             icon: <SchoolIcon />,
         },
@@ -67,6 +68,11 @@ const SidebarLinkList = ({ role }: SidebarLinkListProps) => {
             path: '/klantenbeheer',
             text: 'Klantenbeheer',
             icon: <StoreRoundedIcon />,
+        },
+        {
+            path: '/templatebeheer',
+            text: 'Templatebeheer',
+            icon: <ArticleIcon/>
         },
     ];
 

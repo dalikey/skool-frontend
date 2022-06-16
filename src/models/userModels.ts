@@ -1,3 +1,5 @@
+import { WorkshopModel } from "./workshopModels";
+
 export interface RegistrationModel {
     _id: string;
     firstName: string;
@@ -32,11 +34,11 @@ export interface UserProfileModel {
     transport?: transportBody;
     kvkNumber?: string;
     vatID?: string;
-    workshopPreferences?: string[];
+    workshopPreferences?: WorkshopModel[] | string[];
     levelPreferences?: string[];
     emailCampaigns?: boolean;
     textCampaigns?: boolean;
-    levelPreference?: string;
+    hourRate?: number;
     contractType?: 'freelancer' | 'full-time';
 }
 
@@ -86,6 +88,7 @@ export const defaultUserProfile: UserProfileModel = {
     },
     kvkNumber: '',
     vatID: '',
+    hourRate: 0,
     workshopPreferences: [],
     levelPreferences: [],
     emailCampaigns: false,

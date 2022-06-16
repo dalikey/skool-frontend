@@ -3,6 +3,7 @@ import {CustomerModel} from "./customerModels";
 import {UserModel} from "./userModels";
 
 export interface WorkshopShiftModel {
+    _id: string
     clientId: string,
     workshopId: string,
     maximumParticipants: number;
@@ -12,7 +13,6 @@ export interface WorkshopShiftModel {
     level: string,
     date: Date,
     availableUntil: Date
-    hourRate?: number
     dayRate?: number
     timestamps: Array<TimeStampModel>
 }
@@ -24,15 +24,18 @@ interface LocationModel {
     city: string
 }
 
-interface TimeStampModel {
-    startTime: string
-    endTime: string
+export interface TimeStampModel {
+    startTime: string;
+    title: string;
+    endTime: string;
 }
 
 export interface RetrievedWorkshopShiftModel {
+    dayRate?: number;
+    hourRate?: number
     _id: string
-    clientId: string,
-    workshopId: string,
+    clientId?: string,
+    workshopId?: string,
     workshop: WorkshopModel
     client: CustomerModel
     maximumParticipants: number

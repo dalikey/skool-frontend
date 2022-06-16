@@ -6,6 +6,7 @@ import WorkshopTable from './WorkshopsTable';
 import { formDialog } from '../../components/dialog/FormDialog';
 import WorkshopForm from './WorkshopForm';
 import AddIcon from '@mui/icons-material/Add';
+import {Delete} from "@mui/icons-material";
 
 const getIsActiveValue = (tab: number): boolean | null => {
     return tab === 0 ? true : false;
@@ -35,8 +36,7 @@ const WorkshopManagement = () => {
                         onChange={handleChange}
                         aria-label='basic tabs example'
                     >
-                        <Tab label='ACTIEVE WORKSHOPS' />
-                        <Tab label='INACTIEVE WORKSHOPS' />
+                        <Tab label='WORKSHOPS' />
                         <IconButton
                             onClick={openWorkshopForm}
                             color='primary'

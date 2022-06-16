@@ -1,4 +1,4 @@
-import { Box, Paper, Tab, Tabs } from '@mui/material';
+import {Box, IconButton, Paper, Tab, Tabs, Tooltip} from '@mui/material';
 import { useState } from 'react';
 import { useGetAllShiftsQuery } from '../../api/shift/shiftApi';
 import ConfirmDialog from '../../components/dialog/ConfirmDialog';
@@ -6,6 +6,9 @@ import {RetrievedWorkshopShiftModel} from '../../models/workshopShiftModels';
 import ShiftTable from './ShiftsTable';
 import {CredentialsModel} from "../../models/authModels";
 import {useLocalStorage} from "../../app/useLocalStorage";
+import FormDialog, {formDialog} from "../../components/dialog/FormDialog";
+import FilterListIcon from "@mui/icons-material/FilterList";
+import FilterForm from "./FilterForm";
 
 const getIsActiveValue = (tab: number): boolean | null => {
     return tab === 0;
@@ -29,12 +32,17 @@ const Shifts = () => {
 
     const [user] = useLocalStorage<CredentialsModel>('user');
 
+
+
     // @ts-ignore
     data?.result?.forEach((shift) => {
-        const userIds = shift.candidates.map((candidate) => (
+        const candidateUserIds = shift.candidates.map((candidate) => (
             candidate.userId
+        ));
+        const participantUserIds = shift.participants.map((participant) => (
+            participant.userId
         ))
-        if (userIds.includes(user?._id)) {
+        if (candidateUserIds.includes(user?._id) || participantUserIds.includes(user?._id)) {
             enrolledShifts.push(shift);
         } else {
             availableShifts.push(shift);
@@ -44,6 +52,7 @@ const Shifts = () => {
     return (
         <Paper sx={{ width: '100%' }}>
             <ConfirmDialog />
+            <FormDialog />
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                 <Tabs
                     value={tab}
@@ -52,6 +61,7 @@ const Shifts = () => {
                 >
                     <Tab label='BESCHIKBARE WORKSHOPS' />
                     <Tab label='AANGEMELDE WORKSHOPS' />
+
                 </Tabs>
             </Box>
             {tab === 0 ? (
