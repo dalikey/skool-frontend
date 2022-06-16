@@ -1,4 +1,4 @@
-import { Button, Stack, TextField, FormHelperText } from '@mui/material';
+import {Button, Stack, TextField, FormHelperText, Select, MenuItem} from '@mui/material';
 import { useFormik } from 'formik';
 import { useEffect } from 'react';
 import { NonExistingModel } from '../../models/authModels';
@@ -6,6 +6,7 @@ import { useAddNonExistingMutation } from '../../api/shift/shiftApi';
 import { useNavigate } from 'react-router-dom';
 import { useFormDialogStore } from '../../components/dialog/FormDialog';
 import {RetrievedWorkshopShiftModel} from "../../models/workshopShiftModels";
+import {useGetAllUsersQuery} from "../../api/user/userApi";
 
 interface NonExistingUserFormProps {
     shift: RetrievedWorkshopShiftModel
@@ -17,6 +18,8 @@ const NonExistingUserForm = ({ shift }: NonExistingUserFormProps) => {
     const [addNonExisting, { isSuccess, isError, isLoading }] =
         useAddNonExistingMutation();
 
+    const {data: users} = useGetAllUsersQuery({isActive: true});
+
     const handleNonExistingUser = (values: NonExistingModel): void => {
         addNonExisting({ id: shift._id, body: values });
         close();
@@ -24,6 +27,7 @@ const NonExistingUserForm = ({ shift }: NonExistingUserFormProps) => {
 
     const formik = useFormik({
         initialValues: {
+            userId: '',
             firstName: '',
             lastName: '',
             emailAddress: '',
@@ -43,7 +47,19 @@ const NonExistingUserForm = ({ shift }: NonExistingUserFormProps) => {
 
     return (
         <form onSubmit={formik.handleSubmit}>
+
             <Stack spacing={1}>
+                <Select
+                    name={'userId'}
+                    id={'userId'}
+                    label={'Gebruiker'}
+                    onChange={formik.handleChange}
+                    >
+                    {users && users?.result?.map((user) => (
+                        <MenuItem value={user._id}>{user.firstName[0]} {user.lastName} - {user.emailAddress}</MenuItem>
+                    ))}
+                </Select>
+
                 <TextField
                     id='firstName'
                     name='firstName'
