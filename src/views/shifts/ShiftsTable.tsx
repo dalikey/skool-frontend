@@ -19,9 +19,11 @@ import {
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
 import { RetrievedWorkshopShiftModel } from '../../models/workshopShiftModels';
-import { useState, MouseEvent, ChangeEvent } from 'react';
+import {useState, MouseEvent, ChangeEvent, useEffect} from 'react';
 import ShiftDetails from './ShiftDetails';
 import CollapsibleRow from '../../components/table/CollapsibleRow';
+import {formDialog} from "../../components/dialog/FormDialog";
+import FilterForm from "./FilterForm";
 
 
 
@@ -167,6 +169,11 @@ interface ShiftsTableToolbarProps {
 const ShiftsTableToolbar = (props: ShiftsTableToolbarProps) => {
     const { numSelected, filterFunc} = props;
 
+    const openForm = () => {
+        console.log('halolo')
+        formDialog("Filteren", <FilterForm filterFunc={filterFunc}></FilterForm>);
+    }
+
     return (
         <Toolbar
             sx={{
@@ -181,8 +188,8 @@ const ShiftsTableToolbar = (props: ShiftsTableToolbarProps) => {
                 }),
             }}
         >
-                <Tooltip onClick={() => {filterFunc('location.city', 'Halsteren')}} title='Filter list'>
-                    <IconButton>
+                <Tooltip title='Filter list'>
+                    <IconButton onClick={() => {openForm()}}>
                         <FilterListIcon />
                     </IconButton>
                 </Tooltip>
@@ -233,6 +240,12 @@ const ShiftTable = ({isLoading, shifts, isParticipating,}: ShiftTableProps) => {
     const [rowsPerPage, setRowsPerPage] = useState(5);
     const [rows, setRows] = useState<RetrievedWorkshopShiftModel[]>(() => filter('', '') ?? []);
 
+
+    useEffect(() => {
+        if (!isLoading) {
+            changeFilter('', '')
+        }
+    })
 
 
 
