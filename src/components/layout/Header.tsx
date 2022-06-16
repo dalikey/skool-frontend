@@ -20,6 +20,8 @@ interface HeaderProps {
 const Header = ({ drawerWidth, toggleDrawer, user }: HeaderProps) => {
     const { pathname } = useLocation();
 
+    const title = pathname.charAt(1).toUpperCase() + pathname.slice(2);
+
     return (
         <AppBar
             color='transparent'
@@ -47,7 +49,7 @@ const Header = ({ drawerWidth, toggleDrawer, user }: HeaderProps) => {
                         component='div'
                         sx={{ flexGrow: 1, fontSize: '1.75rem', fontWeight: 'bold' }}
                     >
-                        {pathname.charAt(1).toUpperCase() + pathname.slice(2)}
+                        {title === '' ? 'Dashboard' : title }
                     </Typography>
                     <ProfileBox user={user}/>
                 </Toolbar>

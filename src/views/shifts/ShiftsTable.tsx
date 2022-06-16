@@ -28,7 +28,7 @@ const ShiftTable = ({ isLoading, shifts, isParticipating }: ShiftTableProps) => 
                                         }
                         >
 
-                                <TableCell>Workshopdocent {workshop.workshop.name}</TableCell>
+                                <TableCell>Workshopdocent {workshop.workshop?.name}</TableCell>
 
                             <TableCell>€ {workshop.total_Amount}</TableCell>
                             <TableCell>{workshop.targetAudience}</TableCell>

@@ -1,4 +1,4 @@
-import {IconButton, TableCell} from '@mui/material';
+import { IconButton, TableCell } from '@mui/material';
 import Row from '../../components/table/Row';
 import CollapsibleRow from '../../components/table/CollapsibleRow';
 import Table from '../../components/table/Table';
@@ -15,21 +15,28 @@ interface ShiftManagementTableProps {
     shifts?: RetrievedWorkshopShiftModel[];
 }
 
-const ShiftsManagementTable = ({ isLoading, shifts }: ShiftManagementTableProps) => {
-
-    const [deleteShift, ] = useDeleteShiftMutation();
+const ShiftsManagementTable = ({
+    isLoading,
+    shifts,
+}: ShiftManagementTableProps) => {
+    const [deleteShift] = useDeleteShiftMutation();
 
     const openShiftFormEdit = (shift: RetrievedWorkshopShiftModel) => {
         formDialog('Shift Aanpassen', <AddShiftForm shift={shift} />);
     };
 
-    const openShiftDeleteConfirmation = (shift: RetrievedWorkshopShiftModel): void => {
-        console.log(shift)
-        confirmDialog(`Shift Verwijderen`,
-            `Weet u zeker dat u de shift ${shift.workshop.name} op ${new Date(shift.date).toLocaleDateString()} wilt verwijderen?`,
+    const openShiftDeleteConfirmation = (
+        shift: RetrievedWorkshopShiftModel
+    ): void => {
+        console.log(shift);
+        confirmDialog(
+            `Shift Verwijderen`,
+            `Weet u zeker dat u de shift ${shift.workshop.name} op ${new Date(
+                shift.date
+            ).toLocaleDateString()} wilt verwijderen?`,
             () => deleteShift(shift._id)
-            )
-    }
+        );
+    };
 
     return (
         <Table

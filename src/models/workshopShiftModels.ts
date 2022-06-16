@@ -24,9 +24,10 @@ interface LocationModel {
     city: string
 }
 
-interface TimeStampModel {
-    startTime: string
-    endTime: string
+export interface TimeStampModel {
+    startTime: string;
+    title: string;
+    endTime: string;
 }
 
 export interface RetrievedWorkshopShiftModel {

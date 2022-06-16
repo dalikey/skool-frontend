@@ -32,12 +32,12 @@ interface SidebarLinkListProps {
 const SidebarLinkList = ({ role }: SidebarLinkListProps) => {
     const links: LinkItem[] = [
         {
-            path: '/dashboard',
+            path: '/',
             text: 'Dashboard',
             icon: <DashboardIcon />,
         },
         {
-            path: '/shifts',
+            path: '/diensten',
             text: 'Diensten',
             icon: <SchoolIcon />,
         },
