@@ -1,5 +1,4 @@
-import {Box, Fab, IconButton, Paper, Tab, Tabs} from '@mui/material';
-import { Add } from '@mui/icons-material';
+import {Box, IconButton, Paper, Tab, Tabs} from '@mui/material';
 import FormDialog, { formDialog } from '../../components/dialog/FormDialog';
 import { AddShiftForm } from '../../views/shift-management/AddShiftForm';
 import ConfirmDialog from "../../components/dialog/ConfirmDialog";

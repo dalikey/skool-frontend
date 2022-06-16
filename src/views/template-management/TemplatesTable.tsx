@@ -9,7 +9,6 @@ import {TemplateModel} from "../../models/templateModels";
 import CollapsibleRow from "../../components/table/CollapsibleRow";
 import {Delete, Edit} from "@mui/icons-material";
 import {useDeleteTemplateMutation} from "../../api/template/templateApi";
-import EditWorkshopForm from "../workshop-management/WorkshopForm";
 import TemplateForm from "./TemplateForm";
 
 interface TemplatesTableProps {

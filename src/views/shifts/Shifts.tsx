@@ -1,14 +1,13 @@
-import {Box, IconButton, Paper, Tab, Tabs, Tooltip} from '@mui/material';
-import { useState } from 'react';
+import {Box, Paper, Tab, Tabs} from '@mui/material';
+import { useState} from 'react';
 import { useGetAllShiftsQuery } from '../../api/shift/shiftApi';
 import ConfirmDialog from '../../components/dialog/ConfirmDialog';
 import {RetrievedWorkshopShiftModel} from '../../models/workshopShiftModels';
 import ShiftTable from './ShiftsTable';
 import {CredentialsModel} from "../../models/authModels";
 import {useLocalStorage} from "../../app/useLocalStorage";
-import FormDialog, {formDialog} from "../../components/dialog/FormDialog";
-import FilterListIcon from "@mui/icons-material/FilterList";
-import FilterForm from "./FilterForm";
+import FormDialog from "../../components/dialog/FormDialog";
+
 
 const getIsActiveValue = (tab: number): boolean | null => {
     return tab === 0;
@@ -20,6 +19,8 @@ const Shifts = () => {
     const { data, isLoading } = useGetAllShiftsQuery({
         isActive: getIsActiveValue(tab),
     });
+
+    const loadingState = useState(isLoading);
     
 
 
@@ -47,6 +48,7 @@ const Shifts = () => {
         } else {
             availableShifts.push(shift);
         }
+
     })
 
     return (
@@ -66,12 +68,12 @@ const Shifts = () => {
             </Box>
             {tab === 0 ? (
                 <ShiftTable
-                    isLoading={isLoading}
+                    isLoading={loadingState}
                     isParticipating={false}
                     shifts={availableShifts as RetrievedWorkshopShiftModel[]}
                 />
             ) : (<ShiftTable
-                isLoading={isLoading}
+                isLoading={loadingState}
                 isParticipating={true}
                 shifts={enrolledShifts as RetrievedWorkshopShiftModel[]}
             />)

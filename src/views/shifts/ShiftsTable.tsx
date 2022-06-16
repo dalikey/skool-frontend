@@ -1,10 +1,7 @@
-import { alpha } from '@mui/material/styles';
 import {
     Box,
-    FormControlLabel,
     IconButton,
     Paper,
-    Switch,
     Table,
     TableBody,
     TableCell,
@@ -13,8 +10,7 @@ import {
     TablePagination,
     TableRow,
     TableSortLabel,
-    Toolbar,
-    Tooltip,
+        Tooltip,
 } from '@mui/material';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
@@ -125,11 +121,8 @@ interface ShiftsTableProps {
 
 function ShiftsTableHead(props: ShiftsTableProps) {
     const {
-        onSelectAllClick,
         order,
         orderBy,
-        numSelected,
-        rowCount,
         onRequestSort,
         filterFunc
     } = props;
@@ -181,13 +174,12 @@ function ShiftsTableHead(props: ShiftsTableProps) {
 }
 
 interface ShiftTableProps {
-    isLoading: boolean;
+    isLoading: any;
     shifts?: RetrievedWorkshopShiftModel[];
     isParticipating: boolean;
 }
 
 const ShiftTable = ({isLoading, shifts, isParticipating,}: ShiftTableProps) => {
-
 
     const filter = (values): RetrievedWorkshopShiftModel[] | undefined => {
         if (values) {
@@ -195,7 +187,6 @@ const ShiftTable = ({isLoading, shifts, isParticipating,}: ShiftTableProps) => {
                 shifts?.forEach((shift) => {
                     let shouldAdd = true;
                     for (let key in values) {
-                        console.log(key);
                         if (values[key] === '') {
                             continue
                         }
@@ -216,17 +207,14 @@ const ShiftTable = ({isLoading, shifts, isParticipating,}: ShiftTableProps) => {
                         if (retrievedValue === '') {
                             continue
                         }
-                        console.log(`${values[key]} === ${retrievedValue}`)
                         if (Array.isArray(retrievedValue)) {
                             shouldAdd = !!retrievedValue.includes(values[key]);
                         } else shouldAdd = values[key] === retrievedValue;
                     }
-                    console.log(shouldAdd + " " + shift.workshop.name)
                     if (shouldAdd) {
                         filteredShifts.push(shift);
                     }
                 })
-            console.log(filteredShifts)
             return filteredShifts;
 
         }
@@ -238,27 +226,18 @@ const ShiftTable = ({isLoading, shifts, isParticipating,}: ShiftTableProps) => {
     const [orderBy, setOrderBy] = useState<string>('workshop.name');
     const [selected, setSelected] = useState<readonly string[]>([]);
     const [page, setPage] = useState(0);
-    const [dense, setDense] = useState(false);
     const [rowsPerPage, setRowsPerPage] = useState(5);
-    const [loading, setLoading] = useState(true);
     const [rows, setRows] = useState<RetrievedWorkshopShiftModel[]>(() => filter(undefined) ?? []);
 
 
     useEffect(() => {
-        if (loading) {
-            if (!isLoading) {
-                setLoading(false);
-                changeFilter(undefined)
-            }
-        }
-    }, [loading, isLoading])
+        changeFilter(undefined)
+    }, [shifts])
 
 
 
     const changeFilter = (values) => {
-        console.log(values);
         setRows(filter(values) ?? []);
-        console.log(rows);
     }
 
     const handleRequestSort = (
@@ -303,7 +282,7 @@ const ShiftTable = ({isLoading, shifts, isParticipating,}: ShiftTableProps) => {
                     <Table
                         sx={{ minWidth: 750 }}
                         aria-labelledby='tableTitle'
-                        size={dense ? 'small' : 'medium'}
+                        size={'medium'}
                     >
                         <ShiftsTableHead
                             numSelected={selected.length}
@@ -348,7 +327,7 @@ const ShiftTable = ({isLoading, shifts, isParticipating,}: ShiftTableProps) => {
                             {emptyRows > 0 && (
                                 <TableRow
                                     style={{
-                                        height: (dense ? 33 : 53) * emptyRows,
+                                        height: (53) * emptyRows,
                                     }}
                                 >
                                     <TableCell colSpan={6} />
