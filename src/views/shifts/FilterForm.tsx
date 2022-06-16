@@ -1,7 +1,8 @@
-import { Button, Stack, TextField } from '@mui/material';
+import {Button, FormControl, InputLabel, MenuItem, Select, Stack, TextField} from '@mui/material';
 import { useFormik } from 'formik';
 
 import { useFormDialogStore } from '../../components/dialog/FormDialog';
+import {useGetAllWorkshopsQuery} from "../../api/workshop/workshopApi";
 
 interface FilterFormProps {
     filterFunc: any
@@ -9,27 +10,30 @@ interface FilterFormProps {
 
 interface FilterModel {
     targetAudience: string,
-    workshop: {
-        "name": string
-    },
+    workshop_name?: string,
     level: string
 }
 
 const FilterForm = ({filterFunc}: FilterFormProps) => {
-    console.log('ewa')
     const { close } = useFormDialogStore();
 
+    const {data} = useGetAllWorkshopsQuery({isActive: true});
+
     const callForm = (values: FilterModel): void => {
-        filterFunc(values)
+        values['workshop.name'] = values.workshop_name;
+        delete values['workshop_name'];
+        try {
+            filterFunc(values)
+        } catch (err) {
+            console.log(err);
+        }
         close();
     };
 
     const formik = useFormik({
         initialValues: {
             targetAudience: '',
-            workshop: {
-                name: ''
-            },
+            workshop_name: '',
             level: '',
         },
         onSubmit: callForm,
@@ -69,22 +73,25 @@ const FilterForm = ({filterFunc}: FilterFormProps) => {
                     }
                     variant='standard'
                 />
-                <TextField
-                    id='workshop.name'
-                    name='workshop.name'
-                    label='Workshop'
-                    value={formik.values.workshop?.name}
-                    onChange={formik.handleChange}
-                    error={
-                        formik.touched.workshop?.name &&
-                        Boolean(formik.errors.workshop?.name)
-                    }
-                    helperText={
-                        formik.touched.workshop?.name &&
-                        formik.errors.workshop?.name
-                    }
-                    variant='standard'
-                />
+                <FormControl>
+                    <InputLabel>Workshop</InputLabel>
+                    <Select
+                        id='workshop_name'
+                        name='workshop_name'
+                        label='Workshop'
+                        value={formik.values['workshop_name']}
+                        onChange={formik.handleChange}
+                        error={
+                            formik.touched['workshop_name'] &&
+                            Boolean(formik.errors['workshop_name'])
+                        }
+                        variant='standard'
+                    >
+                        {data?.result && data.result.map((workshop) => (
+                            <MenuItem value={workshop.name} key={workshop.name}>{workshop.name}</MenuItem>
+                        ))}
+                    </Select>
+                </FormControl>
                 <Stack direction='row' spacing={2}>
                     <Button onClick={close}>Annuleren</Button>
                     <Button

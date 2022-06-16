@@ -97,7 +97,13 @@ const headCells: readonly HeadCell[] = [
         id: 'targetAudience',
         numeric: false,
         disablePadding: false,
-        label: 'Type',
+        label: 'Doelgroep',
+    },
+    {
+        id: 'level',
+        numeric: false,
+        disablePadding: false,
+        label: 'Niveau',
     },
     {
         id: 'location.city',
@@ -114,6 +120,7 @@ interface ShiftsTableProps {
     order: Order;
     orderBy: string;
     rowCount: number;
+    filterFunc: any
 }
 
 function ShiftsTableHead(props: ShiftsTableProps) {
@@ -124,11 +131,16 @@ function ShiftsTableHead(props: ShiftsTableProps) {
         numSelected,
         rowCount,
         onRequestSort,
+        filterFunc
     } = props;
     const createSortHandler =
         (property: string) => (event: MouseEvent<unknown>) => {
             onRequestSort(event, property);
         };
+
+    const openForm = () => {
+        formDialog("Filteren", <FilterForm filterFunc={filterFunc}></FilterForm>);
+    }
 
     return (
         <TableHead>
@@ -156,47 +168,17 @@ function ShiftsTableHead(props: ShiftsTableProps) {
                         </TableSortLabel>
                     </TableCell>
                 ))}
+                <TableCell><Tooltip title='Filter list'>
+                    <IconButton color='primary'
+                                sx={{ padding: 2, marginLeft: 'auto' }}
+                                onClick={() => {openForm()}}>
+                        <FilterListIcon />
+                    </IconButton>
+                </Tooltip></TableCell>
             </TableRow>
         </TableHead>
     );
 }
-
-interface ShiftsTableToolbarProps {
-    numSelected: number;
-    filterFunc: any
-}
-
-const ShiftsTableToolbar = (props: ShiftsTableToolbarProps) => {
-    const { numSelected, filterFunc} = props;
-
-    const openForm = () => {
-        console.log('halolo')
-        formDialog("Filteren", <FilterForm filterFunc={filterFunc}></FilterForm>);
-    }
-
-    return (
-        <Toolbar
-            sx={{
-                pl: { sm: 2 },
-                pr: { xs: 1, sm: 1 },
-                ...(numSelected > 0 && {
-                    bgcolor: (theme) =>
-                        alpha(
-                            theme.palette.primary.main,
-                            theme.palette.action.activatedOpacity
-                        ),
-                }),
-            }}
-        >
-                <Tooltip title='Filter list'>
-                    <IconButton onClick={() => {openForm()}}>
-                        <FilterListIcon />
-                    </IconButton>
-                </Tooltip>
-
-        </Toolbar>
-    );
-};
 
 interface ShiftTableProps {
     isLoading: boolean;
@@ -205,28 +187,48 @@ interface ShiftTableProps {
 }
 
 const ShiftTable = ({isLoading, shifts, isParticipating,}: ShiftTableProps) => {
-    const filter = (filterKey, filterValue): RetrievedWorkshopShiftModel[] | undefined => {
-        if (filterKey && filterValue) {
+
+
+    const filter = (values): RetrievedWorkshopShiftModel[] | undefined => {
+        if (values) {
             const filteredShifts: RetrievedWorkshopShiftModel[] = [];
-            shifts?.forEach((shift) => {
-                let retrievedValue: any = shift;
-                if (filterKey.includes('.')) {
-                    for (const key of filterKey.split('.')) {
-                        retrievedValue = retrievedValue[key];
+                shifts?.forEach((shift) => {
+                    let shouldAdd = true;
+                    for (let key in values) {
+                        console.log(key);
+                        if (values[key] === '') {
+                            continue
+                        }
+                        let retrievedValue: any = shift;
+                        if (key.includes('.')) {
+                            for (const subKey of key.split('.')) {
+                                try {
+                                    retrievedValue = retrievedValue[subKey];
+                                } catch (err) {
+                                    console.log(err)
+                                }
+
+                            }
+                        } else {
+                            retrievedValue = retrievedValue[key];
+                        }
+
+                        if (retrievedValue === '') {
+                            continue
+                        }
+                        console.log(`${values[key]} === ${retrievedValue}`)
+                        if (Array.isArray(retrievedValue)) {
+                            shouldAdd = !!retrievedValue.includes(values[key]);
+                        } else shouldAdd = values[key] === retrievedValue;
                     }
-                } else {
-                    retrievedValue = retrievedValue[filterKey];
-                }
-                if (Array.isArray(retrievedValue)) {
-                    if (retrievedValue.includes(filterValue)) {
+                    console.log(shouldAdd + " " + shift.workshop.name)
+                    if (shouldAdd) {
                         filteredShifts.push(shift);
                     }
-                } else if (filterValue === retrievedValue) {
-                    filteredShifts.push(shift);
-                }
-            })
-
+                })
+            console.log(filteredShifts)
             return filteredShifts;
+
         }
         return shifts;
     }
@@ -238,19 +240,24 @@ const ShiftTable = ({isLoading, shifts, isParticipating,}: ShiftTableProps) => {
     const [page, setPage] = useState(0);
     const [dense, setDense] = useState(false);
     const [rowsPerPage, setRowsPerPage] = useState(5);
-    const [rows, setRows] = useState<RetrievedWorkshopShiftModel[]>(() => filter('', '') ?? []);
+    const [loading, setLoading] = useState(true);
+    const [rows, setRows] = useState<RetrievedWorkshopShiftModel[]>(() => filter(undefined) ?? []);
 
 
     useEffect(() => {
-        if (!isLoading) {
-            changeFilter('', '')
+        if (loading) {
+            if (!isLoading) {
+                setLoading(false);
+                changeFilter(undefined)
+            }
         }
-    })
+    }, [loading, isLoading])
 
 
 
-    const changeFilter = (filterKey, filterValue) => {
-        setRows(filter(filterKey, filterValue) ?? []);
+    const changeFilter = (values) => {
+        console.log(values);
+        setRows(filter(values) ?? []);
         console.log(rows);
     }
 
@@ -292,7 +299,6 @@ const ShiftTable = ({isLoading, shifts, isParticipating,}: ShiftTableProps) => {
     return (
         <Box sx={{ width: '100%' }}>
             <Paper sx={{ width: '100%', mb: 2 }}>
-                <ShiftsTableToolbar filterFunc={changeFilter} numSelected={selected.length} />
                 <TableContainer>
                     <Table
                         sx={{ minWidth: 750 }}
@@ -306,6 +312,7 @@ const ShiftTable = ({isLoading, shifts, isParticipating,}: ShiftTableProps) => {
                             onSelectAllClick={handleSelectAllClick}
                             onRequestSort={handleRequestSort}
                             rowCount={rows.length}
+                            filterFunc={changeFilter}
                         />
                         <TableBody>
                             {/* if you don't need to support IE11, you can replace the `stableSort` call with:
@@ -333,6 +340,7 @@ const ShiftTable = ({isLoading, shifts, isParticipating,}: ShiftTableProps) => {
                                             <TableCell>{row.workshop.name}</TableCell>
                                             <TableCell>{row.total_Amount}</TableCell>
                                             <TableCell>{row.targetAudience}</TableCell>
+                                            <TableCell>{row.level}</TableCell>
                                             <TableCell>{row.location.city}</TableCell>
                                         </CollapsibleRow>
                                     );
