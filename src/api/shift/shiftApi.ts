@@ -66,8 +66,8 @@ const extendedApi = api.injectEndpoints({
         }),
         addNonExisting: build.mutation<void, enrollRequestBody>({
             query: ({ id, body }) => ({
-                url: `workshop/shift/${id}/enroll/unknownUser`,
-                method: 'POST',
+                url: `workshop/shift/${id}/enroll/invitation`,
+                method: 'PUT',
                 body,
             }),
         }),
