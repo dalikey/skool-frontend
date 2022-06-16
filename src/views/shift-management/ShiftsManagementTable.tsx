@@ -24,7 +24,6 @@ const ShiftsManagementTable = ({ isLoading, shifts }: ShiftManagementTableProps)
     };
 
     const openShiftDeleteConfirmation = (shift: RetrievedWorkshopShiftModel): void => {
-        console.log(shift)
         confirmDialog(`Shift Verwijderen`,
             `Weet u zeker dat u de shift ${shift.workshop.name} op ${new Date(shift.date).toLocaleDateString()} wilt verwijderen?`,
             () => deleteShift(shift._id)
