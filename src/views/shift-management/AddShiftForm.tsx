@@ -429,7 +429,7 @@ export const AddShiftForm = ({ shift }: AddShiftFormProps) => {
                                             justifyContent='space-between'
                                             alignItems='center'
                                         >
-                                            <Typography>Rooster</Typography>
+                                            <Typography>Workshoprondes</Typography>
                                             <IconButton
                                                 onClick={() =>
                                                     push({
