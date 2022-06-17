@@ -28,9 +28,8 @@ const ShiftDetails = ({ shift, isParticipating }: ShiftDetailsProps) => {
         confirmDialog(
             'Registratie bevestigen',
             `Weet u zeker dat u zich wilt inschrijven voor Workshopdocent ${workshopShift.workshop.name}?`,
-            () => {signInWorkshop(workshopShift._id); setTimeout(() => window.location.reload(),50) ;}
+            () => {signInWorkshop(workshopShift._id);}
         );
-
     }
     };
 
