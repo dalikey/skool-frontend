@@ -26,7 +26,7 @@ const ProfileFormTransport = ({ formik }: ProfileFormTransportProps) => {
                                 onChange={formik.handleChange}
                             />
                         }
-                        label='Heeft u een rijbewijs?'
+                        label='Heeft u een geldig rijbewijs?'
                     />
                 </FormGroup>
             </Grid>
