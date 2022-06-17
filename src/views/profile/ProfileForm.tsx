@@ -50,7 +50,7 @@ const ProfileForm = ({ user }: ProfileFormProps) => {
             'workshopPreferences',
             (formik.values?.workshopPreferences ?? []).map((workshop) => workshop._id)
         );
-    })
+    }, [])
 
     return (
         <form onSubmit={formik.handleSubmit} style={{ maxWidth: '1000px' }}>

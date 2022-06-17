@@ -149,7 +149,7 @@ const Profile = () => {
                 {user?.workshopPreferences != null &&
                     user.workshopPreferences.length > 0 &&
                     user.workshopPreferences.map((workshop) => (
-                        <Typography>{workshop.name}</Typography>
+                        <Typography key={workshop._id}>{workshop.name}</Typography>
                     ))}
 
                 <Typography
@@ -163,10 +163,10 @@ const Profile = () => {
                 {user?.levelPreferences != null &&
                     user?.levelPreferences?.length > 0 &&
                     user?.levelPreferences.map((level) => (
-                        <Typography>{level}</Typography>
+                        <Typography key={level}>{level}</Typography>
                     ))}
             </Grid>
-            <Grid paddingTop={'30px'} xs={12} md={2}>
+            <Grid item paddingTop={'30px'} xs={12} md={2}>
                 <Button
                     onClick={() => openProfileForm()}
                     aria-label="edit"
