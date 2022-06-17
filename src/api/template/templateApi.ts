@@ -29,7 +29,7 @@ const extendedApi = api.injectEndpoints({
         }),
         updateTemplate: build.mutation<TemplateModel, TemplateModel>({
             query: (body) => ({
-                url: `templateMessage/${body._id}`,
+                url: `templateMessage/${body._id}/update`,
                 method: 'PUT',
                 body,
             }),
@@ -37,7 +37,7 @@ const extendedApi = api.injectEndpoints({
         }),
         deleteTemplate: build.mutation<TemplateModel, TemplateModel>({
             query: (template) => ({
-                url: `templateMessage/${template._id}`,
+                url: `templateMessage/${template._id}/delete`,
                 method: 'DELETE',
             }),
             invalidatesTags: [{ type: 'Templates', id: 'LIST' }],
