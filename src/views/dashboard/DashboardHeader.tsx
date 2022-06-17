@@ -1,6 +1,9 @@
 import { Box, Divider, Grid, Paper, Stack, Typography } from '@mui/material';
 import { RetrievedWorkshopShiftModel } from '../../models/workshopShiftModels';
-import { useGetAllPersonalShiftsQuery, useGetAllShiftsQuery } from '../../api/shift/shiftApi';
+import {
+    useGetAllPersonalShiftsQuery,
+    useGetAllShiftsQuery,
+} from '../../api/shift/shiftApi';
 import { useLocalStorage } from '../../app/useLocalStorage';
 import { UserModel } from '../../models/userModels';
 
@@ -13,9 +16,32 @@ const DashboardHeader = ({ upcomingShift }: DashboardHeaderProps) => {
     const { data: personalData } = useGetAllPersonalShiftsQuery();
     const { data: allShiftsData } = useGetAllShiftsQuery({ isActive: true });
 
-    const openCount = (allShiftsData?.result ?? []).length;
-    const pendingCount =(personalData?.result ?? []).filter((shift) => shift.candidates.some((u) => u.userId === user?._id)).length;
-    const confirmedCount = (personalData?.result ?? []).filter((shift) => shift.participants.some((u) => u.userId === user?._id)).length;
+    const enrolledShifts: RetrievedWorkshopShiftModel[] = [];
+    const availableShifts: RetrievedWorkshopShiftModel[] = [];
+
+    // @ts-ignore
+    (allShiftsData?.result ?? []).forEach((shift) => {
+        const candidateUserIds = shift.candidates.map(
+            (candidate) => candidate.userId
+        );
+        const participantUserIds = shift.participants.map(
+            (participant) => participant.userId
+        );
+        if (
+            candidateUserIds.includes(user?._id) ||
+            participantUserIds.includes(user?._id)
+        ) {
+            enrolledShifts.push(shift);
+        } else {
+            availableShifts.push(shift);
+        }
+    });
+
+    const openCount = availableShifts.length;
+    const pendingCount = enrolledShifts.length;
+    const confirmedCount = (personalData?.result ?? []).filter((shift) =>
+        shift.participants.some((u) => u.userId === user?._id)
+    ).length;
 
     return (
         <Grid container spacing={2}>
@@ -52,8 +78,8 @@ const DashboardHeader = ({ upcomingShift }: DashboardHeaderProps) => {
                                     </Typography>
                                 </Box>
                                 <Typography>Materialen</Typography>
-                                {(upcomingShift?.workshop?.materials ?? []).length >
-                                0 ? (
+                                {(upcomingShift?.workshop?.materials ?? [])
+                                    .length > 0 ? (
                                     upcomingShift?.workshop?.materials.map(
                                         (material: string, i) => (
                                             <Typography variant='body2' key={i}>
@@ -102,7 +128,9 @@ const DashboardHeader = ({ upcomingShift }: DashboardHeaderProps) => {
                     >
                         <Box textAlign='center' mt={-4}>
                             <Box>
-                                <Typography fontWeight='bold'>{openCount}</Typography>
+                                <Typography fontWeight='bold'>
+                                    {openCount}
+                                </Typography>
                             </Box>
                             <Typography fontWeight='bold'>
                                 Openstaand
@@ -110,13 +138,17 @@ const DashboardHeader = ({ upcomingShift }: DashboardHeaderProps) => {
                         </Box>
                         <Box textAlign='center' px={5} mt={-4}>
                             <Box>
-                                <Typography fontWeight='bold'>{pendingCount}</Typography>
+                                <Typography fontWeight='bold'>
+                                    {pendingCount}
+                                </Typography>
                             </Box>
                             <Typography fontWeight='bold'>Aangemeld</Typography>
                         </Box>
                         <Box textAlign='center' mt={-4}>
                             <Box>
-                                <Typography fontWeight='bold'>{confirmedCount}</Typography>
+                                <Typography fontWeight='bold'>
+                                    {confirmedCount}
+                                </Typography>
                             </Box>
                             <Typography fontWeight='bold'>Bevestigd</Typography>
                         </Box>
