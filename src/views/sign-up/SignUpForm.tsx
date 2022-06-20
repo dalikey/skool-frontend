@@ -62,12 +62,6 @@ const SignUpForm = () => {
 
     const navigate = useNavigate();
 
-    useEffect(() => {
-        if (isSuccess) {
-            navigate('/sign-in');
-        }
-    }, [isSuccess, navigate]);
-
     return (
         <form onSubmit={formik.handleSubmit}>
             <Stack spacing={1}>
@@ -195,14 +189,24 @@ const SignUpForm = () => {
                         het later nog een keer.
                     </FormHelperText>
                 )}
-                <Button
-                    disabled={isLoading}
-                    type='submit'
-                    variant='contained'
-                    sx={{ my: '16px' }}
-                >
-                    Registreren
-                </Button>
+                {isSuccess && (
+                    <FormHelperText
+                        sx={{ textAlign: 'center', color: 'green' }}
+                    >
+                        U bent succesvol geregistreerd. U ontvangt een email
+                        zodra uw registratie beoordeeld is.
+                    </FormHelperText>
+                )}
+                {!isSuccess && (
+                    <Button
+                        disabled={isLoading}
+                        type='submit'
+                        variant='contained'
+                        sx={{ my: '16px' }}
+                    >
+                        Registreren
+                    </Button>
+                )}
                 <Link href='/sign-in'>Heb je al een account?</Link>
             </Stack>
         </form>
