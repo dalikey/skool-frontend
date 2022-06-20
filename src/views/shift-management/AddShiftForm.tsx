@@ -48,6 +48,7 @@ export const AddShiftForm = ({ shift }: AddShiftFormProps) => {
     const [editShift, { isLoading: editIsLoading }] = useEditShiftMutation();
 
     const handleSaveWorkshop = (values: WorkshopShiftModel): void => {
+        console.log('plopje')
         if (shift && shift._id) {
             editShift(values);
         } else {
@@ -55,6 +56,8 @@ export const AddShiftForm = ({ shift }: AddShiftFormProps) => {
         }
         close();
     };
+
+
 
     const formik = useFormik({
         initialValues: {
@@ -86,6 +89,11 @@ export const AddShiftForm = ({ shift }: AddShiftFormProps) => {
         validateOnChange: false,
         onSubmit: handleSaveWorkshop,
     });
+
+    const handleDateChange = (value) => {
+        const setWorkshopDate = new Date(value ?? '');
+        formik.setFieldValue('date', setWorkshopDate);
+    }
 
     const handleCustomerChange = (value) => {
         customers?.result?.forEach((customerEntry) => {
@@ -273,17 +281,7 @@ export const AddShiftForm = ({ shift }: AddShiftFormProps) => {
                                     )}
                                     mask=''
                                     minDate={Date.now()}
-                                    onChange={(value) => {
-                                        formik.setFieldValue(
-                                            'date',
-                                            new Date(value ?? '')
-                                        );
-                                        formik.setFieldValue(
-                                            'availableUntil',
-                                        // @ts-ignore
-                                        new Date(value ?? '').setDate(value.getDate() - 2));
-                                    }
-                                    }
+                                    onChange={handleDateChange}
                                     value={formik.values.date}
                                 />
                             </Grid>
