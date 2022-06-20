@@ -110,6 +110,7 @@ const TemplateForm = ({ template, triggers }: TemplateFormProps) => {
                             <li>{'{startTime}: Starttijd van eerste ronde'}</li>
                             <li>{'{endTime}: Eindtijd van laatste ronde'}</li>
                             <li>{'{workshop}: Naam van te geven workshop'}</li>
+                            <li>{'{tabelShift}: Een tabel met shift informatie en twee links voor het accepteren of weigeren van een shift.'}</li>
                         </ul>
                             </Accordion>
                 </Grid>
