@@ -261,7 +261,7 @@ export const AddShiftForm = ({ shift }: AddShiftFormProps) => {
                         <LocalizationProvider dateAdapter={AdapterDateFns}>
                             <Grid item xs={12} md={6}>
                                 <DatePicker
-                                    label='Datum'
+                                    label='Workshopdatum'
                                     inputFormat='dd / MM / yyyy'
                                     renderInput={(params) => (
                                         <TextField
@@ -273,18 +273,23 @@ export const AddShiftForm = ({ shift }: AddShiftFormProps) => {
                                     )}
                                     mask=''
                                     minDate={Date.now()}
-                                    onChange={(value) =>
+                                    onChange={(value) => {
                                         formik.setFieldValue(
                                             'date',
                                             new Date(value ?? '')
-                                        )
+                                        );
+                                        formik.setFieldValue(
+                                            'availableUntil',
+                                        // @ts-ignore
+                                        new Date(value ?? '').setDate(value.getDate() - 2));
+                                    }
                                     }
                                     value={formik.values.date}
                                 />
                             </Grid>
                             <Grid item xs={12} md={6}>
                                 <DatePicker
-                                    label='Beschikbaar tot'
+                                    label='Uiterlijke inschrijfdatum'
                                     inputFormat='dd / MM / yyyy'
                                     mask=''
                                     minDate={Date.now()}

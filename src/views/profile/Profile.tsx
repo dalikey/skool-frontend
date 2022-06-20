@@ -68,11 +68,11 @@ const Profile = () => {
                 <Box padding={'-100px'}>
                     <Box display={'flex'} alignItems={'center'}>
                         <Checkbox checked={user?.transport?.hasDriversLicense ?? false} disabled/>
-                        <Typography>Rijbewijs aanwezig</Typography>
+                        <Typography>Geldig rijbewijs in bezit</Typography>
                     </Box>
                     <Box display={'flex'} alignItems={'center'}>
                         <Checkbox checked={user?.transport?.hasVehicle ?? false} disabled/>
-                        <Typography>Auto aanwezig</Typography>
+                        <Typography>Auto in bezit</Typography>
                     </Box>
                 </Box>
                 <Typography
