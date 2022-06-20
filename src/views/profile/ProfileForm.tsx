@@ -36,7 +36,6 @@ const ProfileForm = ({ user }: ProfileFormProps) => {
             ...user,
             passwordInfo: {
                 password: '',
-                confirmPassword: '',
                 currentPassword: '',
             },
         },
@@ -86,32 +85,6 @@ const ProfileForm = ({ user }: ProfileFormProps) => {
                             justifyContent='flex-end'
                             pb={2}
                         >
-                            <TextField
-                                id='passwordInfo.currentPassword'
-                                name='passwordInfo.currentPassword'
-                                label='Huidig wachtwoord'
-                                type='password'
-                                value={
-                                    formik.values.passwordInfo
-                                        .currentPassword ?? ''
-                                }
-                                onChange={formik.handleChange}
-                                variant='standard'
-                                sx={{ mt: -1 }}
-                                error={
-                                    formik.touched.passwordInfo
-                                        ?.currentPassword &&
-                                    Boolean(
-                                        formik.errors.passwordInfo
-                                            ?.currentPassword
-                                    )
-                                }
-                                helperText={
-                                    formik.touched.passwordInfo
-                                        ?.currentPassword &&
-                                    formik.errors.passwordInfo?.currentPassword
-                                }
-                            />
                         </Grid>
                         <Grid
                             item
