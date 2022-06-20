@@ -1,11 +1,11 @@
-import {Box, IconButton, Paper, Tab, Tabs} from '@mui/material';
+import { Box, Paper, Tab, Tabs } from '@mui/material';
 import FormDialog, { formDialog } from '../../components/dialog/FormDialog';
 import { AddShiftForm } from '../../views/shift-management/AddShiftForm';
-import ConfirmDialog from "../../components/dialog/ConfirmDialog";
-import ShiftsManagementTable from "../shift-management/ShiftsManagementTable";
-import {RetrievedWorkshopShiftModel} from "../../models/workshopShiftModels";
-import { useGetAllShiftsAdminQuery } from "../../api/shift/shiftApi";
-import AddIcon from "@mui/icons-material/Add";
+import ConfirmDialog from '../../components/dialog/ConfirmDialog';
+import ShiftsManagementTable from '../shift-management/ShiftsManagementTable';
+import { RetrievedWorkshopShiftModel } from '../../models/workshopShiftModels';
+import { useGetAllShiftsAdminQuery } from '../../api/shift/shiftApi';
+import AddIcon from '@mui/icons-material/Add';
 
 const ShiftManagement = () => {
     const openShiftForm = () => {
@@ -23,21 +23,18 @@ const ShiftManagement = () => {
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                 <Tabs value={0}>
                     <Tab label='ALLE DIENSTEN' />
-                    <IconButton
+                    <Tab
                         onClick={openShiftForm}
-                        color='primary'
+                        aria-label='add'
                         sx={{ padding: 2, marginLeft: 'auto' }}
-                    >
-                        <AddIcon>Add</AddIcon>
-                    </IconButton>
+                        icon={<AddIcon color='primary' />}
+                    />
                 </Tabs>
-
             </Box>
-                <ShiftsManagementTable
-                    isLoading={isLoading}
-                    shifts={data?.result as RetrievedWorkshopShiftModel[]}
-                />
-
+            <ShiftsManagementTable
+                isLoading={isLoading}
+                shifts={data?.result as RetrievedWorkshopShiftModel[]}
+            />
         </Paper>
     );
 };
