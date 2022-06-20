@@ -105,7 +105,7 @@ const SignInForm = () => {
                 <Button disabled={isLoading} type='submit' variant='contained'>
                     Aanmelden
                 </Button>
-                <Link href='sign-up'>Account aanmaken</Link>
+                <Link href='sign-up'>Heeft u nog geen account?</Link>
             </Stack>
         </form>
     );
