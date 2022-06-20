@@ -36,7 +36,7 @@ const ProfileForm = ({ user }: ProfileFormProps) => {
             ...user,
             passwordInfo: {
                 password: '',
-                currentPassword: '',
+                confirmPassword: '',
             },
         },
         validateOnChange: false,
