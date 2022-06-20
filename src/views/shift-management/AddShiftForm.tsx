@@ -83,7 +83,7 @@ export const AddShiftForm = ({ shift }: AddShiftFormProps) => {
             ],
         },
         validationSchema: WorkshopShiftSchema,
-        validateOnChange: true,
+        validateOnChange: false,
         onSubmit: handleSaveWorkshop,
     });
 
@@ -110,6 +110,9 @@ export const AddShiftForm = ({ shift }: AddShiftFormProps) => {
         });
         formik.handleChange(value);
     };
+
+    console.log(formik.errors);
+    console.log(formik.touched);
 
     return (
         <Grow in={true}>
@@ -434,10 +437,14 @@ export const AddShiftForm = ({ shift }: AddShiftFormProps) => {
                                             justifyContent='space-between'
                                             alignItems='center'
                                         >
-                                            <Typography>Workshoprondes</Typography>
+                                            <Typography>
+                                                Workshoprondes
+                                            </Typography>
                                             <IconButton
                                                 onClick={() =>
                                                     push({
+                                                        endTime: '',
+                                                        startTime: '',
                                                         endHour: '',
                                                         startHour: '',
                                                     })
@@ -517,6 +524,64 @@ export const AddShiftForm = ({ shift }: AddShiftFormProps) => {
                                                                     onChange={
                                                                         formik.handleChange
                                                                     }
+                                                                    error={
+                                                                        (formik
+                                                                            .touched
+                                                                            .timestamps?.[
+                                                                            index
+                                                                        ]
+                                                                            ? formik
+                                                                                  .touched
+                                                                                  .timestamps[
+                                                                                  index
+                                                                              ][
+                                                                                  'startTime'
+                                                                              ]
+                                                                            : false) &&
+                                                                        Boolean(
+                                                                            formik
+                                                                                .errors
+                                                                                .timestamps?.[
+                                                                                index
+                                                                            ]
+                                                                                ? formik
+                                                                                      .errors
+                                                                                      .timestamps[
+                                                                                      index
+                                                                                  ][
+                                                                                      'startTime'
+                                                                                  ]
+                                                                                : false
+                                                                        )
+                                                                    }
+                                                                    helperText={
+                                                                        (formik
+                                                                            .touched
+                                                                            .timestamps?.[
+                                                                            index
+                                                                        ]
+                                                                            ? formik
+                                                                                  .touched
+                                                                                  .timestamps[
+                                                                                  index
+                                                                              ][
+                                                                                  'startTime'
+                                                                              ]
+                                                                            : false) &&
+                                                                        formik
+                                                                            .errors
+                                                                            .timestamps?.[
+                                                                            index
+                                                                        ]
+                                                                            ? formik
+                                                                                  .errors
+                                                                                  .timestamps[
+                                                                                  index
+                                                                              ][
+                                                                                  'startTime'
+                                                                              ]
+                                                                            : ''
+                                                                    }
                                                                     variant='standard'
                                                                     fullWidth
                                                                 />
@@ -542,6 +607,64 @@ export const AddShiftForm = ({ shift }: AddShiftFormProps) => {
                                                                     }
                                                                     onChange={
                                                                         formik.handleChange
+                                                                    }
+                                                                    error={
+                                                                        (formik
+                                                                            .touched
+                                                                            .timestamps?.[
+                                                                            index
+                                                                        ]
+                                                                            ? formik
+                                                                                  .touched
+                                                                                  .timestamps[
+                                                                                  index
+                                                                              ][
+                                                                                  'endTime'
+                                                                              ]
+                                                                            : false) &&
+                                                                        Boolean(
+                                                                            formik
+                                                                                .errors
+                                                                                .timestamps?.[
+                                                                                index
+                                                                            ]
+                                                                                ? formik
+                                                                                      .errors
+                                                                                      .timestamps[
+                                                                                      index
+                                                                                  ][
+                                                                                      'endTime'
+                                                                                  ]
+                                                                                : false
+                                                                        )
+                                                                    }
+                                                                    helperText={
+                                                                        (formik
+                                                                            .touched
+                                                                            .timestamps?.[
+                                                                            index
+                                                                        ]
+                                                                            ? formik
+                                                                                  .touched
+                                                                                  .timestamps[
+                                                                                  index
+                                                                              ][
+                                                                                  'endTime'
+                                                                              ]
+                                                                            : false) &&
+                                                                        formik
+                                                                            .errors
+                                                                            .timestamps?.[
+                                                                            index
+                                                                        ]
+                                                                            ? formik
+                                                                                  .errors
+                                                                                  .timestamps[
+                                                                                  index
+                                                                              ][
+                                                                                  'endTime'
+                                                                              ]
+                                                                            : ''
                                                                     }
                                                                     variant='standard'
                                                                     fullWidth

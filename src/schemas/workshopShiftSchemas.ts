@@ -20,8 +20,8 @@ export const WorkshopShiftSchema = Yup.object({
     }).required('Verplicht'),
     timestamps: Yup.array().of(
         Yup.object({
-            startTime: Yup.string().required('Verplicht').matches(/\d{2}:\d{2}/),
-            endTime: Yup.string().required('Verplicht').matches(/\d{2}:\d{2}/),
+            startTime: Yup.string().required('Verplicht').matches(/\d{2}:\d{2}/, 'Moet voldoen aan het format HH:MM'),
+            endTime: Yup.string().required('Verplicht').matches(/\d{2}:\d{2}/, 'Moet voldoen aan het format HH:MM'),
         })
     ),
 });
