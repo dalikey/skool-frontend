@@ -1,5 +1,5 @@
-import { Box, Paper, Tab, Tabs, IconButton } from '@mui/material';
-import { SyntheticEvent, useState } from 'react';
+import { Box, Paper, Tab, Tabs } from '@mui/material';
+import { useState } from 'react';
 import { useGetAllWorkshopsQuery } from '../../api/workshop/workshopApi';
 import { WorkshopModel } from '../../models/workshopModels';
 import WorkshopTable from './WorkshopsTable';
@@ -16,33 +16,24 @@ const WorkshopManagement = () => {
         formDialog('Workshop toevoegen', <WorkshopForm />);
     };
 
-    const [tab, setTab] = useState<number>(0);
+    const [tab] = useState<number>(0);
 
     const { data, isLoading } = useGetAllWorkshopsQuery({
         isActive: getIsActiveValue(tab),
     });
 
-    const handleChange = (event: SyntheticEvent, newValue: number) => {
-        setTab(newValue);
-    };
-
     return (
         <>
             <Paper sx={{ width: '100%' }}>
                 <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                    <Tabs
-                        value={tab}
-                        onChange={handleChange}
-                        aria-label='basic tabs example'
-                    >
+                    <Tabs value={0} aria-label='basic tabs example'>
                         <Tab label='WORKSHOPS' />
-                        <IconButton
-                            onClick={openWorkshopForm}
-                            color='primary'
+                        <Tab
+                            onClick={() => openWorkshopForm()}
+                            aria-label='add'
                             sx={{ padding: 2, marginLeft: 'auto' }}
-                        >
-                            <AddIcon>Add</AddIcon>
-                        </IconButton>
+                            icon={<AddIcon color='primary' />}
+                        />
                     </Tabs>
                 </Box>
                 <WorkshopTable
