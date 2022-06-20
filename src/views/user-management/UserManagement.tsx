@@ -38,7 +38,7 @@ const UserManagement = () => {
                 >
                     <Tab label='GEBRUIKERS' />
                     <Tab label='REGISTRATIES' />
-                    <Tab label='INACTIEF' />
+                    <Tab label='AFGEKEURDE GEBRUIKERS' />
                 </Tabs>
             </Box>
             {tab === 1 ? (
