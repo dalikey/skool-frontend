@@ -80,14 +80,6 @@ const ProfileForm = ({ user }: ProfileFormProps) => {
                     <Grid container alignItems='center'>
                         <Grid
                             item
-                            md={9}
-                            display='flex'
-                            justifyContent='flex-end'
-                            pb={2}
-                        >
-                        </Grid>
-                        <Grid
-                            item
                             md={3}
                             display='flex'
                             justifyContent='flex-end'

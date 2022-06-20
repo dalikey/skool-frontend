@@ -12,6 +12,5 @@ export const UserUpdateSchema = Yup.object({
                 [Yup.ref('password'), null],
                 'Wachtwoorden komen niet overeen'
             ),
-        currentPassword: Yup.string().required('*Verplicht'),
     }),
 });
