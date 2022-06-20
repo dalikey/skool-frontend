@@ -15,7 +15,7 @@ const SignInForm = () => {
     let message = '';
 
     if(error && "status" in error){
-    message = (error.status === 400) ? "Gebruiker is niet geactiveerd"  :(error.status === 404)? "E-mailadres en wachtwoord komen niet overeen" : "";
+    message = (error.status === 400) ? "Uw account is nog niet geactiveerd"  :(error.status === 404)? "E-mailadres en wachtwoord komen niet overeen" : "";
     }
 
     const handleSignIn = (values: LoginModel): void => {
