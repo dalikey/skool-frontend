@@ -111,9 +111,6 @@ export const AddShiftForm = ({ shift }: AddShiftFormProps) => {
         formik.handleChange(value);
     };
 
-    console.log(formik.errors);
-    console.log(formik.touched);
-
     return (
         <Grow in={true}>
             <form onSubmit={formik.handleSubmit} style={{ maxWidth: '1000px' }}>
