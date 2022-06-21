@@ -30,7 +30,6 @@ const ShiftDetails = ({ shift, isParticipating }: ShiftDetailsProps) => {
                 `Weet u zeker dat u zich wilt inschrijven voor Workshopdocent ${workshopShift.workshop.name}?`,
                 () => {
                     signInWorkshop(workshopShift._id);
-                    setTimeout(() => window.location.reload(), 50);
                 }
             );
         }
@@ -50,7 +49,6 @@ const ShiftDetails = ({ shift, isParticipating }: ShiftDetailsProps) => {
                         id: workshopShift._id,
                         user_id: user._id,
                     });
-                    setTimeout(() => window.location.reload(), 50);
                 }
             );
         }

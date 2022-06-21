@@ -75,6 +75,7 @@ const extendedApi = api.injectEndpoints({
             query: () => ({
                 url: 'workshop/shift/@me',
             }),
+            providesTags: [{ type: 'Shift', id: 'LIST' }],
         }),
         getAllShiftsAdmin: build.query<
             createShiftResponse,
@@ -92,48 +93,49 @@ const extendedApi = api.injectEndpoints({
                 method: 'PUT',
                 body,
             }),
+            invalidatesTags: [{ type: 'Shift', id: 'LIST' }],
         }),
         signInWorkshop: build.mutation<void, string>({
             query: (id) => ({
                 url: `workshop/shift/${id}/enroll`,
                 method: 'POST',
             }),
-            invalidatesTags: [{ type: 'Workshops', id: 'LIST' }],
+            invalidatesTags: [{ type: 'Shift', id: 'LIST' }],
         }),
         signOutWorkshop: build.mutation<void, unEnrollRequestBody>({
             query: ({ id, user_id }) => ({
                 url: `workshop/shift/${id}/enroll/${user_id}/enroll/delete`,
                 method: 'PUT',
             }),
-            invalidatesTags: [{ type: 'Workshops', id: 'LIST' }],
+            invalidatesTags: [{ type: 'Shift', id: 'LIST' }],
         }),
         confirmEnrollment: build.mutation<void, unEnrollRequestBody>({
             query: ({ id, user_id }) => ({
                 url: `workshop/shift/${id}/enroll/${user_id}/confirm`,
                 method: 'PUT',
             }),
-            invalidatesTags: [{ type: 'Workshops', id: 'LIST' }],
+            invalidatesTags: [{ type: 'Shift', id: 'LIST' }],
         }),
         rejectEnrollment: build.mutation<void, unEnrollRequestBody>({
             query: ({ id, user_id }) => ({
                 url: `workshop/shift/${id}/enroll/${user_id}/rejected`,
                 method: 'PUT',
             }),
-            invalidatesTags: [{ type: 'Workshops', id: 'LIST' }],
+            invalidatesTags: [{ type: 'Shift', id: 'LIST' }],
         }),
         cancelParticipation: build.mutation<void, unEnrollRequestBody>({
             query: ({ id, user_id }) => ({
                 url: `workshop/shift/${id}/enroll/${user_id}/canceled`,
                 method: 'PUT',
             }),
-            invalidatesTags: [{ type: 'Workshops', id: 'LIST' }],
+            invalidatesTags: [{ type: 'Shift', id: 'LIST' }],
         }),
         doneParticipation: build.mutation<void, unEnrollRequestBody>({
             query: ({ id, user_id }) => ({
                 url: `workshop/shift/${id}/enroll/${user_id}/onDone`,
                 method: 'PUT',
             }),
-            invalidatesTags: [{ type: 'Workshops', id: 'LIST' }],
+            invalidatesTags: [{ type: 'Shift', id: 'LIST' }],
         }),
     }),
     overrideExisting: false,
