@@ -40,7 +40,7 @@ const App = () => {
                         element={<WorkshopManagement />}
                     />
                     <Route path='profiel' element={<Profile />} />
-                    <Route path='shiftbeheer' element={<ShiftManagement />} />
+                    <Route path='dienstenbeheer' element={<ShiftManagement />} />
                 </Route>
             </Routes>
         </ThemeProvider>

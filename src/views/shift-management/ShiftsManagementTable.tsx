@@ -20,11 +20,11 @@ const ShiftsManagementTable = ({ isLoading, shifts }: ShiftManagementTableProps)
     const [deleteShift, ] = useDeleteShiftMutation();
 
     const openShiftFormEdit = (shift: RetrievedWorkshopShiftModel) => {
-        formDialog('Shift Aanpassen', <AddShiftForm shift={shift} />);
+        formDialog('DIenst Aanpassen', <AddShiftForm shift={shift} />);
     };
 
     const openShiftDeleteConfirmation = (shift: RetrievedWorkshopShiftModel): void => {
-        confirmDialog(`Shift Verwijderen`,
+        confirmDialog(`Dienst Verwijderen`,
             `Weet u zeker dat u de shift ${shift.workshop.name} op ${new Date(shift.date).toLocaleDateString()} wilt verwijderen?`,
             () => deleteShift(shift._id)
             )

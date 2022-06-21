@@ -60,8 +60,8 @@ const SidebarLinkList = ({ role }: SidebarLinkListProps) => {
             icon: <WorkIcon />,
         },
         {
-            path: '/shiftbeheer',
-            text: 'Shiftbeheer',
+            path: '/dienstenbeheer',
+            text: 'Dienstenbeheer',
             icon: <EventNoteIcon/>
         },
         {
