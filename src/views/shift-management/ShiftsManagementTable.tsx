@@ -20,7 +20,7 @@ const ShiftsManagementTable = ({ isLoading, shifts }: ShiftManagementTableProps)
     const [deleteShift, ] = useDeleteShiftMutation();
 
     const openShiftFormEdit = (shift: RetrievedWorkshopShiftModel) => {
-        formDialog('DIenst Aanpassen', <AddShiftForm shift={shift} />);
+        formDialog('Dienst Aanpassen', <AddShiftForm shift={shift} />);
     };
 
     const openShiftDeleteConfirmation = (shift: RetrievedWorkshopShiftModel): void => {

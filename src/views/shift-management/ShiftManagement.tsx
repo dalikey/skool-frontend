@@ -9,7 +9,7 @@ import AddIcon from '@mui/icons-material/Add';
 
 const ShiftManagement = () => {
     const openShiftForm = () => {
-        formDialog('Shift toevoegen', <AddShiftForm />);
+        formDialog('Dienst toevoegen', <AddShiftForm />);
     };
 
     const { data, isLoading } = useGetAllShiftsAdminQuery({

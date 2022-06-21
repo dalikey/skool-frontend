@@ -48,7 +48,6 @@ export const AddShiftForm = ({ shift }: AddShiftFormProps) => {
     const [editShift, { isLoading: editIsLoading }] = useEditShiftMutation();
 
     const handleSaveWorkshop = (values: WorkshopShiftModel): void => {
-        console.log('plopje')
         if (shift && shift._id) {
             editShift(values);
         } else {
