@@ -72,17 +72,6 @@ const ShiftRegistrations = ({ shift }: ShiftRegistrationsProps) => {
         }
     }
 
-    const handleDoneParticipant = (user) => {
-        if (shift && user) {
-            confirmDialog('Participatie afronden',
-                `Weet u zeker dat u de status van ${user.firstName} ${user.lastName} op voldaan wilt zetten?`,
-                () => {
-                    doneParticipation({id: shift._id, user_id: user._id});
-                })
-        }
-    }
-
-
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         setTab(newValue);
     };
@@ -133,14 +122,7 @@ const ShiftRegistrations = ({ shift }: ShiftRegistrationsProps) => {
                     <Row>
                         <TableCell>{user.firstName} {user.lastName}</TableCell>
                         <TableCell>{user.emailAddress}</TableCell>
-                        <TableCell align='right'>
-                            <IconButton
-                                aria-label='accept'
-                                color='success'
-                                onClick={() => handleDoneParticipant(user)}
-                            >
-                                <Check/>
-                            </IconButton>
+                        <TableCell align='left'>
                             <IconButton
                                 aria-label='deny'
                                 color='error'
@@ -156,14 +138,7 @@ const ShiftRegistrations = ({ shift }: ShiftRegistrationsProps) => {
                         <Row>
                             <TableCell>{user.firstName} {user.lastName}</TableCell>
                             <TableCell>{user.emailAddress}</TableCell>
-                            <TableCell align='right'>
-                                <IconButton
-                                    aria-label='accept'
-                                    color='success'
-                                    onClick={() => handleDoneParticipant(user)}
-                                >
-                                    <Check/>
-                                </IconButton>
+                            <TableCell align='left'>
                                 <IconButton
                                     aria-label='deny'
                                     color='error'
