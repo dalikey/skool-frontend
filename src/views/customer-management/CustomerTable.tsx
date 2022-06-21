@@ -22,8 +22,8 @@ const CustomerTable = ({ isLoading, customers }: CustomerTableProps) => {
 
     const handleClickDelete = (customer: CustomerModel): void => {
         confirmDialog(
-            'Gebruiker verwijderen',
-            `Weet u zeker dat u de gebruiker "${customer.name} ${customer.location.city}" wilt verwijderen?`,
+            'Klant verwijderen',
+            `Weet u zeker dat u de klant "${customer.name} ${customer.location.city}" wilt verwijderen?`,
             () => deleteCustomer(customer._id)
         );
     };

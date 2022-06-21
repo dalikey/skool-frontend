@@ -45,7 +45,7 @@ const DashboardHeader = ({ upcomingShift }: DashboardHeaderProps) => {
 
     return (
         <Grid container spacing={2}>
-            <Grid item lg={7}>
+            <Grid item lg={7} xs={12}>
                 <Paper
                     sx={{
                         backgroundColor: '#fff',
@@ -105,12 +105,12 @@ const DashboardHeader = ({ upcomingShift }: DashboardHeaderProps) => {
                     </Grid>
                 </Paper>
             </Grid>
-            <Grid item lg={5}>
+            <Grid item lg={5} xs={12}>
                 <Paper
                     sx={{
                         backgroundColor: '#fff',
                         px: 2,
-                        py: 1,
+                        py: 3,
                         height: '100%',
                         width: '100%',
                     }}
@@ -126,7 +126,7 @@ const DashboardHeader = ({ upcomingShift }: DashboardHeaderProps) => {
                         alignItems='center'
                         height='100%'
                     >
-                        <Box textAlign='center' mt={-4}>
+                        <Box textAlign='center'>
                             <Box>
                                 <Typography fontWeight='bold'>
                                     {openCount}
@@ -136,7 +136,7 @@ const DashboardHeader = ({ upcomingShift }: DashboardHeaderProps) => {
                                 Openstaand
                             </Typography>
                         </Box>
-                        <Box textAlign='center' px={5} mt={-4}>
+                        <Box textAlign='center' px={5}>
                             <Box>
                                 <Typography fontWeight='bold'>
                                     {pendingCount}
@@ -144,7 +144,7 @@ const DashboardHeader = ({ upcomingShift }: DashboardHeaderProps) => {
                             </Box>
                             <Typography fontWeight='bold'>Aangemeld</Typography>
                         </Box>
-                        <Box textAlign='center' mt={-4}>
+                        <Box textAlign='center'>
                             <Box>
                                 <Typography fontWeight='bold'>
                                     {confirmedCount}
