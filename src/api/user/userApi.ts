@@ -45,6 +45,7 @@ const extendedApi = api.injectEndpoints({
             invalidatesTags: [
                 { type: 'Users', id: 'PROFILE' },
                 { type: 'Users', id: 'LIST' },
+                { type: 'Shift', id: 'LIST' },
             ],
         }),
         activateUser: build.mutation<void, string>({
